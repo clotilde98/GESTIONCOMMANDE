@@ -1,11 +1,19 @@
-
-import dataAccessPackage.connexion;
+import viewPackage.Login;
+import controllerPackage.ClosingListener;
 import viewPackage.Menu;
 
-import java.sql.*;
-public class Main {
-    public static void main(String[] args) {
-      Menu menu = new Menu();
+import javax.swing.*;
+import java.awt.event.*;
+
+
+public class Main extends JPanel{
+
+
+    public static void main (String []args){
+
+        Menu menu = new Menu();
+
 
     }
+
 }
