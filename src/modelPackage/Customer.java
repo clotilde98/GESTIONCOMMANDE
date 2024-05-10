@@ -5,56 +5,56 @@ import java.time.LocalDate;
 public class Customer {
 
     private Integer number;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String phone_number;
+    private String phoneNumber;
     private String password;
     private Character gender;
     private LocalDate birthday;
-    private Boolean is_admin;
-    private Boolean is_adherent;
+    private Boolean isAdmin;
+    private Boolean isAdherent;
     private Locality locality;
     private String street;
-    private Integer street_number;
-    private Integer number_sponsorised;
+    private Integer streetNumber;
+    private Integer numberSponsorised;
 
-    public Customer(Integer number, String first_name, String last_name, String email, String phone_number, String password , Character gender,
-                    LocalDate birthday, Boolean is_admin, Boolean is_adherent, Locality locality, String street, Integer streetNumber, Integer number_sponsorised){
-        setNumber(number);
-        setFirst_name(first_name);
-        setLast_name(last_name);
+    public Customer(String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
+                    LocalDate birthday, Boolean isAdmin, Boolean isAdherent, Locality locality, String street, Integer streetNumber, Integer numberSponsorised){
+        //setNumber(number);
+        setFirstName(firstName);
+        setLastName(lastName);
         setEmail(email);
-        setPhone_number(phone_number);
+        setPhoneNumber(phoneNumber);
         setPassword(password);
         setGender(gender);
         setBirthday(birthday);
-        setIs_admin(is_admin);
-        setIs_adherent(is_adherent);
+        setIsAdmin(isAdmin);
+        setIsAdherent(isAdherent);
         setLocality(locality);
         setStreet(street);
-        setStreet_number(streetNumber);
-        setNumber_sponsorised(number_sponsorised);
+        setStreetNumber(streetNumber);
+        setNumberSponsorised(numberSponsorised);
     }
 
     public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setPassword(String password) {
@@ -69,12 +69,12 @@ public class Customer {
         this.birthday = birthday;
     }
 
-    public void setIs_admin(Boolean is_admin) {
-        this.is_admin = is_admin;
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
-    public void setIs_adherent(Boolean is_adherent) {
-        this.is_adherent = is_adherent;
+    public void setIsAdherent(Boolean isAdherent) {
+        this.isAdherent = isAdherent;
     }
 
     public void setLocality(Locality locality) {
@@ -85,32 +85,32 @@ public class Customer {
         this.street = street;
     }
 
-    public void setStreet_number(Integer street_number) {
-        this.street_number = street_number;
+    public void setStreetNumber(Integer streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
-    public void setNumber_sponsorised(Integer number_sponsorised) {
-        this.number_sponsorised = number_sponsorised;
+    public void setNumberSponsorised(Integer numberSponsorised) {
+        this.numberSponsorised = numberSponsorised;
     }
 
     public Integer getNumber() {
         return number;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getPassword() {
@@ -125,12 +125,12 @@ public class Customer {
         return birthday;
     }
 
-    public Boolean getIs_admin() {
-        return is_admin;
+    public Boolean getIsAdmin() {
+        return isAdmin;
     }
 
-    public Boolean getIs_adherent() {
-        return is_adherent;
+    public Boolean getIsAdherent() {
+        return isAdherent;
     }
 
     public Locality getLocality() {
@@ -141,11 +141,11 @@ public class Customer {
         return street;
     }
 
-    public Integer getStreet_number() {
-        return street_number;
+    public Integer getStreetNumber() {
+        return streetNumber;
     }
 
-    public Integer getNumber_sponsorised() {
-        return number_sponsorised;
+    public Integer getNumberSponsorised() {
+        return numberSponsorised;
     }
 }
