@@ -1,8 +1,8 @@
 package exceptionPackage;
 
 public class InvalidEmailFormatException extends Exception {
-    public InvalidEmailFormatException() {
-        super("Format d'email invalide.");
+    public InvalidEmailFormatException(String message) {
+        super(message);
     }
 
 }

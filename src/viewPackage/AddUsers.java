@@ -1,23 +1,20 @@
 package viewPackage;
 
-
-import controllerPackage.UsersController;
-import modelPackage.UsersModel;
-import exceptionPackage.customExceptions;
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
+import exceptionPackage.customExceptions;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static java.lang.Integer.parseInt;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddUsers extends JFrame {
 
-    private UsersController controller;
     private JButton addButton;
 
     private JTextField firstNameField;
@@ -41,27 +38,8 @@ public class AddUsers extends JFrame {
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
 
-        UsersModel model = new UsersModel("defaultFirstName",
-                "defaultLastName",
-                "defaultEmail",
-                "defaultPhoneNumber",
-                "defaultPassword",
-                'M',
-                2000, 1, 1,
-                true,
-                true,
-                "defaultStreet",
-                1,
-                0,
-                "defaultLocality");
-
-        controller = new UsersController(model);
-
-
         addButton = new JButton("Ajouter");
         addButton.addActionListener(new actionnouveau());
-
-
 
         Font buttonFont = new Font("Arial", Font.PLAIN, 12);
         addButton.setFont(buttonFont);
@@ -170,46 +148,82 @@ public class AddUsers extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String email = emailField.getText();
-                String phoneNumber = phoneNumberField.getText();
-                String password = passwordField.getText();
+                String firstName = validateRequiredField(firstNameField.getText(), "Prénom");
+                String lastName = validateRequiredField(lastNameField.getText(), "Nom");
+                String email = validateEmail(emailField.getText());
+                String phoneNumber = validatePhoneNumber(phoneNumberField.getText());
+                String password = validatePassword(passwordField.getText());
                 char gender = (maleRadioButton.isSelected()) ? 'M' : 'F';
-                // Récupérer la date de naissance
-                String birthday = birthdayDate.getText();
-                String[] parts = birthday.split("-");
-                int year = (parts.length > 0 && !parts[0].isEmpty()) ? parseInt(parts[0]) : 0;
-                int month = (parts.length > 1 && !parts[1].isEmpty()) ? parseInt(parts[1]) : 0;
-                int dayOfMonth = (parts.length > 2 && !parts[2].isEmpty()) ? parseInt(parts[2]) : 0;
+                Date birthday = validateDate(birthdayDate.getText(), "Date de naissance");
                 boolean isAdmin = (yesAdmin.isSelected());
                 boolean isAdherent = (yesAdherent.isSelected());
-                String locality = localityField.getText();
-                String street = streetField.getText();
-                int streetNumber = (!streetNumberField.getText().isEmpty()) ? parseInt(streetNumberField.getText()) : 0;
-                int numberSponsorised = (!numberSponsorisedField.getText().isEmpty()) ? parseInt(numberSponsorisedField.getText()) : 0;
+                String locality = validateRequiredField(localityField.getText(), "Localité");
+                String street = validateRequiredField(streetField.getText(), "Rue");
+                int streetNumber = validateNumericField(streetNumberField.getText(), "Numéro de rue");
+                int numberSponsorised = validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
                 // Appel de la méthode pour ajouter l'utilisateur avec gestion des exceptions
-                controller.addUser(firstName, lastName, email, phoneNumber, password,
-                        gender, year, month, dayOfMonth, isAdmin, isAdherent,
-                        street, streetNumber, numberSponsorised, locality);
 
-            } catch (customExceptions ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(AddUsers.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            } catch (InvalidEmailFormatException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(AddUsers.this, "Format d'email invalide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-            } catch (InvalidPasswordFormatException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(AddUsers.this, "Format de mot de passe invalide.", "Erreur", JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(AddUsers.this, "Une erreur est survenue.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(AddUsers.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
+    // Méthodes utilitaires de validation
+
+    private String validateRequiredField(String field, String fieldName) throws customExceptions {
+        if (field.isEmpty()) {
+            throw new customExceptions(fieldName + " est obligatoire.");
+        }
+        return field;
+    }
+
+    private String validateEmail(String email) throws InvalidEmailFormatException, customExceptions {
+        // Utilisation d'une expression régulière pour valider l'email
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if (!email.matches(emailRegex)) {
+            String message = "Format email invalide";
+            throw new InvalidEmailFormatException(message);
+        }
+        return email;
+    }
+
+    private String validatePhoneNumber(String phoneNumber) throws customExceptions {
+        // Vous pouvez ajouter une validation pour le numéro de téléphone si nécessaire
+        // Ici, je suppose simplement que le champ ne doit pas être vide
+        if (phoneNumber.isEmpty()) {
+            throw new customExceptions("Numéro de téléphone est obligatoire.");
+        }
+        return phoneNumber;
+    }
+
+    private String validatePassword(String password) throws InvalidPasswordFormatException, customExceptions {
+        // Ajoutez ici la validation du format du mot de passe si nécessaire
+        // Ici, je suppose simplement que le champ ne doit pas être vide
+        if (password.isEmpty()) {
+            throw new customExceptions("Mot de passe est obligatoire.");
+        }
+        return password;
+    }
+
+    private Date validateDate(String dateStr, String fieldName) throws customExceptions {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setLenient(false); // La date doit être valide
+            return sdf.parse(dateStr);
+        } catch (ParseException e) {
+            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy-MM-dd.");
+        }
+    }
+
+    private int validateNumericField(String numStr, String fieldName) throws customExceptions {
+        try {
+            return Integer.parseInt(numStr);
+        } catch (NumberFormatException e) {
+            throw new customExceptions("Format de " + fieldName + " invalide. Entrez un nombre entier.");
+        }
+    }
 
 }
-
