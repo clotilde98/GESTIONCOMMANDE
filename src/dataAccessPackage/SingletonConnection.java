@@ -4,24 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-    public class connexion {
+    public class SingletonConnection {
 
-        private static Connection connexionUnique;
+        private static Connection singleConnection;
         public static Connection getInstance( )  {
-            if(connexionUnique == null){
+            if(singleConnection == null){
                 try {
-                    Connection connection =
-                            DriverManager.getConnection("jdbc:mysql://localhost:3306/commande",
+                    java.sql.Connection connection =
+                            DriverManager.getConnection("jdbc:mysql://localhost:3306/commands_db",
                                     "root",
                                     "root") ;
-                    System.out.println("connexion reussi");
+                    System.out.println("connexion réussi");
                 }
                 catch (SQLException exception) {
                     System.err.println("Erreur SQL : " + exception.getMessage());
                 }
 
             }
-            return connexionUnique;
+            return singleConnection;
         }
 
     }
