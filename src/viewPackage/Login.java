@@ -1,12 +1,8 @@
 package viewPackage;
-import controllerPackage.ClosingListener;
-import controllerPackage.WindowClosing;
 
 import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.*;
+import java.awt.*;
 
 public class Login extends JFrame  {
 
@@ -21,7 +17,7 @@ public class Login extends JFrame  {
 
 
 
-        // Créer un JPanel pour le formulaire de connexion
+
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         formPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         formPanel.setBackground(Color.GREEN);
@@ -37,21 +33,21 @@ public class Login extends JFrame  {
         formPanel.add(usernameField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
-        formPanel.add(new JLabel()); // Espace vide pour aligner les composants
+        formPanel.add(new JLabel());
         formPanel.add(loginButton);
 
-        // Créer un JLabel pour le titre LOGIN
+
         JLabel titleLabel = new JLabel("LOGIN");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setForeground(Color.YELLOW); // Couleur de texte jaune
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER); // Alignement centré
+        titleLabel.setForeground(Color.YELLOW);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Créer un JPanel pour le conteneur principal
+
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setForeground(Color.GREEN);
         mainPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
-        mainPanel.add(titleLabel, BorderLayout.NORTH); // Ajouter le JLabel du titre en haut
-        mainPanel.add(formPanel, BorderLayout.CENTER); // Ajouter le JPanel du formulaire au centre
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(formPanel, BorderLayout.CENTER);
 
         getContentPane().add(mainPanel);
 
