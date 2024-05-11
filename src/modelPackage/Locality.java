@@ -3,12 +3,12 @@ package modelPackage;
 public class Locality {
     private Integer id;
     private String city;
-    private Integer zip_code;
+    private Integer zipCode;
     private Country country;
 
-    public Locality(String city, Integer zip_code, Country country){
+    public Locality(String city, Integer zipCode, Country country){
         setCity(city);
-        setZip_code(zip_code);
+        setZipCode(zipCode);
         setCountry(country);
     }
 
@@ -16,8 +16,8 @@ public class Locality {
         this.city = city;
     }
 
-    public void setZip_code(Integer zip_code) {
-        this.zip_code = zip_code;
+    public void setZipCode(Integer zip_code) {
+        this.zipCode = zipCode;
     }
 
     public void setCountry(Country country) {
@@ -28,8 +28,8 @@ public class Locality {
         return city;
     }
 
-    public Integer getZip_code() {
-        return zip_code;
+    public Integer getZipCode() {
+        return zipCode;
     }
 
     public Country getCountry() {
