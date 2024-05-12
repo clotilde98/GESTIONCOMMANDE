@@ -1,23 +1,21 @@
 package dataAccessPackage;
 
-import exceptionPackage.AddCustomerExceptions;
 import modelPackage.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static dataAccessPackage.SingletonConnection.getSingletonInstance;
 
 public class CustomerDBAccess {
 
 
 
-    public void addCustomer(Customer customer ) throws AddCustomerExceptions, SQLException {
+    public void addCustomer(Customer customer ) throws SQLException {
         String sql = "INSERT INTO customer (firstName, lastName, email, phoneNumber, password, gender, birthdayDay, isAdmin, isAdherent, street, streetNumber, numberSponsorised, locality) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Connection connection = getSingletonInstance();
+        Connection connection = SingletonConnection.getInstance();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
         // Remplacer les points d'interrogation par les valeurs réelles des champs
         statement.setString(1, customer.getFirstName());
@@ -39,8 +37,7 @@ public class CustomerDBAccess {
         statement.executeUpdate();
 
     }catch (SQLException e) {
-            // Gérer les exceptions SQL localement
-            throw new AddCustomerExceptions("Erreur lors de l'ajout du client : " + e.getMessage());
+
         }
 
 

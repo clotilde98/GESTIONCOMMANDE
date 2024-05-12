@@ -19,12 +19,7 @@ public class CustomerManager {
 
     public void addCustomer(Customer customer) throws AddCustomerExceptions, SQLException {
 
-        if (dao.exists(customer)) {
-            String message ="Le client existe deja";
-            throw new AddCustomerExceptions(message);
-        }
 
-        // Ajoutez le livre à la base de données
         dao.addCustomer(customer);
 
     }

@@ -1,7 +1,7 @@
 package viewPackage;
 
+import businessPackage.LocalityManager;
 import controllerPackage.CustomerController;
-import dataAccessPackage.ComboboxLocalite;
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.customExceptions;
@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class AddCustomer extends  JFrame{
     private CustomerController controller;
 
 
-    public  AddCustomer() {
+    public  AddCustomer() throws SQLException {
         setController(new CustomerController());
 
         setBounds(100, 100, 800, 800);
@@ -79,7 +80,8 @@ public class AddCustomer extends  JFrame{
         noAdmin = new JRadioButton("NON");
         yesAdherent = new JRadioButton("OUI");
         noAdherent = new JRadioButton("NON");
-        localityComboBox = new JComboBox<>(ComboboxLocalite.getLocalityDataModel());
+
+        localityComboBox = new JComboBox<>();
 
         streetField = new JTextField();
         streetNumberField = new JTextField();
@@ -124,10 +126,18 @@ public class AddCustomer extends  JFrame{
         adherentPanel.add(yesAdherent);
         adherentPanel.add(noAdherent);
         textFieldPanel.add(adherentPanel);
-        ArrayList<Locality> localityList = (ArrayList<Locality>) ComboboxLocalite.getLocalityData();
-        DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(localityList.toArray(new Locality[0]));
-        localityComboBox = new JComboBox<>(comboBoxModel);
-        localityComboBox.setRenderer(new LocalityComboBoxRenderer()); // Définir le renderer pour afficher les noms des villes
+        LocalityManager localityManager = new LocalityManager();
+        ArrayList<Locality> allLocalities = localityManager.getAllLocalities();
+
+// Créez un modèle de ComboBox à partir de la liste des localités
+        DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(allLocalities.toArray(new Locality[0]));
+
+// Créez un JComboBox en utilisant le modèle de ComboBox créé
+        JComboBox<Locality> localityComboBox = new JComboBox<>(comboBoxModel);
+
+// Ajoutez le JComboBox à votre panel ou frame
+        textFieldPanel.add(new JLabel("Localité:"));
+        textFieldPanel.add(localityComboBox);
         // Ajouter le JComboBox au textFieldPanel
         textFieldPanel.add(new JLabel("Localité:"));
         textFieldPanel.add(localityComboBox);
@@ -162,6 +172,8 @@ public class AddCustomer extends  JFrame{
         setVisible(true);
         setResizable(false);
     }
+
+
 
     private void setController(CustomerController controller) {
         this.controller = controller;
