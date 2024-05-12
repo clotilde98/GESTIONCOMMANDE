@@ -1,6 +1,6 @@
 package modelPackage;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Customer {
 
@@ -11,7 +11,7 @@ public class Customer {
     private String phoneNumber;
     private String password;
     private Character gender;
-    private LocalDate birthday;
+    private Date birthday; // Importez la classe Date correcte
     private Boolean isAdmin;
     private Boolean isAdherent;
     private Locality locality;
@@ -20,7 +20,7 @@ public class Customer {
     private Integer numberSponsorised;
 
     public Customer(String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
-                    LocalDate birthday, Boolean isAdmin, Boolean isAdherent, Locality locality, String street, Integer streetNumber, Integer numberSponsorised){
+                    Date birthday, Boolean isAdmin, Boolean isAdherent, String street, Integer streetNumber, Integer numberSponsorised, Locality locality){
         //setNumber(number);
         setFirstName(firstName);
         setLastName(lastName);
@@ -31,10 +31,10 @@ public class Customer {
         setBirthday(birthday);
         setIsAdmin(isAdmin);
         setIsAdherent(isAdherent);
-        setLocality(locality);
         setStreet(street);
         setStreetNumber(streetNumber);
         setNumberSponsorised(numberSponsorised);
+        setLocality(locality);
     }
 
     public void setNumber(Integer number) {
@@ -65,7 +65,7 @@ public class Customer {
         this.gender = gender;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -117,11 +117,11 @@ public class Customer {
         return password;
     }
 
-    public Character getGender() {
+    public char getGender() {
         return gender;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 

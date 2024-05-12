@@ -61,7 +61,7 @@ public class FormAdmin extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            AddUsers addUsers = new AddUsers();
+            AddCustomer addUsers = new AddCustomer();
             addUsers.setVisible(true); // Rendre la fenêtre visible
             setVisible(false);
 

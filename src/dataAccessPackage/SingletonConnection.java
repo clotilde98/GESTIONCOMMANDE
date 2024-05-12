@@ -10,7 +10,7 @@ import java.sql.SQLException;
         public static Connection getInstance( )  {
             if(singleConnection == null){
                 try {
-                    singleConnection =
+                    java.sql.Connection connection =
                             DriverManager.getConnection("jdbc:mysql://localhost:3306/commands_db",
                                     "root",
                                     "root") ;
