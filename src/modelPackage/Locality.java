@@ -29,7 +29,7 @@ public class Locality {
         this.country = country;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

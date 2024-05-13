@@ -22,6 +22,4 @@ public class LocalityManager {
     public ArrayList<Locality> getAllLocalities() throws SQLException {
         return dao.getAllLocalities();
     }
-
-
 }
