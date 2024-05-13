@@ -18,10 +18,6 @@ public class LocalityDBAccess implements LocalityDataAccess{
 
     public Locality getLocality(Integer id) throws SQLException {
 
-        if (connection == null) {
-            // Gérer le cas où la connexion est null
-            System.out.println("erreur");
-        }
 
         String sqlInstruction = "select * from locality where id = ?";
 
