@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 public class CustomerManager {
 
+
+
     private CustomerDBAccess dao ;
     public CustomerManager ( ) {
         setDao (new CustomerDBAccess()) ;
