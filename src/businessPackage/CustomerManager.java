@@ -1,21 +1,20 @@
 package businessPackage;
 
 import dataAccessPackage.CustomerDBAccess;
+import dataAccessPackage.CustomerDataAccess;
 import modelPackage.Customer;
 
 import java.sql.SQLException;
 
 public class CustomerManager {
 
-
-
-    private CustomerDBAccess dao ;
+    private CustomerDataAccess dao ;
     public CustomerManager ( ) {
         setDao (new CustomerDBAccess()) ;
     }
 
-    private void setDao(CustomerDBAccess customerDBAccess) {
-        this.dao = customerDBAccess;
+    private void setDao(CustomerDataAccess customerDataAccess) {
+        this.dao = customerDataAccess;
     }
 
     public void addCustomer(Customer customer) throws  SQLException {

@@ -15,8 +15,8 @@ public class LocalityManager {
         setDao (new LocalityDBAccess()) ;
     }
 
-    private void setDao(LocalityDBAccess localityDBAccess) {
-        this.dao = localityDBAccess;
+    private void setDao(LocalityDataAccess localityDataAccess) {
+        this.dao = localityDataAccess;
     }
 
     public ArrayList<Locality> getAllLocalities() throws SQLException {
