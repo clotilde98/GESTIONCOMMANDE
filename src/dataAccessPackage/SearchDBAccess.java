@@ -22,7 +22,7 @@ public class SearchDBAccess implements SearchDataAccess{
         return new JTable(resultSetToTable(data));
     }
 
-    public JTable customerInvoiceList(Integer number,Boolean isPaid) throws SQLException {
+    public JTable customerInvoiceList(int number,boolean isPaid) throws SQLException {
         String sqlInstruction = "select customer.last_name 'Nom', customer.first_name 'Prénom', command.command_date 'Date de la commande'," +
                 " invoice.number 'Numéro de facture', invoice.date 'date de la facture' \n" +
                 "from customer inner join command inner join invoice\n" +
@@ -37,7 +37,7 @@ public class SearchDBAccess implements SearchDataAccess{
         return new JTable(resultSetToTable(data));
     }
 
-    public JTable productInfosByPrice(Double priceMin, Double priceMax) throws SQLException {
+    public JTable productInfosByPrice(double priceMin, double priceMax) throws SQLException {
         String sqlInstruction = "select product.name 'Nom du produit', product.stock 'Stock', category.name 'Catégorie'," +
                 " provider.name 'Fournisseur', locality.city 'Ville du fournisseur'\n" +
                 "from product inner join category inner join provider inner join locality\n" +
@@ -53,7 +53,27 @@ public class SearchDBAccess implements SearchDataAccess{
         return new JTable(resultSetToTable(data));
     }
 
-    public DefaultTableModel resultSetToTable(ResultSet data) throws SQLException {
+    public JTable customerCommandsInfosForSpecificYear(int number, int year) throws SQLException {
+        String startDate = year + "-01-01";
+        year++;
+        String endDate = year + "-01-01";
+        String sqlInstruction = "select product.name 'Nom du produit', product.stock 'Stock', category.name 'Catégorie'," +
+                " provider.name 'Fournisseur', locality.city 'Ville du fournisseur'\n" +
+                "from product inner join category inner join provider inner join locality\n" +
+                "where product.category = category.id and product.provider = provider.number and provider.locality = locality.id " +
+                "and product.price > ? and product.price < ?";
+
+        PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+        statement.setInt(1,number);
+        statement.setString(2,startDate);
+        statement.setString(3,endDate);
+
+        ResultSet data = statement.executeQuery();
+
+        return new JTable(resultSetToTable(data));
+    }
+
+    private DefaultTableModel resultSetToTable(ResultSet data) throws SQLException {
 
         ResultSetMetaData meta = data.getMetaData();
         Vector<String> titles = new Vector<>();
