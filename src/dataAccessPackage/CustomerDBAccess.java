@@ -2,7 +2,6 @@ package dataAccessPackage;
 
 import modelPackage.Customer;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -47,8 +46,29 @@ public class CustomerDBAccess {
 
 
 }
-    public boolean exists(Customer customer) {
 
-        return false;
+    public Customer getCustomer(Integer customerNumber) {
+
+        return null;
     }
+
+    public ArrayList<Customer> getAllCustomers() {
+        return null;
+    }
+
+    public Customer updateCustomer() {
+        return null;
+    }
+
+    public void deleteCustomer(Customer customer) {
+
+    }
+
+    public Customer getUser(String email, String password) throws SQLException{
+        return null;
+    }
+
+
+
+
 }

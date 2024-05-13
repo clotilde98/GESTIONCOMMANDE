@@ -1,7 +1,6 @@
 package businessPackage;
 
 import dataAccessPackage.CustomerDBAccess;
-import exceptionPackage.AddCustomerExceptions;
 import modelPackage.Customer;
 
 import java.sql.SQLException;
@@ -17,8 +16,7 @@ public class CustomerManager {
         this.dao = customerDBAccess;
     }
 
-    public void addCustomer(Customer customer) throws AddCustomerExceptions, SQLException {
-
+    public void addCustomer(Customer customer) throws  SQLException {
 
         dao.addCustomer(customer);
 

@@ -49,11 +49,6 @@ public class AddCustomer extends  JFrame{
     public  AddCustomer() throws SQLException {
         setController(new CustomerController());
 
-        CustomerController customerController = new CustomerController();
-
-        this.customerManager = customerManager;
-
-
         setBounds(100, 100, 800, 800);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
@@ -203,7 +198,7 @@ public class AddCustomer extends  JFrame{
 
                 Customer customer = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
                         isAdmin, isAdherent, street, streetNumber, numberSponsorised, locality);
-                customerManager.addCustomer(customer);
+                controller.addCustomer(customer);
 
             } catch (Exception ex) {
 
