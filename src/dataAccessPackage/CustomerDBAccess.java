@@ -9,13 +9,11 @@ import java.util.ArrayList;
 
 
 public class CustomerDBAccess implements CustomerDataAccess{
-
+    Connection connection = SingletonConnection.getInstance();
 
     public void addCustomer(Customer customer ) throws SQLException {
         String sql = "INSERT INTO customer (first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        Connection connection = SingletonConnection.getInstance();
 
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

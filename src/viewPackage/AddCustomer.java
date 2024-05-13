@@ -184,7 +184,7 @@ public class AddCustomer extends  JFrame{
                 String firstName = (firstNameField.getText());
                 String lastName = validateRequiredField(lastNameField.getText(),"Nom");
                 String email = validateEmail(emailField.getText(),"email");
-                String phoneNumber = (phoneNumberField.getText());
+                String phoneNumber = validatePhoneNumberField(phoneNumberField.getText(),"Numéro de Téléphone");
                 String password = validatePassword(passwordField.getText(),"password");
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
                 Date birthdayDay = validateDate(birthdayDate.getText(), "Date de naissance");
@@ -346,6 +346,19 @@ public class AddCustomer extends  JFrame{
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
         return yesAdmin.isSelected();
 
+    }
+
+    private String validatePhoneNumberField(String phoneNumberStr, String fieldName) throws customExceptions {
+        // Vérifiez d'abord si le champ est vide
+
+
+        // Vérifiez si le numéro de téléphone contient uniquement des chiffres
+        if (!phoneNumberStr.matches("\\d+")) {
+            String message = "Format de " + fieldName + " invalide. Entrez un numéro de téléphone valide (chiffres uniquement).";
+            throw new customExceptions(message);
+        }
+
+        return phoneNumberStr;
     }
 
     private boolean validateAdherentStatus(boolean selected, boolean noAdherentSelected) throws customExceptions {
