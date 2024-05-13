@@ -2,6 +2,7 @@ package dataAccessPackage;
 
 import modelPackage.Customer;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,6 +17,8 @@ public class CustomerDBAccess {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection connection = SingletonConnection.getInstance();
+
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
         // Remplacer les points d'interrogation par les valeurs réelles des champs
         statement.setString(1, customer.getFirstName());
@@ -37,6 +40,7 @@ public class CustomerDBAccess {
         statement.executeUpdate();
 
     }catch (SQLException e) {
+            throw e;
 
         }
 

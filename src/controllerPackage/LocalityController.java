@@ -11,7 +11,7 @@ public class LocalityController {
     }
 
     private void setManager(LocalityManager localityManager) {
-
+        this.manager = localityManager;
     }
 
 

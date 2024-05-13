@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class FormAdmin extends JFrame{
 
@@ -61,7 +62,12 @@ public class FormAdmin extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            AddCustomer addUsers = new AddCustomer();
+            AddCustomer addUsers = null;
+            try {
+                addUsers = new AddCustomer();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             addUsers.setVisible(true); // Rendre la fenêtre visible
             setVisible(false);
 

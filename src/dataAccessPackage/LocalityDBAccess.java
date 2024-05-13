@@ -3,32 +3,39 @@ package dataAccessPackage;
 import modelPackage.Country;
 import modelPackage.Locality;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class LocalityDBAccess implements LocalityDataAccess{
 
     Connection connection = SingletonConnection.getInstance();
 
-    public Locality getLocality(Integer idLocality) throws SQLException {
+
+
+    public Locality getLocality(Integer id) throws SQLException {
+
+        if (connection == null) {
+            // Gérer le cas où la connexion est null
+            System.out.println("erreur");
+        }
+
         String sqlInstruction = "select * from locality where id = ?";
 
         PreparedStatement statement = connection.prepareStatement(sqlInstruction);
-        statement.setInt(1,idLocality);
+        statement.setInt(1, id);
 
         ResultSet data = statement.executeQuery();
-        data.next();
+        Locality locality = null;
+        if (data.next()) {
+            CountryDataAccess dao = new CountryDBAccess();
+            Country country = dao.getCountry(data.getString("country"));
+            locality = new Locality(data.getInt("id"), data.getString("city"), data.getInt("zip_code"), country);
 
-        CountryDataAccess dao;
-        dao = new CountryDBAccess();
-
-        Country country = dao.getCountry(data.getString("country"));
-        Locality locality = new Locality(data.getInt("id"),data.getString("city"),data.getInt("zip_code"),country);
-
+        }
         return locality;
     }
 
@@ -60,4 +67,16 @@ public class LocalityDBAccess implements LocalityDataAccess{
 
         return allLocalities;
     }
+
+    public static DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
+
+            // Récupérer toutes les localités depuis la base de données
+            LocalityDBAccess dao = new LocalityDBAccess();
+            ArrayList<Locality> allLocalities = dao.getAllLocalities();
+
+            // Créer un modèle de données pour le JComboBox
+            DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(allLocalities.toArray(new Locality[0]));
+
+            return comboBoxModel;
+        }
 }
