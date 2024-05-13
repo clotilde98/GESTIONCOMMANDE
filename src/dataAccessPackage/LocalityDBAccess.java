@@ -3,7 +3,6 @@ package dataAccessPackage;
 import modelPackage.Country;
 import modelPackage.Locality;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,16 +62,4 @@ public class LocalityDBAccess implements LocalityDataAccess{
 
         return allLocalities;
     }
-
-    public static DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
-
-            // Récupérer toutes les localités depuis la base de données
-            LocalityDBAccess dao = new LocalityDBAccess();
-            ArrayList<Locality> allLocalities = dao.getAllLocalities();
-
-            // Créer un modèle de données pour le JComboBox
-            DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(allLocalities.toArray(new Locality[0]));
-
-            return comboBoxModel;
-        }
 }
