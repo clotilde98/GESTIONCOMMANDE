@@ -47,6 +47,8 @@ public class FormAdmin extends JFrame{
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         menuButtonPanel.add(menu);
         buttonPanel.add(menuButtonPanel);
+        menu.addActionListener(new menuAction());
+
 
         mainContainer.add(buttonPanel, BorderLayout.WEST);
 
@@ -69,6 +71,18 @@ public class FormAdmin extends JFrame{
                 throw new RuntimeException(ex);
             }
             addUsers.setVisible(true); // Rendre la fenêtre visible
+            setVisible(false);
+
+        }
+    }
+
+
+    public class menuAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Ouvrir une nouvelle fenêtre de gestion utilisateur
+            Menu menu = new Menu();
+            menu.setVisible(true); // Rendre la fenêtre visible
             setVisible(false);
 
         }

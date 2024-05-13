@@ -1,6 +1,6 @@
 package viewPackage;
 
-import controllerPackage.CustomerController;
+import controllerPackage.ApplicationController;
 import dataAccessPackage.LocalityDBAccess;
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
@@ -36,11 +36,11 @@ public class AddCustomer extends  JFrame{
 
     private Container mainContainer;
 
-    private CustomerController controller;
+    private ApplicationController controller;
 
 
     public  AddCustomer() throws SQLException {
-        setController(new CustomerController());
+        setController(new ApplicationController());
 
         setBounds(100, 100, 800, 800);
         mainContainer = this.getContentPane();
@@ -143,10 +143,17 @@ public class AddCustomer extends  JFrame{
         bottomPanel.setBackground(Color.LIGHT_GRAY);
 
         JButton menuButton = new JButton("Menu");
-        JButton logoutButton = new JButton("Se déconnecter");
 
         bottomPanel.add(menuButton);
+        menuButton.addActionListener(new menuAction());
+
+        JButton logoutButton = new JButton("Se déconnecter");
+
         bottomPanel.add(logoutButton);
+        logoutButton.addActionListener(new logoutAction());
+
+
+
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -165,7 +172,7 @@ public class AddCustomer extends  JFrame{
 
 
 
-    private void setController(CustomerController controller) {
+    private void setController(ApplicationController controller) {
         this.controller = controller;
     }
 
@@ -190,8 +197,26 @@ public class AddCustomer extends  JFrame{
                 int numberSponsorised = validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
                 Customer customer = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
-                        isAdmin, isAdherent, street, streetNumber, numberSponsorised, locality);
+                        isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
                 controller.addCustomer(customer);
+
+                JOptionPane.showMessageDialog(AddCustomer.this, "Client " + customer.getFirstName() + " " + customer.getLastName() + " ajouté avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+
+                firstNameField.setText("");
+                lastNameField.setText("");
+                emailField.setText("");
+                phoneNumberField.setText("");
+                passwordField.setText("");
+                maleRadioButton.setSelected(false);
+                femaleRadioButton.setSelected(false);
+                yesAdmin.setSelected(false);
+                noAdmin.setSelected(false);
+                yesAdherent.setSelected(false);
+                noAdherent.setSelected(false);
+                streetField.setText("");
+                streetNumberField.setText("");
+                numberSponsorisedField.setText("");
+
 
             } catch (Exception ex) {
 
@@ -345,6 +370,28 @@ public class AddCustomer extends  JFrame{
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
         return maleRadioButton.isSelected();
 
+    }
+
+    public class logoutAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Ouvrir une nouvelle fenêtre de gestion utilisateur
+            Login login = new Login();
+            login.setVisible(true); // Rendre la fenêtre visible
+            setVisible(false);
+
+        }
+    }
+
+    public class menuAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Ouvrir une nouvelle fenêtre de gestion utilisateur
+            Menu menu = new Menu();
+            menu.setVisible(true); // Rendre la fenêtre visible
+            setVisible(false);
+
+        }
     }
 
 }

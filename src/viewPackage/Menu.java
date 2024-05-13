@@ -39,6 +39,7 @@ public class Menu extends JFrame {
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         mainPanel.add(logoutButton, BorderLayout.SOUTH);
+        logoutButton.addActionListener(new logoutAction());
 
         add(mainPanel);
 
@@ -60,6 +61,17 @@ public class Menu extends JFrame {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur
             FormAdmin formAdmin = new FormAdmin();
             formAdmin.setVisible(true); // Rendre la fenêtre visible
+            setVisible(false);
+
+        }
+    }
+
+    public class logoutAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Ouvrir une nouvelle fenêtre de gestion utilisateur
+            Login login = new Login();
+            login.setVisible(true); // Rendre la fenêtre visible
             setVisible(false);
 
         }
