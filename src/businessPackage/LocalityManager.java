@@ -1,6 +1,7 @@
 package businessPackage;
 
 import dataAccessPackage.LocalityDBAccess;
+import modelPackage.Customer;
 import modelPackage.Locality;
 
 import java.sql.SQLException;
@@ -20,5 +21,9 @@ public class LocalityManager {
 
     public ArrayList<Locality> getAllLocalities() throws SQLException {
         return dao.getAllLocalities();
+    }
+
+    public void addCustomer(Customer customer) {
+
     }
 }

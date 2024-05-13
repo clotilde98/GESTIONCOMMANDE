@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class CustomerDBAccess implements CustomerDataAccess{
+public class CustomerDBAccess {
+
 
 
     public void addCustomer(Customer customer ) throws SQLException {

@@ -1,6 +1,7 @@
 package controllerPackage;
 
 import businessPackage.LocalityManager;
+import modelPackage.Customer;
 
 public class LocalityController {
 
@@ -14,6 +15,8 @@ public class LocalityController {
         this.manager = localityManager;
     }
 
-
+    public void addCustomer (Customer customer)  {
+        manager.addCustomer(customer);
+    }
 
 }
