@@ -13,7 +13,7 @@ public class CustomerDBAccess {
 
 
     public void addCustomer(Customer customer ) throws SQLException {
-        String sql = "INSERT INTO customer (firstName, lastName, email, phoneNumber, password, gender, birthdayDay, isAdmin, isAdherent, street, streetNumber, numberSponsorised, locality) " +
+        String sql = "INSERT INTO customer (first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street_number,street,number_sponsorised) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection connection = SingletonConnection.getInstance();
@@ -32,10 +32,11 @@ public class CustomerDBAccess {
         statement.setDate(7, sqlBirthday);
         statement.setBoolean(8, customer.getIsAdmin());
         statement.setBoolean(9, customer.getIsAdherent());
-        statement.setString(10, customer.getStreet());
-        statement.setInt(11, customer.getStreetNumber());
-        statement.setInt(12, customer.getNumberSponsorised());
-        statement.setInt(13,  customer.getLocality().getId());
+        statement.setInt(10,  customer.getLocality().getId());
+        statement.setString(11, customer.getStreet());
+        statement.setInt(12, customer.getStreetNumber());
+        statement.setInt(13, customer.getNumberSponsorised());
+
 
         statement.executeUpdate();
 

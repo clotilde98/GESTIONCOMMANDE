@@ -20,7 +20,7 @@ public class Customer {
     private Integer numberSponsorised;
 
     public Customer(String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
-                    Date birthday, Boolean isAdmin, Boolean isAdherent, String street, Integer streetNumber, Integer numberSponsorised, Locality locality){
+                    Date birthday, Boolean isAdmin, Boolean isAdherent, Locality locality , Integer streetNumber,String street,  Integer numberSponsorised){
         //setNumber(number);
         setFirstName(firstName);
         setLastName(lastName);
@@ -31,10 +31,11 @@ public class Customer {
         setBirthday(birthday);
         setIsAdmin(isAdmin);
         setIsAdherent(isAdherent);
-        setStreet(street);
-        setStreetNumber(streetNumber);
-        setNumberSponsorised(numberSponsorised);
         setLocality(locality);
+        setStreetNumber(streetNumber);
+        setStreet(street);
+        setNumberSponsorised(numberSponsorised);
+
     }
 
     public void setNumber(Integer number) {

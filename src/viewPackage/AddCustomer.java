@@ -1,6 +1,7 @@
 package viewPackage;
 
-import controllerPackage.ApplicationController;
+import controllerPackage.CustomerController;
+import dataAccessPackage.LocalityDBAccess;
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.customExceptions;
@@ -15,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -36,11 +36,11 @@ public class AddCustomer extends  JFrame{
 
     private Container mainContainer;
 
-    private ApplicationController controller;
+    private CustomerController controller;
 
 
     public  AddCustomer() throws SQLException {
-        setController(new ApplicationController());
+        setController(new CustomerController());
 
         setBounds(100, 100, 800, 800);
         mainContainer = this.getContentPane();
@@ -121,7 +121,7 @@ public class AddCustomer extends  JFrame{
         adherentPanel.add(yesAdherent);
         adherentPanel.add(noAdherent);
         textFieldPanel.add(adherentPanel);
-        DefaultComboBoxModel<Locality> comboBoxModel = getLocalityDataModel();
+        DefaultComboBoxModel<Locality> comboBoxModel = LocalityDBAccess.getLocalityDataModel();
 
         // Initialiser le JComboBox avec le modèle et le renderer
          localityComboBox = new JComboBox<>(comboBoxModel);
@@ -165,7 +165,7 @@ public class AddCustomer extends  JFrame{
 
 
 
-    private void setController(ApplicationController controller) {
+    private void setController(CustomerController controller) {
         this.controller = controller;
     }
 
@@ -345,17 +345,6 @@ public class AddCustomer extends  JFrame{
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
         return maleRadioButton.isSelected();
 
-    }
-
-    public DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
-
-        // Récupérer toutes les localités
-        ArrayList<Locality> allLocalities = controller.getAllLocalities();
-
-        // Créer un modèle de données pour le JComboBox
-        DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(allLocalities.toArray(new Locality[0]));
-
-        return comboBoxModel;
     }
 
 }
