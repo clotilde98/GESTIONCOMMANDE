@@ -5,10 +5,10 @@ import modelPackage.Customer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
-public class CustomerDBAccess {
-
+public class CustomerDBAccess implements CustomerDataAccess{
 
 
     public void addCustomer(Customer customer ) throws SQLException {
@@ -34,7 +34,7 @@ public class CustomerDBAccess {
         statement.setString(10, customer.getStreet());
         statement.setInt(11, customer.getStreetNumber());
         statement.setInt(12, customer.getNumberSponsorised());
-        statement.setString(13,  customer.getLocality().getId());
+        statement.setInt(13,  customer.getLocality().getId());
 
         statement.executeUpdate();
 

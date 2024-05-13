@@ -19,7 +19,7 @@ public class Menu extends JFrame {
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         searchButton = new JButton("RECHERCHES");
-        JButton userManagerButton = new JButton("GESTION UTILISATEUR");
+        userManagerButton = new JButton("GESTION UTILISATEUR");
         logoutButton = new JButton("Se Deconnecter");
         JLabel titleLabel = new JLabel("MENU");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));

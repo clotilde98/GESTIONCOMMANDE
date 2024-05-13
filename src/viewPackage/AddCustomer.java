@@ -1,6 +1,5 @@
 package viewPackage;
 
-import businessPackage.CustomerManager;
 import controllerPackage.CustomerController;
 import dataAccessPackage.LocalityDBAccess;
 import exceptionPackage.InvalidEmailFormatException;
@@ -23,11 +22,7 @@ import java.util.Date;
 public class AddCustomer extends  JFrame{
     private JButton addButton;
 
-    private JTextField firstNameField;
-    private JTextField lastNameField;
-    private JTextField emailField;
-    private JTextField phoneNumberField;
-    private JTextField passwordField;
+    private JTextField firstNameField, lastNameField, emailField, phoneNumberField, passwordField;
     private JRadioButton maleRadioButton, femaleRadioButton;
     private JTextField birthdayDate;
     private JRadioButton yesAdmin, noAdmin;
@@ -42,8 +37,6 @@ public class AddCustomer extends  JFrame{
     private Container mainContainer;
 
     private CustomerController controller;
-
-    private CustomerManager customerManager;
 
 
     public  AddCustomer() throws SQLException {
