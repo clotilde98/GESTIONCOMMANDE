@@ -19,6 +19,8 @@ public class ApplicationController {
         setCustomerManager (new CustomerManager());
         setLocalityManager (new LocalityManager());
         setSearchManager(new SearchManager());
+
+
     }
 
     private void setCustomerManager(CustomerManager customerManager) {this.customerManager = customerManager;}
@@ -35,7 +37,7 @@ public class ApplicationController {
     }
 
     public ArrayList<Customer> getAllCustomers() {
-        return customerManager.getAllCustomers();
+        return  customerManager.getAllCustomers();
     }
 
     public Customer getUser(String email, String password){
