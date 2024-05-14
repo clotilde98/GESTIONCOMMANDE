@@ -6,6 +6,7 @@ import businessPackage.SearchManager;
 import modelPackage.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ApplicationController {
@@ -55,7 +56,7 @@ public class ApplicationController {
         return searchManager.searchProductInfos(price);
     }
 
-    public ArrayList<SearchCommandInfo> searchTotalCommands(int customer, int year) throws SQLException {
+    public ArrayList<SearchCommandInfo> searchTotalCommands(int customer, LocalDate year) throws SQLException {
         return searchManager.totalCommands(customer,year);
     }
 

@@ -9,6 +9,7 @@ import modelPackage.SearchProductInfo;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SearchManager {
@@ -36,7 +37,7 @@ public class SearchManager {
         return dao.productInfosByPrice(priceMin,priceMax);
     }
 
-    public ArrayList<SearchCommandInfo> totalCommands(int customer, int year) throws SQLException {
+    public ArrayList<SearchCommandInfo> totalCommands(int customer, LocalDate year) throws SQLException {
         ArrayList<SearchCommandInfo> dataList = dao.customerCommandsInfosForSpecificYear(customer, year);
         ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
 

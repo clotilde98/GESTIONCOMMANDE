@@ -92,13 +92,12 @@ public class SearchDBAccess implements SearchDataAccess{
         return dataList;
     }
 
-    public ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, int year) throws SQLException {
+    public ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, LocalDate year) throws SQLException {
+
+        LocalDate nextYear = year.plusYears(1);
 
         ArrayList<SearchCommandInfo> dataList = new ArrayList<>();
 
-        String startDate = year + "-01-01";
-        year++;
-        String endDate = year + "-01-01";
         String sqlInstruction = "select customer.first_name, customer.last_name, command.number, commandlign.discount, commandlign.quantity, product.price\n" +
                 "from customer inner join command inner join commandlign inner join product\n" +
                 "where customer.number = ? and customer.number = command.customer and commandlign.number = command.number " +
@@ -106,8 +105,8 @@ public class SearchDBAccess implements SearchDataAccess{
 
         PreparedStatement statement = connection.prepareStatement(sqlInstruction);
         statement.setInt(1,number);
-        statement.setString(2,startDate);
-        statement.setString(3,endDate);
+        statement.setDate(2,Date.valueOf(year));
+        statement.setDate(3,Date.valueOf(nextYear));
 
         ResultSet data = statement.executeQuery();
 

@@ -6,6 +6,7 @@ import modelPackage.SearchProductHistory;
 import modelPackage.SearchProductInfo;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface SearchDataAccess {
@@ -15,5 +16,5 @@ public interface SearchDataAccess {
 
     ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax) throws SQLException;
 
-    ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, int year) throws SQLException;
+    ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, LocalDate year) throws SQLException;
 }
