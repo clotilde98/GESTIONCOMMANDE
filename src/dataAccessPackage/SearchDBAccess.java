@@ -1,15 +1,18 @@
 package dataAccessPackage;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import modelPackage.SearchCommandInfo;
+import modelPackage.SearchInvoiceList;
+import modelPackage.SearchProductHistory;
+import modelPackage.SearchProductInfo;
+
 import java.sql.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class SearchDBAccess implements SearchDataAccess{
     Connection connection = SingletonConnection.getInstance();
 
-    public JTable customerProductHistory(String name) throws SQLException {
-        String sqlInstruction = "select product.name 'Nom du produit', command.command_date 'Date de la commande', commandlign.quantity 'Quantité'" +
+    public ArrayList<SearchProductHistory> customerProductHistory(String name) throws SQLException {
+        String sqlInstruction = "select product.name, command.command_date, commandlign.quantity " +
                 "from product inner join command inner join commandlign inner join customer\n" +
                 "where command.number = commandlign.number and product.reference = commandlign.reference \n" +
                 "and command.customer = customer.number and customer.last_name = ?";
@@ -19,10 +22,10 @@ public class SearchDBAccess implements SearchDataAccess{
 
         ResultSet data = statement.executeQuery();
 
-        return new JTable(resultSetToTable(data));
+        return null;
     }
 
-    public JTable customerInvoiceList(int number,boolean isPaid) throws SQLException {
+    public ArrayList<SearchInvoiceList> customerInvoiceList(int number, boolean isPaid) throws SQLException {
         String sqlInstruction = "select customer.last_name 'Nom', customer.first_name 'Prénom', command.command_date 'Date de la commande'," +
                 " invoice.number 'Numéro de facture', invoice.date 'date de la facture' \n" +
                 "from customer inner join command inner join invoice\n" +
@@ -34,10 +37,10 @@ public class SearchDBAccess implements SearchDataAccess{
 
         ResultSet data = statement.executeQuery();
 
-        return new JTable(resultSetToTable(data));
+        return null;
     }
 
-    public JTable productInfosByPrice(double priceMin, double priceMax) throws SQLException {
+    public ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax) throws SQLException {
         String sqlInstruction = "select product.name 'Nom du produit', product.stock 'Stock', category.name 'Catégorie'," +
                 " provider.name 'Fournisseur', locality.city 'Ville du fournisseur'\n" +
                 "from product inner join category inner join provider inner join locality\n" +
@@ -50,10 +53,10 @@ public class SearchDBAccess implements SearchDataAccess{
 
         ResultSet data = statement.executeQuery();
 
-        return new JTable(resultSetToTable(data));
+        return null;
     }
 
-    public JTable customerCommandsInfosForSpecificYear(int number, int year) throws SQLException {
+    public ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, int year) throws SQLException {
         String startDate = year + "-01-01";
         year++;
         String endDate = year + "-01-01";
@@ -70,27 +73,6 @@ public class SearchDBAccess implements SearchDataAccess{
 
         ResultSet data = statement.executeQuery();
 
-        return new JTable(resultSetToTable(data));
-    }
-
-    private DefaultTableModel resultSetToTable(ResultSet data) throws SQLException {
-
-        ResultSetMetaData meta = data.getMetaData();
-        Vector<String> titles = new Vector<>();
-        int columnNumber = meta.getColumnCount();
-        for (int i = 1; i <= columnNumber; i++) {
-            titles.add(meta.getColumnName(i));
-        }
-
-        Vector<Vector<Object>> datas = new Vector<Vector<Object>>();
-        while (data.next()) {
-            Vector<Object> lign = new Vector<>();
-            for (int i = 1; i <= columnNumber; i++) {
-                lign.add(data.getObject(i));
-            }
-            datas.add(lign);
-        }
-
-        return new DefaultTableModel(datas,titles);
+        return null;
     }
 }

@@ -1,15 +1,19 @@
 package dataAccessPackage;
 
-import javax.swing.*;
+import modelPackage.SearchCommandInfo;
+import modelPackage.SearchInvoiceList;
+import modelPackage.SearchProductHistory;
+import modelPackage.SearchProductInfo;
+
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 public interface SearchDataAccess {
-    JTable customerProductHistory(String name) throws SQLException;
+    ArrayList<SearchProductHistory> customerProductHistory(String name) throws SQLException;
 
-    JTable customerInvoiceList(int number,boolean isPaid) throws SQLException;
+    ArrayList<SearchInvoiceList> customerInvoiceList(int number, boolean isPaid) throws SQLException;
 
-    JTable productInfosByPrice(double priceMin, double priceMax) throws SQLException;
+    ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax) throws SQLException;
 
-    JTable customerCommandsInfosForSpecificYear(int number, int year) throws SQLException;
+    ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, int year) throws SQLException;
 }
