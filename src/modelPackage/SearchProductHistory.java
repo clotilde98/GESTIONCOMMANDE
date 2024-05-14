@@ -26,4 +26,17 @@ public class SearchProductHistory {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    //Getters
+    public String getProductName() {
+        return productName;
+    }
+
+    public LocalDate getCommandDate() {
+        return commandDate;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
 }

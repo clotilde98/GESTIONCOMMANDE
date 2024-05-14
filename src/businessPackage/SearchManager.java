@@ -37,7 +37,29 @@ public class SearchManager {
     }
 
     public ArrayList<SearchCommandInfo> totalCommands(int customer, int year) throws SQLException {
-        ArrayList<SearchCommandInfo> datas = dao.customerCommandsInfosForSpecificYear(customer, year);
-        return datas;
+        ArrayList<SearchCommandInfo> dataList = dao.customerCommandsInfosForSpecificYear(customer, year);
+        ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
+
+        int lignNumber = dataList.size();
+
+        newDataList.add(dataList.get(0));
+        SearchCommandInfo.setTotalPrice(dataList.get(0).getPrice());
+
+        for (int i = 1; i < lignNumber; i++){
+            Double price = dataList.get(i).getPrice();
+            Double total = SearchCommandInfo.getTotalPrice() + price;
+            SearchCommandInfo.setTotalPrice(total);
+
+            if (dataList.get(i-1).getCommandNumber().equals(dataList.get(i).getCommandNumber()) ){
+                Double newPrice = newDataList.getLast().getPrice() + price;
+                newDataList.getLast().setPrice(newPrice);
+            }
+
+            else {
+                newDataList.add(dataList.get(i));
+            }
+        }
+
+        return newDataList;
     }
 }

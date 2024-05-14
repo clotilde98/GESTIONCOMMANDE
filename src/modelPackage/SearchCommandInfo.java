@@ -1,28 +1,26 @@
 package modelPackage;
 
 public class SearchCommandInfo {
-    private String firstName;
-    private String lastName;
+    private static String firstName;
+    private static String lastName;
     private Integer commandNumber;
     private Integer discount;
     private Double price;
-    static private Double totalPrice;
+    private static Double totalPrice;
 
-    public SearchCommandInfo(String firstName, String lastName, Integer commandNumber, Integer discount, Double price){
-        setFirstName(firstName);
-        setLastName(lastName);
+    public SearchCommandInfo(Integer commandNumber, Integer discount, Double price){
         setCommandNumber(commandNumber);
         setDiscount(discount);
         setPrice(price);
     }
 
     //Setters
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public static void setFirstName(String firstName) {
+        SearchCommandInfo.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public static void setLastName(String lastName) {
+        SearchCommandInfo.lastName = lastName;
     }
 
     public void setCommandNumber(Integer commandNumber) {
@@ -39,5 +37,30 @@ public class SearchCommandInfo {
 
     public static void setTotalPrice(Double totalPrice) {
         SearchCommandInfo.totalPrice = totalPrice;
+    }
+
+    //Getters
+    public static String getFirstName() {
+        return firstName;
+    }
+
+    public static String getLastName() {
+        return lastName;
+    }
+
+    public Integer getCommandNumber() {
+        return commandNumber;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public static Double getTotalPrice() {
+        return totalPrice;
     }
 }

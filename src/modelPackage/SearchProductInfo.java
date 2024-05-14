@@ -35,4 +35,25 @@ public class SearchProductInfo {
     public void setCityProvider(String cityProvider) {
         this.cityProvider = cityProvider;
     }
+
+    //Getters
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public String getCityProvider() {
+        return cityProvider;
+    }
 }

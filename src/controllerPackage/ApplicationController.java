@@ -55,4 +55,8 @@ public class ApplicationController {
         return searchManager.searchProductInfos(price);
     }
 
+    public ArrayList<SearchCommandInfo> searchTotalCommands(int customer, int year) throws SQLException {
+        return searchManager.totalCommands(customer,year);
+    }
+
 }

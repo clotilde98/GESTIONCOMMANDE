@@ -38,4 +38,25 @@ public class SearchInvoiceList {
     public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
+
+    //Getters
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Integer getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public LocalDate getCommandDate() {
+        return commandDate;
+    }
+
+    public LocalDate getInvoiceDate() {
+        return invoiceDate;
+    }
 }
