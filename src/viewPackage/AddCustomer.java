@@ -229,6 +229,18 @@ public class AddCustomer extends  JFrame{
 
     }
 
+    public DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
+
+        // Récupérer toutes les localités depuis la base de données
+        ArrayList<Locality> allLocalities = controller.getAllLocalities();
+
+        // Créer un modèle de données pour le JComboBox
+        DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(allLocalities.toArray(new Locality[0]));
+
+        return comboBoxModel;
+    }
+
+
     private void validateRequiredLocality(Locality selectedItem, String fieldName) throws customExceptions {
         if (selectedItem == null) {
             String message = "Le champ " + fieldName + " est obligatoire";
