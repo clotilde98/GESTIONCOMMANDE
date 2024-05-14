@@ -42,6 +42,7 @@ public class SearchManager {
         ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
 
         int lignNumber = dataList.size();
+        int newIndex = 1;
 
         newDataList.add(dataList.get(0));
         SearchCommandInfo.setTotalPrice(dataList.get(0).getPrice());
@@ -52,12 +53,13 @@ public class SearchManager {
             SearchCommandInfo.setTotalPrice(total);
 
             if (dataList.get(i-1).getCommandNumber().equals(dataList.get(i).getCommandNumber()) ){
-                Double newPrice = newDataList.getLast().getPrice() + price;
-                newDataList.getLast().setPrice(newPrice);
+                Double newPrice = newDataList.get(newIndex).getPrice() + price;
+                newDataList.get(newIndex).setPrice(newPrice);
             }
 
             else {
                 newDataList.add(dataList.get(i));
+                newIndex ++;
             }
         }
 
