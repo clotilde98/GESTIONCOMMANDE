@@ -27,6 +27,7 @@ public class FormAdmin extends JFrame{
     public FormAdmin() throws SQLException {
         setController(new ApplicationController());
 
+
         setBounds(100, 100, 500, 500);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
@@ -65,6 +66,8 @@ public class FormAdmin extends JFrame{
 
         customerTable = new JTable(new CustomerTableModel(customers));
         JScrollPane scrollPane = new JScrollPane(customerTable);
+
+
         mainContainer.add(scrollPane, BorderLayout.CENTER);
 
         mainContainer.add(buttonPanel, BorderLayout.WEST);

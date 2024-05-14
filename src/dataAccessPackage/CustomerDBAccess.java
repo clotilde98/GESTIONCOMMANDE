@@ -60,21 +60,24 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     public ArrayList<Customer> getAllCustomers() {
 
-        Connection connection = SingletonConnection.getInstance();
+
 
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
+            Connection connection = SingletonConnection.getInstance();
 
             String sql = "SELECT first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised FROM customer";
 
             // Préparer la déclaration
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            System.out.println(statement);
+
 
             // Exécuter la requête
             ResultSet resultSet = statement.executeQuery();
+
+            System.out.println(resultSet);
 
             while (resultSet.next()) {
 
