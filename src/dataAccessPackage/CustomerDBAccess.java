@@ -1,11 +1,14 @@
 package dataAccessPackage;
 
 import modelPackage.Customer;
+import modelPackage.Locality;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class CustomerDBAccess implements CustomerDataAccess{
@@ -51,8 +54,44 @@ public class CustomerDBAccess implements CustomerDataAccess{
         return null;
     }
 
-    public ArrayList<Customer> getAllCustomers() {
-        return null;
+    public ArrayList<Customer> getAllCustomers() throws SQLException {
+        ArrayList<Customer> customers = new ArrayList<>();
+        String sql = "SELECT * FROM customer";
+
+        // Préparer la déclaration
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        // Exécuter la requête
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("last_name");
+            String email = resultSet.getString("email");
+            String phoneNumber = resultSet.getString("phone_number");
+            String passeword =resultSet.getString("passeword");
+            String genderString = resultSet.getString("gender");
+            char gender = genderString.charAt(0);
+            Date birthday =resultSet.getDate("birthday");
+            boolean is_admin =resultSet.getBoolean("est admin");
+            boolean is_adherent =resultSet.getBoolean("est adherent");
+
+            int localityId = resultSet.getInt("City");
+            Locality locality = LocalityDBAccess.getLocality(localityId);
+            String street =resultSet.getString("Rue");
+            int street_Number =resultSet.getInt("Numero du Rue");
+            int number_sponsorised =resultSet.getInt("Nombre de sponsorisation");
+
+
+
+            Customer customer = new Customer( firstName, lastName, email, phoneNumber,passeword,gender,birthday,is_admin,is_adherent, locality,street,street_Number,number_sponsorised);
+            customers.add(customer);
+
+
+    }
+
+        return customers;
     }
 
     public Customer updateCustomer() {

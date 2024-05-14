@@ -5,6 +5,7 @@ import dataAccessPackage.LocalityDBAccess;
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.customExceptions;
+import jdk.internal.jimage.ImageStream;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
@@ -121,7 +122,7 @@ public class AddCustomer extends  JFrame{
         adherentPanel.add(yesAdherent);
         adherentPanel.add(noAdherent);
         textFieldPanel.add(adherentPanel);
-        DefaultComboBoxModel<Locality> comboBoxModel = LocalityDBAccess.getLocalityDataModel();
+        DefaultComboBoxModel<Locality> comboBoxModel = LocalityDBAccess.getLocalityDataModel(resultSet.getInt("locality_id"));
 
         // Initialiser le JComboBox avec le modèle et le renderer
          localityComboBox = new JComboBox<>(comboBoxModel);

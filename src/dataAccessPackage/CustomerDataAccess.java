@@ -10,7 +10,7 @@ public interface CustomerDataAccess {
 
     Customer getCustomer(Integer customerNumber);
 
-    ArrayList<Customer> getAllCustomers();
+    ArrayList<Customer> getAllCustomers() throws SQLException;
 
     Customer updateCustomer();
 

@@ -19,7 +19,7 @@ public class Customer {
     private Integer streetNumber;
     private Integer numberSponsorised;
 
-    public Customer(String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
+    public Customer( String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
                     Date birthday, Boolean isAdmin, Boolean isAdherent, Locality locality , String street, Integer streetNumber, Integer numberSponsorised){
         //setNumber(number);
         setFirstName(firstName);
@@ -38,9 +38,8 @@ public class Customer {
 
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
+
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

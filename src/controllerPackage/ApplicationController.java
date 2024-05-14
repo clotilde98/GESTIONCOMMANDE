@@ -2,7 +2,6 @@ package controllerPackage;
 
 import businessPackage.CustomerManager;
 import businessPackage.LocalityManager;
-import exceptionPackage.AddCustomerExceptions;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
@@ -24,7 +23,7 @@ public class ApplicationController {
         this.localityManager = localityManager;
     }
 
-    public void addCustomer(Customer customer) throws AddCustomerExceptions, SQLException {
+    public void addCustomer(Customer customer) throws  SQLException {
         customerManager.addCustomer(customer);
     }
 
