@@ -12,9 +12,11 @@ import java.util.Date;
 
 
 public class CustomerDBAccess implements CustomerDataAccess{
-    Connection connection = SingletonConnection.getInstance();
 
     public void addCustomer(Customer customer ) throws SQLException {
+
+        Connection connection = SingletonConnection.getInstance();
+
         String sql = "INSERT INTO customer (first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -51,10 +53,15 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     public Customer getCustomer(Integer customerNumber) {
 
+        Connection connection = SingletonConnection.getInstance();
+
         return null;
     }
 
-    public ArrayList<Customer> getAllCustomers() throws SQLException{
+    public ArrayList<Customer> getAllCustomers() {
+
+        Connection connection = SingletonConnection.getInstance();
+
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
@@ -108,15 +115,62 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
 
         public Customer updateCustomer() {
+
+        Connection connection = SingletonConnection.getInstance();
+
         return null;
     }
 
     public void deleteCustomer(Customer customer) {
 
+        Connection connection = SingletonConnection.getInstance();
+
     }
 
-    public Customer getUser(String email, String password) throws SQLException{
-        return null;
+    public Customer getUser(String email, String password) {
+
+        Customer customer;
+        Connection connection = SingletonConnection.getInstance();
+
+        try {
+            String sqlInstruction = "select * from customer where customer.email = ? and customer.password = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+            statement.setString(1, email);
+            statement.setString(2,password);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            String first_name = resultSet.getString("first_name");
+            String last_name = resultSet.getString("last_name");
+            String userEmail = resultSet.getString("email");
+            String phone_number = resultSet.getString("phone_number");
+            String userPassword =resultSet.getString("password");
+            String genderString = resultSet.getString("gender");
+            char gender = genderString.charAt(0);
+            Date birthday =resultSet.getDate("birthday");
+            boolean is_admin =resultSet.getBoolean("is_admin");
+            boolean is_adherent =resultSet.getBoolean("is_adherent");
+
+            int localityId = resultSet.getInt("locality");
+
+            LocalityDBAccess localityDBAccess = new LocalityDBAccess();
+            Locality locality = localityDBAccess.getLocality(localityId);
+
+
+            String street =resultSet.getString("street");
+            int street_number =resultSet.getInt("street_number");
+            int number_sponsorised =resultSet.getInt("number_sponsorised");
+
+
+            customer = new Customer( first_name,last_name,userEmail,phone_number,userPassword,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
+        }
+
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return customer;
     }
 
 

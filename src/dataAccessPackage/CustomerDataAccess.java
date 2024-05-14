@@ -10,11 +10,11 @@ public interface CustomerDataAccess {
 
     Customer getCustomer(Integer customerNumber);
 
-    ArrayList<Customer> getAllCustomers() throws SQLException;
+    ArrayList<Customer> getAllCustomers();
 
     Customer updateCustomer();
 
     void deleteCustomer(Customer customer);
 
-    Customer getUser(String email, String password) throws SQLException;
+    Customer getUser(String email, String password);
 }
