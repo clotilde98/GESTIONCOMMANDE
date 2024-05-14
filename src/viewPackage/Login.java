@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
+import exceptionPackage.customExceptions;
 import modelPackage.Customer;
 
 import javax.swing.*;
@@ -68,6 +69,14 @@ public class Login extends JFrame  {
 
         }
 
+    private void userIsAdmin(Customer user) throws customExceptions {
+        if (!user.getIsAdmin()) {
+            String message = "Le menu client n'est pas encore implémenté\n veuillez utiliser un compte admin";
+            throw new customExceptions(message);
+        }
+
+    }
+
 
     public class loginAction implements ActionListener {
         @Override
@@ -79,10 +88,17 @@ public class Login extends JFrame  {
 
             Customer user = controller.getUser(email,password);
 
-            //Open Menu
-            Menu menu = new Menu();
-            menu.setVisible(true);
-            setVisible(false);
+            try {
+                userIsAdmin(user);
+
+                //Open Menu
+                Menu menu = new Menu();
+                menu.setVisible(true);
+                setVisible(false);
+            }
+            catch (customExceptions ex) {
+                JOptionPane.showMessageDialog(Login.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
 
         }
     }
