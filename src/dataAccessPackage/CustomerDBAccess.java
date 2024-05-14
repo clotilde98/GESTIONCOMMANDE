@@ -1,6 +1,7 @@
 package dataAccessPackage;
 
 import modelPackage.Customer;
+import modelPackage.Locality;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,46 +54,58 @@ public class CustomerDBAccess implements CustomerDataAccess{
         return null;
     }
 
-    public ArrayList<Customer> getAllCustomers() throws SQLException {
+    public ArrayList<Customer> getAllCustomers() throws SQLException{
         ArrayList<Customer> customers = new ArrayList<>();
-        String sql = "SELECT * FROM customer";
 
-        // Préparer la déclaration
-        PreparedStatement statement = connection.prepareStatement(sql);
+        try {
 
-        // Exécuter la requête
-        ResultSet resultSet = statement.executeQuery();
+            String sql = "SELECT * FROM customer";
 
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-            String email = resultSet.getString("email");
-            String phoneNumber = resultSet.getString("phone_number");
-            String passeword =resultSet.getString("passeword");
-            String genderString = resultSet.getString("gender");
-            char gender = genderString.charAt(0);
-            Date birthday =resultSet.getDate("birthday");
-            boolean is_admin =resultSet.getBoolean("est admin");
-            boolean is_adherent =resultSet.getBoolean("est adherent");
+            // Préparer la déclaration
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Exécuter la requête
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                String phoneNumber = resultSet.getString("phone_number");
+                String passeword =resultSet.getString("passeword");
+                String genderString = resultSet.getString("gender");
+                char gender = genderString.charAt(0);
+                Date birthday =resultSet.getDate("birthday");
+                boolean is_admin =resultSet.getBoolean("est admin");
+                boolean is_adherent =resultSet.getBoolean("est adherent");
+
+                // Récupérer l'ID de la localité du client
+                int localityId = resultSet.getInt("locality");
+
+                // Utiliser la méthode getLocality() de LocalityDBAccess pour récupérer la localité
+                LocalityDBAccess localityDBAccess = new LocalityDBAccess();
+                Locality locality = localityDBAccess.getLocality(localityId);
 
 
-            String street =resultSet.getString("Rue");
-            int street_Number =resultSet.getInt("Numero du Rue");
-            int number_sponsorised =resultSet.getInt("Nombre de sponsorisation");
+                String street =resultSet.getString("Rue");
+                int street_Number =resultSet.getInt("Numero du Rue");
+                int number_sponsorised =resultSet.getInt("Nombre de sponsorisation");
+
+
+                Customer customer = new Customer( firstName, lastName, email, phoneNumber,passeword,gender,birthday,is_admin,is_adherent, locality,street,street_Number,number_sponsorised);
+                customers.add(customer);
+            }
+
+    } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+            return customers;
+        }
 
 
 
-           // Customer customer = new Customer( firstName, lastName, email, phoneNumber,passeword,gender,birthday,is_admin,is_adherent, locality,street,street_Number,number_sponsorised);
-            //customers.add(customer);
-
-
-    }
-
-        return customers;
-    }
-
-    public Customer updateCustomer() {
+        public Customer updateCustomer() {
         return null;
     }
 

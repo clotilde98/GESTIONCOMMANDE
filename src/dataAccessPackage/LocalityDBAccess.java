@@ -19,7 +19,7 @@ public class LocalityDBAccess implements LocalityDataAccess{
     public  Locality getLocality(Integer id) throws SQLException {
 
 
-        String sqlInstruction = "select * from locality where id = ?";
+        String sqlInstruction = "select city from locality where id = ?";
 
         PreparedStatement statement = connection.prepareStatement(sqlInstruction);
         statement.setInt(1, id);
@@ -64,7 +64,7 @@ public class LocalityDBAccess implements LocalityDataAccess{
         return allLocalities;
     }
 
-    public static DefaultComboBoxModel<Locality> getLocalityDataModel(int localityId) throws SQLException {
+    public static DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
 
             // Récupérer toutes les localités depuis la base de données
             LocalityDBAccess dao = new LocalityDBAccess();
