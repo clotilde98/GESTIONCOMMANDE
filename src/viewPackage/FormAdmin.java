@@ -1,11 +1,15 @@
 package viewPackage;
 
+import controllerPackage.ApplicationController;
+import modelPackage.Customer;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FormAdmin extends JFrame{
 
@@ -14,7 +18,15 @@ public class FormAdmin extends JFrame{
 
     private Container mainContainer;
 
-    public FormAdmin() {
+    private JTable customerTable;
+
+    private ApplicationController controller;
+
+
+
+    public FormAdmin() throws SQLException {
+        setController(new ApplicationController());
+
         setBounds(100, 100, 500, 500);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
@@ -49,6 +61,11 @@ public class FormAdmin extends JFrame{
         buttonPanel.add(menuButtonPanel);
         menu.addActionListener(new menuAction());
 
+        ArrayList<Customer> customers = controller.getAllCustomers();
+
+        customerTable = new JTable(new CustomerTableModel(customers));
+        JScrollPane scrollPane = new JScrollPane(customerTable);
+        mainContainer.add(scrollPane, BorderLayout.CENTER);
 
         mainContainer.add(buttonPanel, BorderLayout.WEST);
 
@@ -56,9 +73,13 @@ public class FormAdmin extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
         setVisible(true);
-        setResizable(false);
+        setResizable(true);
 
  }
+
+    private void setController(ApplicationController controller) {
+        this.controller = controller;
+    }
 
     public class nouveauAction implements ActionListener {
         @Override

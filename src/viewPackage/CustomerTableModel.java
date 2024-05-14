@@ -4,15 +4,32 @@ import modelPackage.Customer;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CustomerTableModel extends AbstractTableModel {
-    private ArrayList<String> columnNames = new ArrayList<>(Arrays.asList(
-            "Prénom", "Nom", "Email", "Téléphone", "Genre", "Date de naissance",
-            "Admin", "Adhérent", "Localité", "Rue", "Numéro de rue", "Nombre de sponsorisations"
-    ));
-    private List<Customer> customers;
+    private ArrayList<String> columnNames ;
+    private ArrayList<Customer> contents;
+    private List<Customer> customers = new ArrayList<>(); // Initialisation de la liste
+
+
+    public CustomerTableModel(ArrayList<Customer> customers)
+    { columnNames = new ArrayList<>();
+        columnNames.add("Prénom");
+        columnNames.add("Nom");
+        columnNames.add("Email");
+        columnNames.add("Genre");
+        columnNames.add("Date de naissance");
+        columnNames.add("Admin");
+        columnNames.add("Adhérent");
+        columnNames.add("Localité");
+        columnNames.add("Rue");
+        columnNames.add("Localité");
+        columnNames.add("Numéro de rue");
+        columnNames.add("Nombre de sponsorisations");
+        setContents(customers); }
+
+    private void setContents(ArrayList<Customer> customers) {
+    }
 
     public CustomerTableModel() {
         this.customers = new ArrayList<>();
@@ -29,17 +46,17 @@ public class CustomerTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return columnNames.size( );
     }
 
     @Override
     public String getColumnName(int column) {
-        return columnNames[column];
+        return columnNames.get(column);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Customer customer = customers.get(rowIndex);
+        Customer customer = contents.get(rowIndex);
         switch (columnIndex) {
 
             case 0:
@@ -55,9 +72,9 @@ public class CustomerTableModel extends AbstractTableModel {
             case 5:
                 return customer.getBirthday();
             case 6:
-                return customer.isAdmin() ? "Oui" : "Non";
+                return customer.getIsAdmin();
             case 7:
-                return customer.isAdherent() ? "Oui" : "Non";
+                return customer.getIsAdherent();
             case 8:
                 return customer.getLocality().getCity();
             case 9:
@@ -71,9 +88,6 @@ public class CustomerTableModel extends AbstractTableModel {
         }
     }
 
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-        fireTableDataChanged(); // Notify the table that the data has changed
-    }
+
 }
 

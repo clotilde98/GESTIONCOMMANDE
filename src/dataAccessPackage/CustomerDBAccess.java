@@ -59,26 +59,28 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
         try {
 
-            String sql = "SELECT * FROM customer";
+            String sql = "SELECT first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised FROM customer";
 
             // Préparer la déclaration
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            System.out.println(statement);
 
             // Exécuter la requête
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String firstName = resultSet.getString("first_name");
-                String lastName = resultSet.getString("last_name");
+
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
                 String email = resultSet.getString("email");
-                String phoneNumber = resultSet.getString("phone_number");
-                String passeword =resultSet.getString("passeword");
+                String phone_number = resultSet.getString("phone_number");
+                String password =resultSet.getString("password");
                 String genderString = resultSet.getString("gender");
                 char gender = genderString.charAt(0);
                 Date birthday =resultSet.getDate("birthday");
-                boolean is_admin =resultSet.getBoolean("est admin");
-                boolean is_adherent =resultSet.getBoolean("est adherent");
+                boolean is_admin =resultSet.getBoolean("is_admin");
+                boolean is_adherent =resultSet.getBoolean("is_adherent");
 
                 // Récupérer l'ID de la localité du client
                 int localityId = resultSet.getInt("locality");
@@ -88,12 +90,12 @@ public class CustomerDBAccess implements CustomerDataAccess{
                 Locality locality = localityDBAccess.getLocality(localityId);
 
 
-                String street =resultSet.getString("Rue");
-                int street_Number =resultSet.getInt("Numero du Rue");
-                int number_sponsorised =resultSet.getInt("Nombre de sponsorisation");
+                String street =resultSet.getString("street");
+                int street_number =resultSet.getInt("street_number");
+                int number_sponsorised =resultSet.getInt("number_sponsorised");
 
 
-                Customer customer = new Customer( firstName, lastName, email, phoneNumber,passeword,gender,birthday,is_admin,is_adherent, locality,street,street_Number,number_sponsorised);
+                Customer customer = new Customer( first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
                 customers.add(customer);
             }
 

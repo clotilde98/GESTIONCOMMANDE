@@ -1,7 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import dataAccessPackage.LocalityDBAccess;
+
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.customExceptions;
@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -121,8 +122,7 @@ public class AddCustomer extends  JFrame{
         adherentPanel.add(yesAdherent);
         adherentPanel.add(noAdherent);
         textFieldPanel.add(adherentPanel);
-
-        DefaultComboBoxModel<Locality> comboBoxModel = LocalityDBAccess.getLocalityDataModel();
+        DefaultComboBoxModel<Locality> comboBoxModel = getLocalityDataModel();
 
         // Initialiser le JComboBox avec le modèle et le renderer
          localityComboBox = new JComboBox<>(comboBoxModel);
@@ -170,7 +170,6 @@ public class AddCustomer extends  JFrame{
         setVisible(true);
         setResizable(false);
     }
-
 
 
     private void setController(ApplicationController controller) {
@@ -406,6 +405,8 @@ public class AddCustomer extends  JFrame{
             setVisible(false);
 
         }
+
+
     }
 
 }

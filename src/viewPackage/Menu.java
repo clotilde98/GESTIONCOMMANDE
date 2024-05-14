@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Menu extends JFrame {
 
@@ -59,7 +60,12 @@ public class Menu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            FormAdmin formAdmin = new FormAdmin();
+            FormAdmin formAdmin = null;
+            try {
+                formAdmin = new FormAdmin();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             formAdmin.setVisible(true); // Rendre la fenêtre visible
             setVisible(false);
 

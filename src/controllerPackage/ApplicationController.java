@@ -30,4 +30,8 @@ public class ApplicationController {
     public ArrayList<Locality> getAllLocalities() throws SQLException {
         return localityManager.getAllLocalities();
     }
+
+    public ArrayList<Customer> getAllCustomers() throws SQLException  {
+        return customerManager.getAllCustomers();
+    }
 }

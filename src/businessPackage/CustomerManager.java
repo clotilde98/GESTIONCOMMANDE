@@ -5,6 +5,7 @@ import dataAccessPackage.CustomerDataAccess;
 import modelPackage.Customer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CustomerManager {
 
@@ -27,5 +28,9 @@ public class CustomerManager {
             e.printStackTrace();
         }
 
+    }
+
+    public ArrayList<Customer> getAllCustomers() throws SQLException {
+        return dao.getAllCustomers();
     }
 }
