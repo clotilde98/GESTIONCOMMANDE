@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface LocalityDataAccess {
-    Locality getLocality(Integer id) throws SQLException;
+    static Locality getLocality(Integer id) throws SQLException {
+        return null;
+    }
 
     ArrayList<Locality> getAllLocalities() throws SQLException;
 }

@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import  java.sql.ResultSet;
 
 
 public class AddCustomer extends  JFrame{
@@ -122,6 +123,7 @@ public class AddCustomer extends  JFrame{
         adherentPanel.add(yesAdherent);
         adherentPanel.add(noAdherent);
         textFieldPanel.add(adherentPanel);
+
         DefaultComboBoxModel<Locality> comboBoxModel = LocalityDBAccess.getLocalityDataModel(resultSet.getInt("locality_id"));
 
         // Initialiser le JComboBox avec le modèle et le renderer

@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class LocalityDBAccess implements LocalityDataAccess{
 
-    Connection connection = SingletonConnection.getInstance();
+    static Connection connection = SingletonConnection.getInstance();
 
 
 
-    public static Locality getLocality(Integer id) throws SQLException {
+    public  Locality getLocality(Integer id) throws SQLException {
 
 
         String sqlInstruction = "select * from locality where id = ?";

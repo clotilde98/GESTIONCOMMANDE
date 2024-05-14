@@ -1,7 +1,6 @@
 package dataAccessPackage;
 
 import modelPackage.Customer;
-import modelPackage.Locality;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,16 +76,15 @@ public class CustomerDBAccess implements CustomerDataAccess{
             boolean is_admin =resultSet.getBoolean("est admin");
             boolean is_adherent =resultSet.getBoolean("est adherent");
 
-            int localityId = resultSet.getInt("City");
-            Locality locality = LocalityDBAccess.getLocality(localityId);
+
             String street =resultSet.getString("Rue");
             int street_Number =resultSet.getInt("Numero du Rue");
             int number_sponsorised =resultSet.getInt("Nombre de sponsorisation");
 
 
 
-            Customer customer = new Customer( firstName, lastName, email, phoneNumber,passeword,gender,birthday,is_admin,is_adherent, locality,street,street_Number,number_sponsorised);
-            customers.add(customer);
+           // Customer customer = new Customer( firstName, lastName, email, phoneNumber,passeword,gender,birthday,is_admin,is_adherent, locality,street,street_Number,number_sponsorised);
+            //customers.add(customer);
 
 
     }
