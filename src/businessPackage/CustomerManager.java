@@ -18,7 +18,7 @@ public class CustomerManager {
         this.dao = customerDataAccess;
     }
 
-    public void addCustomer(Customer customer) throws  SQLException {
+    public void addCustomer(Customer customer){
 
         try {
             // Appel de la méthode addCustomer de CustomerDBAccess
@@ -30,7 +30,11 @@ public class CustomerManager {
 
     }
 
-    public ArrayList<Customer> getAllCustomers() throws SQLException {
+    public ArrayList<Customer> getAllCustomers() {
         return dao.getAllCustomers();
+    }
+
+    public Customer getUSer(String email, String password){
+        return dao.getUser(email,password);
     }
 }

@@ -1,28 +1,34 @@
 package viewPackage;
 
+import controllerPackage.ApplicationController;
+
+import modelPackage.Customer;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Login extends JFrame  {
 
-    private JTextField usernameField;
+    private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
+    private ApplicationController controller;
     public Login() {
         super("Formulaire de Connexion");
+        controller = new ApplicationController();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setResizable(false);
 
 
-
-
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         formPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         formPanel.setBackground(Color.GREEN);
-        JLabel usernameLabel = new JLabel("Nom d'utilisateur:");
-        usernameField = new JTextField(10);
+        JLabel usernameLabel = new JLabel("Adresse Mail:");
+        emailField = new JTextField(10);
 
         JLabel passwordLabel = new JLabel("Mot de passe:");
         passwordField = new JPasswordField(10);
@@ -30,7 +36,7 @@ public class Login extends JFrame  {
         loginButton = new JButton("Se Connecter");
 
         formPanel.add(usernameLabel);
-        formPanel.add(usernameField);
+        formPanel.add(emailField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
         formPanel.add(new JLabel());
@@ -39,7 +45,7 @@ public class Login extends JFrame  {
 
         JLabel titleLabel = new JLabel("LOGIN");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setForeground(Color.YELLOW);
+        titleLabel.setForeground(Color.BLACK);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 
@@ -55,7 +61,31 @@ public class Login extends JFrame  {
         setVisible(true);
 
         setResizable(false);
+
+        //
+        loginButton.addActionListener(new loginAction());
+
+
         }
+
+
+    public class loginAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            String email = emailField.getText();
+            String password = new String(passwordField.getPassword());
+
+
+            Customer user = controller.getUser(email,password);
+
+            //Open Menu
+            Menu menu = new Menu();
+            menu.setVisible(true);
+            setVisible(false);
+
+        }
+    }
 
 }
 

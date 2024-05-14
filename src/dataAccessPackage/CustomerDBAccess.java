@@ -139,7 +139,10 @@ public class CustomerDBAccess implements CustomerDataAccess{
             statement.setString(1, email);
             statement.setString(2,password);
 
+
             ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
 
             String first_name = resultSet.getString("first_name");
             String last_name = resultSet.getString("last_name");
@@ -156,7 +159,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
             LocalityDBAccess localityDBAccess = new LocalityDBAccess();
             Locality locality = localityDBAccess.getLocality(localityId);
-
 
             String street =resultSet.getString("street");
             int street_number =resultSet.getInt("street_number");

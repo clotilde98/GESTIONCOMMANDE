@@ -30,12 +30,16 @@ public class ApplicationController {
 
 
     //Customer Manager
-    public void addCustomer(Customer customer) throws  SQLException {
+    public void addCustomer(Customer customer) {
         customerManager.addCustomer(customer);
     }
 
-    public ArrayList<Customer> getAllCustomers() throws SQLException  {
+    public ArrayList<Customer> getAllCustomers() {
         return customerManager.getAllCustomers();
+    }
+
+    public Customer getUser(String email, String password){
+        return customerManager.getUSer(email,password);
     }
 
     //Locality Manager
