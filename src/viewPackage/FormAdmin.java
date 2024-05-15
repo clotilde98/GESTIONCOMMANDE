@@ -14,11 +14,15 @@ import java.util.ArrayList;
 public class FormAdmin extends JFrame{
 
     private JButton addButton;
+    private JButton deleteButton;
     private JButton menu;
 
     private Container mainContainer;
 
     private JTable customerTable;
+    private ArrayList<Customer> customers;
+
+    private CustomerTableModel tableModel;
 
     private ApplicationController controller;
 
@@ -32,16 +36,19 @@ public class FormAdmin extends JFrame{
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
 
-        addButton = new JButton("Ajouter Utilisateur");
+        addButton = new JButton("Ajouter Client");
+        deleteButton = new JButton("Supprimer Client");
         menu = new JButton("Menu");
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
         addButton.setFont(buttonFont);
+        deleteButton.setFont(buttonFont);
         menu.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
         addButton.setPreferredSize(buttonSize);
+        deleteButton.setPreferredSize(buttonSize);
         menu.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons
@@ -56,17 +63,23 @@ public class FormAdmin extends JFrame{
         buttonPanel.add(newUserButtonPanel);
         addButton.addActionListener(new nouveauAction());
 
+        JPanel deleteUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        deleteUserButtonPanel.add(deleteButton);
+        buttonPanel.add(deleteUserButtonPanel);
+        deleteButton.addActionListener(new deleteAction());
+
         // Ajouter le bouton "Menu" aligné à gauche
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         menuButtonPanel.add(menu);
         buttonPanel.add(menuButtonPanel);
         menu.addActionListener(new menuAction());
 
-        ArrayList<Customer> customers = controller.getAllCustomers();
+        customers = controller.getAllCustomers();
+        tableModel = new CustomerTableModel(customers);
 
-        customerTable = new JTable(new CustomerTableModel(customers));
+        customerTable = new JTable(tableModel);
+
         JScrollPane scrollPane = new JScrollPane(customerTable);
-
 
         mainContainer.add(scrollPane, BorderLayout.CENTER);
 
@@ -97,6 +110,18 @@ public class FormAdmin extends JFrame{
             addUsers.setVisible(true); // Rendre la fenêtre visible
             setVisible(false);
 
+        }
+    }
+
+    public class deleteAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
+
+            controller.deleteCustomer(customerNumber);
+
+            customers.remove(customerTable.getSelectedRow());
+            tableModel.fireTableDataChanged();
         }
     }
 
