@@ -2,7 +2,6 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
-import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.customExceptions;
 import modelPackage.Customer;
@@ -183,7 +182,7 @@ public class AddCustomer extends  JFrame{
             try {
                 String firstName = (firstNameField.getText());
                 String lastName = validateRequiredField(lastNameField.getText(),"Nom");
-                String email = validateEmail(emailField.getText(),"email");
+                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
                 String phoneNumber = validatePhoneNumberField(phoneNumberField.getText(),"Numéro de Téléphone");
                 String password = validatePassword(passwordField.getText(),"password");
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
@@ -258,22 +257,6 @@ public class AddCustomer extends  JFrame{
             throw new customExceptions(message);
         }
         return field;
-    }
-
-    private String validateEmail(String email,String fieldName) throws InvalidEmailFormatException, customExceptions {
-        // Vérifiez d'abord si le champ est vide
-        if (email.isEmpty()) {
-            String message ="Le champ " + fieldName + " est obligatoire";
-            throw new customExceptions(message);
-        }
-
-        // Utilisation d'une expression régulière pour valider l'email
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        if (!email.matches(emailRegex)) {
-            String message = fieldName + " Format  invalide";
-            throw new InvalidEmailFormatException(message);
-        }
-        return email;
     }
 
 

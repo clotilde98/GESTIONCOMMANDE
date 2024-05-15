@@ -2,7 +2,6 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
-import exceptionPackage.InvalidDataLoginException;
 import exceptionPackage.customExceptions;
 import modelPackage.Customer;
 
@@ -87,10 +86,10 @@ public class Login extends JFrame  {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            String email = emailField.getText();
-            String password = new String(passwordField.getPassword());
-
             try {
+                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
+                String password = new String(passwordField.getPassword());
+
                 Customer user = controller.getUser(email,password);
                 userIsAdmin(user);
 
@@ -99,18 +98,11 @@ public class Login extends JFrame  {
                 menu.setVisible(true);
                 setVisible(false);
             }
-            catch (customExceptions | InvalidDataLoginException ex) {
+            catch (Exception ex) {
                 JOptionPane.showMessageDialog(Login.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+
             }
 
         }
     }
-
-}
-
-
-
-
-
-
-
