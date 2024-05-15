@@ -32,8 +32,8 @@ public class FormAdmin extends JFrame{
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
 
-        addButton = new JButton("NOUVEAU UTILISATEUR");
-        menu = new JButton("MENU");
+        addButton = new JButton("Ajouter Utilisateur");
+        menu = new JButton("Menu");
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
@@ -72,9 +72,9 @@ public class FormAdmin extends JFrame{
 
         mainContainer.add(buttonPanel, BorderLayout.WEST);
 
-        setTitle("Formulaire Admin");
+        setTitle("Gestion des clients");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 400);
+        setSize(1280, 720);
         setVisible(true);
         setResizable(true);
 

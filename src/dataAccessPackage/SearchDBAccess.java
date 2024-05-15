@@ -40,7 +40,7 @@ public class SearchDBAccess implements SearchDataAccess{
 
         ArrayList<SearchInvoiceList> dataList = new ArrayList<>();
 
-        String sqlInstruction = "select customer.last_name 'Nom', customer.first_name, command.command_date," +
+        String sqlInstruction = "select customer.last_name, customer.first_name, command.command_date," +
                 " invoice.number, invoice.date\n" +
                 "from customer inner join command inner join invoice\n" +
                 "where customer.number = command.customer and invoice.command = command.number and customer.number = ? and command.is_paid = ?";
