@@ -103,7 +103,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
                 Customer customer = new Customer( first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
                 customers.add(customer);
-                customer.setNumber(number);
             }
 
     } catch (SQLException e) {

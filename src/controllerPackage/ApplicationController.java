@@ -3,7 +3,6 @@ package controllerPackage;
 import businessPackage.CustomerManager;
 import businessPackage.LocalityManager;
 import businessPackage.SearchManager;
-import exceptionPackage.InvalidDataLoginException;
 import modelPackage.*;
 
 import java.sql.SQLException;
@@ -41,10 +40,7 @@ public class ApplicationController {
         return  customerManager.getAllCustomers();
     }
 
-    public void deleteCustomer(int number){ customerManager.deleteCustomer(number);}
-    public void updateCustomer(Customer customer){ customerManager.updateCustomer(customer);}
-
-    public Customer getUser(String email, String password) throws InvalidDataLoginException {
+    public Customer getUser(String email, String password){
         return customerManager.getUSer(email,password);
     }
 
@@ -54,19 +50,19 @@ public class ApplicationController {
     }
 
     //Search Manager
-    public ArrayList<SearchProductHistory> searchProductHistories(String name) {
+    public ArrayList<SearchProductHistory> searchProductHistories(String name) throws SQLException {
         return searchManager.searchProductHistories(name);
     }
 
-    public ArrayList<SearchInvoiceList> searchInvoiceLists(int number, boolean isPaid) {
+    public ArrayList<SearchInvoiceList> searchInvoiceLists(int number, boolean isPaid) throws SQLException {
         return searchManager.searchInvoiceLists(number,isPaid);
     }
 
-    public ArrayList<SearchProductInfo> searchProductInfos(double price) {
+    public ArrayList<SearchProductInfo> searchProductInfos(double price) throws SQLException {
         return searchManager.searchProductInfos(price);
     }
 
-    public ArrayList<SearchCommandInfo> searchTotalCommands(int customer, LocalDate year) {
+    public ArrayList<SearchCommandInfo> searchTotalCommands(int customer, LocalDate year) throws SQLException {
         return searchManager.totalCommands(customer,year);
     }
 

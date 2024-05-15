@@ -44,4 +44,10 @@ public class CustomerManager {
     public Customer getUSer(String email, String password) throws InvalidDataLoginException {
         return dao.getUser(email,password);
     }
+
+   public Integer deleteCustomers(Integer number) throws SQLException {
+        return dao.deleteCustomers(number);
+    }
+
+
 }
