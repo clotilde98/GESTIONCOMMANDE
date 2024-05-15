@@ -2,6 +2,7 @@ package businessPackage;
 
 import dataAccessPackage.CustomerDBAccess;
 import dataAccessPackage.CustomerDataAccess;
+import exceptionPackage.InvalidDataLoginException;
 import modelPackage.Customer;
 
 import java.sql.SQLException;
@@ -34,7 +35,7 @@ public class CustomerManager {
         return dao.getAllCustomers();
     }
 
-    public Customer getUSer(String email, String password){
+    public Customer getUSer(String email, String password) throws InvalidDataLoginException {
         return dao.getUser(email,password);
     }
 }

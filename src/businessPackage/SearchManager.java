@@ -23,21 +23,21 @@ public class SearchManager {
         this.dao = searchDBAccess;
     }
 
-    public ArrayList<SearchProductHistory> searchProductHistories(String name) throws SQLException {
+    public ArrayList<SearchProductHistory> searchProductHistories(String name) {
         return dao.customerProductHistory(name);
     }
 
-    public ArrayList<SearchInvoiceList> searchInvoiceLists(int number,boolean isPaid) throws SQLException {
+    public ArrayList<SearchInvoiceList> searchInvoiceLists(int number,boolean isPaid) {
         return dao.customerInvoiceList(number,isPaid);
     }
 
-    public ArrayList<SearchProductInfo> searchProductInfos(double price) throws SQLException {
+    public ArrayList<SearchProductInfo> searchProductInfos(double price) {
         double priceMin = price - 50;
         double priceMax = price + 50;
         return dao.productInfosByPrice(priceMin,priceMax);
     }
 
-    public ArrayList<SearchCommandInfo> totalCommands(int customer, LocalDate year) throws SQLException {
+    public ArrayList<SearchCommandInfo> totalCommands(int customer, LocalDate year) {
         ArrayList<SearchCommandInfo> dataList = dao.customerCommandsInfosForSpecificYear(customer, year);
         ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
 

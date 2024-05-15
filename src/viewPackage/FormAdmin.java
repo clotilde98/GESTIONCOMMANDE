@@ -50,13 +50,13 @@ public class FormAdmin extends JFrame{
         buttonPanel.setBorder(new EmptyBorder(100, 20, 100, 50));
 
 
-        // Ajouter le bouton "NOUVEAU UTILISATEUR" aligné à gauche
+        // Ajouter le bouton "Ajouter Utilisateur" aligné à gauche
         JPanel newUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         newUserButtonPanel.add(addButton);
         buttonPanel.add(newUserButtonPanel);
         addButton.addActionListener(new nouveauAction());
 
-        // Ajouter le bouton "MENU" aligné à gauche
+        // Ajouter le bouton "Menu" aligné à gauche
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         menuButtonPanel.add(menu);
         buttonPanel.add(menuButtonPanel);

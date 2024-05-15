@@ -1,5 +1,6 @@
 package dataAccessPackage;
 
+import exceptionPackage.InvalidDataLoginException;
 import modelPackage.Customer;
 
 import java.sql.SQLException;
@@ -16,5 +17,5 @@ public interface CustomerDataAccess {
 
     void deleteCustomer(Customer customer);
 
-    Customer getUser(String email, String password);
+    Customer getUser(String email, String password) throws InvalidDataLoginException;
 }

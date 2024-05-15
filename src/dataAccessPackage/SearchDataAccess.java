@@ -5,16 +5,15 @@ import modelPackage.SearchInvoiceList;
 import modelPackage.SearchProductHistory;
 import modelPackage.SearchProductInfo;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface SearchDataAccess {
-    ArrayList<SearchProductHistory> customerProductHistory(String name) throws SQLException;
+    ArrayList<SearchProductHistory> customerProductHistory(String name);
 
-    ArrayList<SearchInvoiceList> customerInvoiceList(int number, boolean isPaid) throws SQLException;
+    ArrayList<SearchInvoiceList> customerInvoiceList(int number, boolean isPaid);
 
-    ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax) throws SQLException;
+    ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax);
 
-    ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, LocalDate year) throws SQLException;
+    ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, LocalDate year);
 }

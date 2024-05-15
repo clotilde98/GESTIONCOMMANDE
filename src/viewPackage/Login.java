@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
+import exceptionPackage.InvalidDataLoginException;
 import exceptionPackage.customExceptions;
 import modelPackage.Customer;
 
@@ -19,7 +20,7 @@ public class Login extends JFrame  {
     private ApplicationController controller;
     public Login() {
         super("Formulaire de Connexion");
-        controller = new ApplicationController();
+        setController(new ApplicationController());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setResizable(false);
@@ -69,6 +70,10 @@ public class Login extends JFrame  {
 
         }
 
+    private void setController(ApplicationController controller) {
+        this.controller = controller;
+    }
+
     private void userIsAdmin(Customer user) throws customExceptions {
         if (!user.getIsAdmin()) {
             String message = "Le menu client n'est pas encore implémenté\n veuillez utiliser un compte admin";
@@ -85,10 +90,8 @@ public class Login extends JFrame  {
             String email = emailField.getText();
             String password = new String(passwordField.getPassword());
 
-
-            Customer user = controller.getUser(email,password);
-
             try {
+                Customer user = controller.getUser(email,password);
                 userIsAdmin(user);
 
                 //Open Menu
@@ -96,7 +99,7 @@ public class Login extends JFrame  {
                 menu.setVisible(true);
                 setVisible(false);
             }
-            catch (customExceptions ex) {
+            catch (customExceptions | InvalidDataLoginException ex) {
                 JOptionPane.showMessageDialog(Login.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 

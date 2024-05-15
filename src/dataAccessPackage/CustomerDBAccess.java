@@ -1,5 +1,6 @@
 package dataAccessPackage;
 
+import exceptionPackage.InvalidDataLoginException;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
@@ -130,7 +131,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     }
 
-    public Customer getUser(String email, String password) {
+    public Customer getUser(String email, String password) throws InvalidDataLoginException {
 
         Customer customer;
         Connection connection = SingletonConnection.getInstance();
@@ -141,6 +142,8 @@ public class CustomerDBAccess implements CustomerDataAccess{
             PreparedStatement statement = connection.prepareStatement(sqlInstruction);
             statement.setString(1, email);
             statement.setString(2,password);
+
+            System.out.println(statement);
 
 
             ResultSet resultSet = statement.executeQuery();
@@ -172,7 +175,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
         }
 
         catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new InvalidDataLoginException("Données de connexion invalides");
         }
 
         return customer;
