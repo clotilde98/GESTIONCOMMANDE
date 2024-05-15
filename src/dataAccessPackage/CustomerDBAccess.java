@@ -45,7 +45,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     }catch (SQLException e) {
             throw e;
-
         }
 
 
@@ -61,8 +60,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     public ArrayList<Customer> getAllCustomers() {
 
-
-
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
@@ -77,8 +74,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
             // Exécuter la requête
             ResultSet resultSet = statement.executeQuery();
-
-            System.out.println(resultSet);
 
             while (resultSet.next()) {
 
@@ -116,13 +111,39 @@ public class CustomerDBAccess implements CustomerDataAccess{
             return customers;
         }
 
-
-
-        public Customer updateCustomer() {
+    public void updateCustomer(Customer customer) {
 
         Connection connection = SingletonConnection.getInstance();
 
-        return null;
+        String sql = "update customer set first_name = ?, last_name = ?, email = ?, phone_number = ?, password = ?, gender = ?, " +
+                "birthday = ?, is_admin= ?, is_adherent = ?, locality = ?, street = ?, street_number =?, number_sponsorised = ?) " +
+                "where number = ?";
+
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getLastName());
+            statement.setString(3, customer.getEmail());
+            statement.setString(4, customer.getPhoneNumber());
+            statement.setString(5, customer.getPassword());
+            statement.setString(6, String.valueOf(customer.getGender())); // Convertir le char en String
+            java.util.Date birthdayDate = customer.getBirthday();
+            java.sql.Date sqlBirthday = new java.sql.Date(birthdayDate.getTime());
+            statement.setDate(7, sqlBirthday);
+            statement.setBoolean(8, customer.getIsAdmin());
+            statement.setBoolean(9, customer.getIsAdherent());
+            statement.setInt(10,  customer.getLocality().getId());
+            statement.setString(11, customer.getStreet());
+            statement.setInt(12, customer.getStreetNumber());
+            statement.setInt(13, customer.getNumberSponsorised());
+            statement.setInt(14,customer.getNumber());
+
+            statement.executeUpdate();
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+            }
     }
 
     public void deleteCustomer(Customer customer) {
@@ -142,8 +163,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
             PreparedStatement statement = connection.prepareStatement(sqlInstruction);
             statement.setString(1, email);
             statement.setString(2,password);
-
-            System.out.println(statement);
 
 
             ResultSet resultSet = statement.executeQuery();

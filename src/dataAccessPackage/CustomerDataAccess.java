@@ -13,7 +13,7 @@ public interface CustomerDataAccess {
 
     ArrayList<Customer> getAllCustomers();
 
-    Customer updateCustomer();
+    void updateCustomer(Customer customer);
 
     void deleteCustomer(Customer customer);
 
