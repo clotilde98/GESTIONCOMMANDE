@@ -42,7 +42,7 @@ public class SearchManager {
         ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
 
         int lignNumber = dataList.size();
-        int newIndex = 1;
+        int newIndex = 0;
 
         newDataList.add(dataList.get(0));
         SearchCommandInfo.setTotalPrice(dataList.get(0).getPrice());
