@@ -39,30 +39,33 @@ public class SearchManager {
 
     public ArrayList<SearchCommandInfo> totalCommands(int customer, LocalDate year) {
         ArrayList<SearchCommandInfo> dataList = dao.customerCommandsInfosForSpecificYear(customer, year);
-        ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
+        //ArrayList<SearchCommandInfo> newDataList = new ArrayList<>();
 
         int lignNumber = dataList.size();
-        int newIndex = 0;
+        //int newIndex = 0;
 
-        newDataList.add(dataList.get(0));
-        SearchCommandInfo.setTotalPrice(dataList.get(0).getPrice());
+        //newDataList.add(dataList.get(0));
+        SearchCommandInfo.setTotalPrice(0.0);
 
-        for (int i = 1; i < lignNumber; i++){
+        for (int i = 0; i < lignNumber; i++){
             Double price = dataList.get(i).getPrice();
+            price = price * (double)dataList.get(i).getQuantity();
+            dataList.get(i).setPrice(price);
             Double total = SearchCommandInfo.getTotalPrice() + price;
             SearchCommandInfo.setTotalPrice(total);
 
-            if (dataList.get(i-1).getCommandNumber().equals(dataList.get(i).getCommandNumber()) ){
-                Double newPrice = newDataList.get(newIndex).getPrice() + price;
-                newDataList.get(newIndex).setPrice(newPrice);
-            }
+            //if (dataList.get(i-1).getCommandNumber().equals(dataList.get(i).getCommandNumber()) ){
+                //Double newPrice = newDataList.get(newIndex).getPrice() + price;
+                //newDataList.get(newIndex).setPrice(newPrice);
+            //}
 
-            else {
-                newDataList.add(dataList.get(i));
-                newIndex ++;
-            }
+            //else {
+                //newDataList.get(newIndex).setPrice(price);
+              //  newDataList.add(dataList.get(i));
+              //  newIndex ++;
+            //}
         }
 
-        return newDataList;
+        return dataList;
     }
 }

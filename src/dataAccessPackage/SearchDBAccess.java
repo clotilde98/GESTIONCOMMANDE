@@ -139,9 +139,10 @@ public class SearchDBAccess implements SearchDataAccess{
 
                 Integer commandNumber = data.getInt("number");
                 Integer discount = data.getInt("discount");
+                Integer quantity = data.getInt("quantity");
                 Double price = data.getDouble("price");
 
-                dataList.add(new SearchCommandInfo(commandNumber,discount,price));
+                dataList.add(new SearchCommandInfo(commandNumber,discount, quantity,price));
             }
 
         }

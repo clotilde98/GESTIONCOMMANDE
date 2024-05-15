@@ -4,13 +4,16 @@ public class SearchCommandInfo {
     private static String firstName;
     private static String lastName;
     private Integer commandNumber;
+
+    private Integer quantity;
     private Integer discount;
     private Double price;
     private static Double totalPrice;
 
-    public SearchCommandInfo(Integer commandNumber, Integer discount, Double price){
+    public SearchCommandInfo(Integer commandNumber, Integer discount, Integer quantity, Double price){
         setCommandNumber(commandNumber);
         setDiscount(discount);
+        setQuantity(quantity);
         setPrice(price);
     }
 
@@ -35,6 +38,10 @@ public class SearchCommandInfo {
         this.price = price;
     }
 
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public static void setTotalPrice(Double totalPrice) {
         SearchCommandInfo.totalPrice = totalPrice;
     }
@@ -50,6 +57,10 @@ public class SearchCommandInfo {
 
     public Integer getCommandNumber() {
         return commandNumber;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
     }
 
     public Integer getDiscount() {
