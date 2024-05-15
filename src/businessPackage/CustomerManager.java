@@ -35,6 +35,10 @@ public class CustomerManager {
         return dao.getAllCustomers();
     }
 
+    public void updateCustomer(Customer customer){
+        dao.updateCustomer(customer);
+    }
+
     public Customer getUSer(String email, String password) throws InvalidDataLoginException {
         return dao.getUser(email,password);
     }

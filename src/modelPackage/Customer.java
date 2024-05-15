@@ -21,7 +21,6 @@ public class Customer {
 
     public Customer( String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
                     Date birthday, Boolean isAdmin, Boolean isAdherent, Locality locality , String street, Integer streetNumber, Integer numberSponsorised){
-        //setNumber(number);
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -37,7 +36,6 @@ public class Customer {
         setNumberSponsorised(numberSponsorised);
 
     }
-
 
 
     public void setFirstName(String firstName) {
@@ -91,6 +89,8 @@ public class Customer {
     public void setNumberSponsorised(Integer numberSponsorised) {
         this.numberSponsorised = numberSponsorised;
     }
+
+    public void setNumber(Integer number){this.number = number;}
 
     public Integer getNumber() {
         return number;

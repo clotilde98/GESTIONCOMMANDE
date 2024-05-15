@@ -65,7 +65,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "SELECT first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised FROM customer";
+            String sql = "SELECT * FROM customer";
 
             // Préparer la déclaration
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -99,10 +99,11 @@ public class CustomerDBAccess implements CustomerDataAccess{
                 String street =resultSet.getString("street");
                 int street_number =resultSet.getInt("street_number");
                 int number_sponsorised =resultSet.getInt("number_sponsorised");
-
+                Integer number = resultSet.getInt("number");
 
                 Customer customer = new Customer( first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
                 customers.add(customer);
+                customer.setNumber(number);
             }
 
     } catch (SQLException e) {
