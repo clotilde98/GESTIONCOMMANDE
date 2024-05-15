@@ -147,9 +147,22 @@ public class CustomerDBAccess implements CustomerDataAccess{
             }
     }
 
-    public void deleteCustomer(Customer customer) {
+    public void deleteCustomer(int customerNumber) {
 
         Connection connection = SingletonConnection.getInstance();
+
+        String sql = "delete from customer where number =?";
+
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, customerNumber);
+
+            statement.executeUpdate();
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

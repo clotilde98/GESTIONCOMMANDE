@@ -15,7 +15,7 @@ public interface CustomerDataAccess {
 
     void updateCustomer(Customer customer);
 
-    void deleteCustomer(Customer customer);
+    void deleteCustomer(int customerNumber);
 
     Customer getUser(String email, String password) throws InvalidDataLoginException;
 }

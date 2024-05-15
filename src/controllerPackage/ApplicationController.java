@@ -41,6 +41,7 @@ public class ApplicationController {
         return  customerManager.getAllCustomers();
     }
 
+    public void deleteCustomer(int number){ customerManager.deleteCustomer(number);}
     public void updateCustomer(Customer customer){ customerManager.updateCustomer(customer);}
 
     public Customer getUser(String email, String password) throws InvalidDataLoginException {

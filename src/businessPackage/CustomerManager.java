@@ -35,6 +35,8 @@ public class CustomerManager {
         return dao.getAllCustomers();
     }
 
+    public void deleteCustomer(int number){ dao.deleteCustomer(number);}
+
     public void updateCustomer(Customer customer){
         dao.updateCustomer(customer);
     }
