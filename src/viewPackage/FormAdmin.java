@@ -17,6 +17,8 @@ public class FormAdmin extends JFrame{
     private JButton deleteButton;
     private JButton menu;
 
+    private JButton updateButton;
+
     private Container mainContainer;
 
     private JTable customerTable;
@@ -38,6 +40,8 @@ public class FormAdmin extends JFrame{
 
         addButton = new JButton("Ajouter Client");
         deleteButton = new JButton("Supprimer Client");
+        updateButton = new JButton("Modifier Client");
+
         menu = new JButton("Menu");
 
         // Réduire la taille et changer la police des boutons
@@ -45,15 +49,17 @@ public class FormAdmin extends JFrame{
         addButton.setFont(buttonFont);
         deleteButton.setFont(buttonFont);
         menu.setFont(buttonFont);
+        updateButton.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
         addButton.setPreferredSize(buttonSize);
         deleteButton.setPreferredSize(buttonSize);
         menu.setPreferredSize(buttonSize);
+        updateButton.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 1));
+        buttonPanel.setLayout(new GridLayout(4, 1));
         buttonPanel.setBorder(new EmptyBorder(100, 20, 100, 50));
 
 
@@ -67,6 +73,12 @@ public class FormAdmin extends JFrame{
         deleteUserButtonPanel.add(deleteButton);
         buttonPanel.add(deleteUserButtonPanel);
         deleteButton.addActionListener(new deleteAction());
+
+        JPanel updateUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        updateUserButtonPanel.add(updateButton);
+        buttonPanel.add(updateUserButtonPanel);
+        //deleteButton.addActionListener(new deleteAction());
+
 
         // Ajouter le bouton "Menu" aligné à gauche
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));

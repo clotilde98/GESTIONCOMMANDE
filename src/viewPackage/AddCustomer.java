@@ -181,19 +181,19 @@ public class AddCustomer extends  JFrame{
         public void actionPerformed(ActionEvent e) {
             try {
                 String firstName = (firstNameField.getText());
-                String lastName = validateRequiredField(lastNameField.getText(),"Nom");
+                String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
-                String phoneNumber = validatePhoneNumberField(phoneNumberField.getText(),"Numéro de Téléphone");
-                String password = validatePassword(passwordField.getText(),"password");
+                String phoneNumber = CustomUtilities.validatePhoneNumberField(phoneNumberField.getText(),"Numéro de Téléphone");
+                String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
-                Date birthdayDay = validateDate(birthdayDate.getText(), "Date de naissance");
+                Date birthdayDay = CustomUtilities.validateDate(birthdayDate.getText(), "Date de naissance");
                 boolean isAdmin = validateAdminStatus(yesAdmin.isSelected(),noAdmin.isSelected());
                 boolean isAdherent = validateAdherentStatus(yesAdherent.isSelected(),noAdherent.isSelected());
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
-                validateRequiredLocality(locality, "Localite");
-                String street = validateRequiredField(streetField.getText(), "Rue");
-                int streetNumber = validateNumericField(streetNumberField.getText(), "Numéro de rue");
-                int numberSponsorised = validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
+                CustomUtilities.validateRequiredLocality(locality, "Localite");
+                String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
+                int streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
+                int numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
                 Customer customer = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
                         isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
@@ -238,124 +238,6 @@ public class AddCustomer extends  JFrame{
 
         return comboBoxModel;
     }
-
-
-    private void validateRequiredLocality(Locality selectedItem, String fieldName) throws customExceptions {
-        if (selectedItem == null) {
-            String message = "Le champ " + fieldName + " est obligatoire";
-            throw new customExceptions(message);
-        }
-
-
-    }
-
-    // Méthodes utilitaires de validation
-
-    private String validateRequiredField(String field, String fieldName) throws customExceptions {
-        if (field.isEmpty()) {
-            String message ="Le champ " + fieldName + " est obligatoire";
-            throw new customExceptions(message);
-        }
-        return field;
-    }
-
-
-
-    private String validatePassword(String password,String fieldName) throws InvalidPasswordFormatException, customExceptions {
-        // Vérifiez d'abord si le champ est vide
-        if (password.isEmpty()) {
-            String message = "Le champ " + fieldName + " est obligatoire.";
-            throw new customExceptions(message);
-        }
-
-        // Vérifiez la longueur minimale du mot de passe
-        if (password.length() < 8) {
-            String message =fieldName + " doit contenir au moins 8 caractères.";
-            throw new InvalidPasswordFormatException(message);
-        }
-
-        // Vérifiez s'il contient au moins une majuscule
-        if (!password.matches(".*[A-Z].*")) {
-            String message ="Le mot de passe doit contenir au moins une majuscule";
-            throw new InvalidPasswordFormatException(message);
-        }
-
-        // Vérifiez s'il contient au moins un chiffre
-        if (!password.matches(".*\\d.*")) {
-            String message ="Le mot de passe doit contenir au moins un chiffre.";
-            throw new InvalidPasswordFormatException(message);
-        }
-
-        // Vérifiez s'il contient au moins une lettre
-        if (!password.matches(".*[a-zA-Z].*")) {
-            String message ="Le mot de passe doit contenir au moins une lettre.";
-            throw new InvalidPasswordFormatException(message);
-        }
-
-        // Vérifiez s'il contient au moins un caractère spécial
-        if (!password.matches(".*[!@#$%^&*()-+].*")) {
-            String message ="Le mot de passe doit contenir au moins un caractère spécial.";
-            throw new InvalidPasswordFormatException(message);
-        }
-
-        return password;
-    }
-
-    private Date validateDate(String dateStr, String fieldName) throws customExceptions {
-        if (fieldName.isEmpty()) {
-            String message = "Le champ " + fieldName + " est obligatoire.";
-            throw new customExceptions(message);
-        }
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            sdf.setLenient(false); // La date doit être valide
-            return sdf.parse(dateStr);
-        } catch (ParseException e) {
-            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy-MM-dd.");
-        }
-    }
-
-    private int validateNumericField(String numStr, String fieldName) throws customExceptions {
-        // Vérifiez d'abord si le champ est vide
-        if (numStr.isEmpty()) {
-            String message ="Le champ " + fieldName + " est obligatoire.";
-            throw new customExceptions(message);
-        }
-
-        try {
-            // Essayez de convertir le champ en nombre entier
-            return Integer.parseInt(numStr);
-        } catch (NumberFormatException e) {
-            String message ="Format de " + fieldName + " invalide. Entrez un nombre entier.";
-            throw new customExceptions(message);
-        }
-    }
-
-    private boolean validateAdminStatus(boolean selected, boolean noAdminSelected) throws customExceptions {
-        // Vérifiez d'abord si l'une des options a été sélectionnée
-        if (!yesAdmin.isSelected() && !noAdmin.isSelected()) {
-            String message = "Le champ Est administrateur est obligatoire.";
-            throw new customExceptions(message);
-        }
-
-        // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
-        return yesAdmin.isSelected();
-
-    }
-
-    private String validatePhoneNumberField(String phoneNumberStr, String fieldName) throws customExceptions {
-        // Vérifiez d'abord si le champ est vide
-
-
-        // Vérifiez si le numéro de téléphone contient uniquement des chiffres
-        if (!phoneNumberStr.matches("\\d+")) {
-            String message = "Format de " + fieldName + " invalide. Entrez un numéro de téléphone valide (chiffres uniquement).";
-            throw new customExceptions(message);
-        }
-
-        return phoneNumberStr;
-    }
-
     private boolean validateAdherentStatus(boolean selected, boolean noAdherentSelected) throws customExceptions {
         // Vérifiez d'abord si l'une des options a été sélectionnée
         if (!yesAdherent.isSelected() && !noAdherent.isSelected()) {
@@ -377,6 +259,18 @@ public class AddCustomer extends  JFrame{
 
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
         return maleRadioButton.isSelected();
+
+    }
+
+    private boolean validateAdminStatus(boolean selected, boolean noAdminSelected) throws customExceptions {
+        // Vérifiez d'abord si l'une des options a été sélectionnée
+        if (!yesAdmin.isSelected() && !noAdmin.isSelected()) {
+            String message = "Le champ Est administrateur est obligatoire.";
+            throw new customExceptions(message);
+        }
+
+        // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
+        return yesAdmin.isSelected();
 
     }
 

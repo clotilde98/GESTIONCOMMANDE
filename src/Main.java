@@ -12,8 +12,8 @@ Main extends JFrame{
 
     public static void main (String []args) {
 
-        Login login = new Login();
-        //Menu menu = new Menu();
+        //Login login = new Login();
+        Menu menu = new Menu();
         //Invoice
         //TempSearchOneFrame temp = new TempSearchOneFrame(3);
         //Product History
