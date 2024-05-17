@@ -34,6 +34,7 @@ public class Customer {
         setStreet(street);
         setStreetNumber(streetNumber);
         setNumberSponsorised(numberSponsorised);
+        setNumber(number);
 
     }
 
@@ -147,4 +148,6 @@ public class Customer {
     public Integer getNumberSponsorised() {
         return numberSponsorised;
     }
+
+
 }

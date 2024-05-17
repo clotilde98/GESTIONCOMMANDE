@@ -42,10 +42,14 @@ public class ApplicationController {
     }
 
     public void deleteCustomer(int number){ customerManager.deleteCustomer(number);}
-    public void updateCustomer(Customer customer){ customerManager.updateCustomer(customer);}
+    public void updateCustomer(Customer customer,int customerId){ customerManager.updateCustomer( customer,customerId);}
 
     public Customer getUser(String email, String password) throws InvalidDataLoginException {
         return customerManager.getUSer(email,password);
+    }
+
+    public Customer getCustomer(Integer customerNumber)  {
+        return customerManager.getCustomer(customerNumber);
     }
 
     //Locality Manager

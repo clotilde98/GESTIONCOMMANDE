@@ -37,11 +37,15 @@ public class CustomerManager {
 
     public void deleteCustomer(int number){ dao.deleteCustomer(number);}
 
-    public void updateCustomer(Customer customer){
-        dao.updateCustomer(customer);
+    public void updateCustomer(Customer customer,int customerId){
+        dao.updateCustomer(customer,customerId);
     }
 
     public Customer getUSer(String email, String password) throws InvalidDataLoginException {
         return dao.getUser(email,password);
+    }
+
+    public Customer getCustomer(Integer customerNumber)  {
+        return dao.getCustomer(customerNumber);
     }
 }

@@ -4,10 +4,7 @@ import exceptionPackage.InvalidDataLoginException;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,8 +21,8 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
         // Remplacer les points d'interrogation par les valeurs réelles des champs
-        statement.setString(1, customer.getFirstName());
-        statement.setString(2, customer.getLastName());
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getLastName());
         statement.setString(3, customer.getEmail());
         statement.setString(4, customer.getPhoneNumber());
         statement.setString(5, customer.getPassword());
@@ -53,9 +50,51 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     public Customer getCustomer(Integer customerNumber) {
 
+        Customer customer = null;
         Connection connection = SingletonConnection.getInstance();
 
-        return null;
+        try {
+            String sqlInstruction = "SELECT * FROM customer WHERE number = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+            statement.setInt(1, customerNumber);
+
+
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+
+            String first_name = resultSet.getString("first_name");
+            String last_name = resultSet.getString("last_name");
+            String email = resultSet.getString("email");
+            String phone_number = resultSet.getString("phone_number");
+            String password =resultSet.getString("password");
+            String genderString = resultSet.getString("gender");
+            char gender = genderString.charAt(0);
+            Date birthday =resultSet.getDate("birthday");
+            boolean is_admin =resultSet.getBoolean("is_admin");
+            boolean is_adherent =resultSet.getBoolean("is_adherent");
+
+                Integer localityId = resultSet.getInt("locality");
+
+            LocalityDBAccess localityDBAccess = new LocalityDBAccess();
+            Locality locality = localityDBAccess.getLocality(localityId);
+
+            String street =resultSet.getString("street");
+            Integer street_number =resultSet.getInt("street_number");
+            Integer number_sponsorised =resultSet.getInt("number_sponsorised");
+            Integer number = resultSet.getInt("number");
+
+                customer = new Customer(first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
+                customer.setNumber(number);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return customer;
     }
 
     public ArrayList<Customer> getAllCustomers() {
@@ -89,7 +128,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
                 boolean is_adherent =resultSet.getBoolean("is_adherent");
 
                 // Récupérer l'ID de la localité du client
-                int localityId = resultSet.getInt("locality");
+                Integer localityId = resultSet.getInt("locality");
 
                 // Utiliser la méthode getLocality() de LocalityDBAccess pour récupérer la localité
                 LocalityDBAccess localityDBAccess = new LocalityDBAccess();
@@ -97,8 +136,8 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
 
                 String street =resultSet.getString("street");
-                int street_number =resultSet.getInt("street_number");
-                int number_sponsorised =resultSet.getInt("number_sponsorised");
+                Integer street_number =resultSet.getInt("street_number");
+                Integer number_sponsorised =resultSet.getInt("number_sponsorised");
                 Integer number = resultSet.getInt("number");
 
                 Customer customer = new Customer( first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
@@ -112,13 +151,11 @@ public class CustomerDBAccess implements CustomerDataAccess{
             return customers;
         }
 
-    public void updateCustomer(Customer customer) {
+    public void updateCustomer(Customer customer,int customerId) {
 
         Connection connection = SingletonConnection.getInstance();
 
-        String sql = "update customer set first_name = ?, last_name = ?, email = ?, phone_number = ?, password = ?, gender = ?, " +
-                "birthday = ?, is_admin= ?, is_adherent = ?, locality = ?, street = ?, street_number =?, number_sponsorised = ?) " +
-                "where number = ?";
+        String sql = "UPDATE customer SET first_name = ?, last_name = ?, email = ?, phone_number = ?, password = ?, gender = ?, birthday = ?, is_admin = ?, is_adherent = ?, locality = ?, street = ?, street_number = ?, number_sponsorised = ? WHERE number = ?";
 
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -138,9 +175,10 @@ public class CustomerDBAccess implements CustomerDataAccess{
             statement.setString(11, customer.getStreet());
             statement.setInt(12, customer.getStreetNumber());
             statement.setInt(13, customer.getNumberSponsorised());
-            statement.setInt(14,customer.getNumber());
+            statement.setInt(14, customerId);
 
-            statement.executeUpdate();
+           statement.executeUpdate();
+
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
@@ -157,6 +195,8 @@ public class CustomerDBAccess implements CustomerDataAccess{
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, customerNumber);
+
+
 
             statement.executeUpdate();
 

@@ -2,7 +2,6 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
-import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.customExceptions;
 import modelPackage.Customer;
 import modelPackage.Locality;
@@ -14,13 +13,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 public class AddCustomer extends  JFrame{
+
     private JButton addButton;
+
+    private JButton updateButton;
 
     private JTextField firstNameField, lastNameField, emailField, phoneNumberField, passwordField;
     private JRadioButton maleRadioButton, femaleRadioButton;
@@ -38,8 +40,11 @@ public class AddCustomer extends  JFrame{
 
     private ApplicationController controller;
 
+    private Customer customer;
+
 
     public  AddCustomer() throws SQLException {
+
         setController(new ApplicationController());
 
         setBounds(100, 100, 800, 800);
@@ -49,14 +54,27 @@ public class AddCustomer extends  JFrame{
         addButton = new JButton("Ajouter");
         addButton.addActionListener(new AddCustomer.actionnouveau());
 
+        updateButton = new JButton("Modifier");
+
         Font buttonFont = new Font("Arial", Font.PLAIN, 12);
         addButton.setFont(buttonFont);
+        updateButton.setFont(buttonFont);
+
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
+
         buttonPanel.setBorder(new EmptyBorder(40, 40, 40, 40));
         buttonPanel.setBackground(Color.LIGHT_GRAY);
         buttonPanel.add(addButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        buttonPanel.add(updateButton);
+        updateButton.addActionListener(new updateAction());
+
+        disableUpdateButton();
+
+
 
         JPanel textFieldPanel = new JPanel();
         textFieldPanel.setLayout(new GridLayout(14, 2, 10, 10));
@@ -154,7 +172,6 @@ public class AddCustomer extends  JFrame{
 
 
 
-
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(buttonPanel, BorderLayout.WEST);
@@ -170,6 +187,17 @@ public class AddCustomer extends  JFrame{
         setResizable(false);
     }
 
+    public void disableUpdateButton() {
+        updateButton.setEnabled(false);
+    }
+
+    public void disableaddButton() {
+        addButton.setEnabled(false);
+    }
+
+    public void enableUpdateButton() {
+        updateButton.setEnabled(true);
+    }
 
     private void setController(ApplicationController controller) {
         this.controller = controller;
@@ -224,10 +252,55 @@ public class AddCustomer extends  JFrame{
         }
 
 
-
-
     }
 
+    public class updateAction implements ActionListener {
+        int customerId = FormAdmin.retournerID();
+        public void actionPerformed(ActionEvent e) {
+            try {
+                String firstName = (firstNameField.getText());
+                String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
+                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
+                String phoneNumber = (phoneNumberField.getText());
+                String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
+                char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
+                String birthdayDayString = birthdayDate.getText();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                Date birthdayDay = null;
+                try {
+                    birthdayDay = dateFormat.parse(birthdayDayString);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                    // Gérer l'erreur de conversion de la date
+                }
+
+                boolean isAdmin = validateAdminStatus(yesAdmin.isSelected(),noAdmin.isSelected());
+                boolean isAdherent = validateAdherentStatus(yesAdherent.isSelected(),noAdherent.isSelected());
+                Locality locality = (Locality) localityComboBox.getSelectedItem();
+                CustomUtilities.validateRequiredLocality(locality, "Localite");
+                String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
+                int streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
+                int numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
+
+
+
+                Customer customer1 = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
+                        isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
+                System.out.println("ID du client à mettre à jour : " + customerId);
+                controller.updateCustomer(customer1, customerId);
+
+                // Afficher un message de succès
+                JOptionPane.showMessageDialog(AddCustomer.this, "Client mis à jour avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+                FormAdmin formAdmin = new FormAdmin();
+                formAdmin.setVisible(true); // Rendre la fenêtre FormAdmin visible
+                setVisible(false);
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(AddCustomer.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     public DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
 
         // Récupérer toutes les localités depuis la base de données
@@ -295,7 +368,33 @@ public class AddCustomer extends  JFrame{
 
         }
 
-
     }
+
+    public void afficherDonneesClient(Customer customer) {
+
+
+        firstNameField.setText(customer.getFirstName());
+        lastNameField.setText(customer.getLastName());
+        emailField.setText(customer.getEmail());
+        phoneNumberField.setText(customer.getPhoneNumber());
+        passwordField.setText(customer.getPassword());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String formattedDate = dateFormat.format(customer.getBirthday());
+        birthdayDate.setText(formattedDate);
+
+        maleRadioButton.setSelected(customer.getGender() == 'M');
+        femaleRadioButton.setSelected(customer.getGender() == 'F');
+        yesAdmin.setSelected(Boolean.TRUE.equals(customer.getIsAdmin()));
+        noAdmin.setSelected(!Boolean.TRUE.equals(customer.getIsAdmin()));
+        yesAdherent.setSelected(Boolean.TRUE.equals(customer.getIsAdherent()));
+        noAdherent.setSelected(!Boolean.TRUE.equals(customer.getIsAdherent()));
+        localityComboBox.setSelectedItem(customer.getLocality().getCity());
+        streetField.setText(customer.getStreet());
+        streetNumberField.setText(String.valueOf(customer.getStreetNumber()));
+        numberSponsorisedField.setText(String.valueOf(customer.getNumberSponsorised()));
+    }
+
+
 
 }

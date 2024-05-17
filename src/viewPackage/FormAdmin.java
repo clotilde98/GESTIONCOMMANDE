@@ -21,8 +21,8 @@ public class FormAdmin extends JFrame{
 
     private Container mainContainer;
 
-    private JTable customerTable;
-    private ArrayList<Customer> customers;
+    private static JTable customerTable;
+    private static ArrayList<Customer> customers;
 
     private CustomerTableModel tableModel;
 
@@ -77,7 +77,7 @@ public class FormAdmin extends JFrame{
         JPanel updateUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         updateUserButtonPanel.add(updateButton);
         buttonPanel.add(updateUserButtonPanel);
-        //deleteButton.addActionListener(new deleteAction());
+        updateButton.addActionListener(new updateAction());
 
 
         // Ajouter le bouton "Menu" aligné à gauche
@@ -113,13 +113,14 @@ public class FormAdmin extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            AddCustomer addUsers = null;
+
             try {
-                addUsers = new AddCustomer();
+                AddCustomer addUsers = new AddCustomer();
+                addUsers.setVisible(true);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            addUsers.setVisible(true); // Rendre la fenêtre visible
+             // Rendre la fenêtre visible
             setVisible(false);
 
         }
@@ -128,15 +129,60 @@ public class FormAdmin extends JFrame{
     public class deleteAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (customerTable.getSelectedRow() == -1) {
+                // Aucune ligne n'est sélectionnée, afficher un message d'avertissement
+                JOptionPane.showMessageDialog(null, "Veuillez sélectionner un client à supprimer.", "Aucune sélection", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int confirmation = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer ce client ?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
+            if (confirmation == JOptionPane.YES_OPTION) {
             int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
 
             controller.deleteCustomer(customerNumber);
 
             customers.remove(customerTable.getSelectedRow());
             tableModel.fireTableDataChanged();
+                JOptionPane.showMessageDialog(null, "Client supprimé avec succès.", "Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
+
+            }
         }
     }
 
+    public class updateAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (customerTable.getSelectedRow() == -1) {
+                // Aucune ligne n'est sélectionnée, afficher un message d'avertissement
+                JOptionPane.showMessageDialog(null, "Veuillez sélectionner un client à modifier.", "Aucune sélection", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
+
+           Customer customer = controller.getCustomer(customerNumber);
+
+            try {
+                AddCustomer  addCustomer = new AddCustomer();
+                addCustomer.setVisible(true);
+                addCustomer.enableUpdateButton();
+                addCustomer.disableaddButton();
+                addCustomer.afficherDonneesClient(customer);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            setVisible(false);
+        }
+        }
+
+    public static int retournerID() {
+        int selectedRowIndex = customerTable.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            return customers.get(selectedRowIndex).getNumber();
+        } else {
+            // Gérer le cas où aucune ligne n'est sélectionnée dans la table
+            return -1; // Ou tout autre valeur de retour par défaut appropriée
+        }
+    }
 
     public class menuAction implements ActionListener {
         @Override
