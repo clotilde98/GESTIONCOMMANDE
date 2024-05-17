@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FormAdmin extends JFrame{
+public class FormAdmin extends JPanel{
 
     private JButton addButton;
     private JButton deleteButton;
@@ -35,14 +35,14 @@ public class FormAdmin extends JFrame{
 
 
         setBounds(100, 100, 500, 500);
-        mainContainer = this.getContentPane();
-        mainContainer.setLayout(new BorderLayout());
+
+        setLayout(new BorderLayout());
 
         addButton = new JButton("Ajouter Client");
         deleteButton = new JButton("Supprimer Client");
         updateButton = new JButton("Modifier Client");
 
-        menu = new JButton("Menu");
+        menu = new JButton("Actualiser");
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
@@ -93,17 +93,16 @@ public class FormAdmin extends JFrame{
 
         JScrollPane scrollPane = new JScrollPane(customerTable);
 
-        mainContainer.add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
 
-        mainContainer.add(buttonPanel, BorderLayout.WEST);
+        add(buttonPanel, BorderLayout.WEST);
 
-        setTitle("Gestion des clients");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setSize(1280, 720);
         setVisible(true);
-        setResizable(true);
 
- }
+
+    }
 
     private void setController(ApplicationController controller) {
         this.controller = controller;
@@ -120,8 +119,8 @@ public class FormAdmin extends JFrame{
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-             // Rendre la fenêtre visible
-            setVisible(false);
+            // Rendre la fenêtre visible
+
 
         }
     }
@@ -136,12 +135,12 @@ public class FormAdmin extends JFrame{
             }
             int confirmation = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer ce client ?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
             if (confirmation == JOptionPane.YES_OPTION) {
-            int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
+                int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
 
-            controller.deleteCustomer(customerNumber);
+                controller.deleteCustomer(customerNumber);
 
-            customers.remove(customerTable.getSelectedRow());
-            tableModel.fireTableDataChanged();
+                customers.remove(customerTable.getSelectedRow());
+                tableModel.fireTableDataChanged();
                 JOptionPane.showMessageDialog(null, "Client supprimé avec succès.", "Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
 
             }
@@ -158,7 +157,7 @@ public class FormAdmin extends JFrame{
             }
             int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
 
-           Customer customer = controller.getCustomer(customerNumber);
+            Customer customer = controller.getCustomer(customerNumber);
 
             try {
                 AddCustomer  addCustomer = new AddCustomer();
@@ -172,7 +171,7 @@ public class FormAdmin extends JFrame{
 
             setVisible(false);
         }
-        }
+    }
 
     public static int retournerID() {
         int selectedRowIndex = customerTable.getSelectedRow();

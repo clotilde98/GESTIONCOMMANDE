@@ -243,7 +243,7 @@ public class AddCustomer extends  JFrame{
                 streetField.setText("");
                 streetNumberField.setText("");
                 numberSponsorisedField.setText("");
-
+                setVisible(false);
 
             } catch (Exception ex) {
 
@@ -286,7 +286,6 @@ public class AddCustomer extends  JFrame{
 
                 Customer customer1 = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
                         isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
-                System.out.println("ID du client à mettre à jour : " + customerId);
                 controller.updateCustomer(customer1, customerId);
 
                 // Afficher un message de succès
