@@ -255,15 +255,22 @@ public class AddCustomer extends  JFrame{
     }
 
     public class updateAction implements ActionListener {
-        int customerId = FormAdmin.retournerID();
+
+        Customer customer = FormAdmin.returnCustomer();
+
         public void actionPerformed(ActionEvent e) {
+
             try {
-                String firstName = (firstNameField.getText());
-                String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
-                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
-                String phoneNumber = (phoneNumberField.getText());
+                customer.setFirstName(firstNameField.getText());
+                customer.setLastName(lastNameField.getText());
+                customer.setEmail(emailField.getText());
+                customer.setPhoneNumber(phoneNumberField.getText());
+                customer.setStreet(streetField.getText());
+
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
+                customer.setPassword(password);
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
+                customer.setGender(gender);
                 String birthdayDayString = birthdayDate.getText();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 Date birthdayDay = null;
@@ -274,19 +281,23 @@ public class AddCustomer extends  JFrame{
                     // Gérer l'erreur de conversion de la date
                 }
 
+                customer.setBirthday(birthdayDay);
+
                 boolean isAdmin = validateAdminStatus(yesAdmin.isSelected(),noAdmin.isSelected());
                 boolean isAdherent = validateAdherentStatus(yesAdherent.isSelected(),noAdherent.isSelected());
+
+                customer.setIsAdmin(isAdmin);
+                customer.setIsAdherent(isAdherent);
+
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
                 CustomUtilities.validateRequiredLocality(locality, "Localite");
-                String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
                 int streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
                 int numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
+                customer.setStreetNumber(streetNumber);
+                customer.setNumberSponsorised(numberSponsorised);
 
-
-                Customer customer1 = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
-                        isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
-                controller.updateCustomer(customer1, customerId);
+                controller.updateCustomer(customer);
 
                 // Afficher un message de succès
                 JOptionPane.showMessageDialog(AddCustomer.this, "Client mis à jour avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);

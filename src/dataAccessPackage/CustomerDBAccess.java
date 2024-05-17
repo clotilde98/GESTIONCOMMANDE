@@ -151,7 +151,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
             return customers;
         }
 
-    public void updateCustomer(Customer customer,int customerId) {
+    public void updateCustomer(Customer customer) {
 
         Connection connection = SingletonConnection.getInstance();
 
@@ -175,7 +175,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
             statement.setString(11, customer.getStreet());
             statement.setInt(12, customer.getStreetNumber());
             statement.setInt(13, customer.getNumberSponsorised());
-            statement.setInt(14, customerId);
+            statement.setInt(14, customer.getNumber());
 
            statement.executeUpdate();
 
