@@ -173,7 +173,15 @@ public class FormAdmin extends JPanel{
         }
     }
 
-
+    public static Customer returnCustomer() {
+        int selectedRowIndex = customerTable.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            return customers.get(selectedRowIndex);
+        } else {
+            // Gérer le cas où aucune ligne n'est sélectionnée dans la table
+            return null; // Ou tout autre valeur de retour par défaut appropriée
+        }
+    }
 
     public class menuAction implements ActionListener {
         @Override
