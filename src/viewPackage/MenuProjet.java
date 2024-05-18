@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class MenuProjet extends JFrame {
 
     private JMenuBar menuBar;
-    private JMenu applicationMenu, CustomersMenu ,rechercheMenu ;
+    private JMenu applicationMenu, CustomersMenu ,SearchMenu ;
 
-    private JMenuItem Quitter ,CustomersItem,addCustomerItem,IESN,Aide;
+    private JMenuItem Quitter ,CustomersItem,addCustomerItem,CustomerProductItem,CustomerInvoiceItem,InfoProductItem;
     private Container mainContainer;
 
 
@@ -21,12 +21,12 @@ public class MenuProjet extends JFrame {
 
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
-        applicationMenu = new JMenu("Application");
+        applicationMenu = new JMenu("APPLICATION");
         CustomersMenu = new JMenu("GESTION UTILISATEURS");
-        rechercheMenu = new JMenu("RECHERCHES");
+        SearchMenu = new JMenu("RECHERCHES");
         menuBar.add(applicationMenu);
         menuBar.add(CustomersMenu);
-        menuBar.add(rechercheMenu);
+        menuBar.add(SearchMenu);
 
 
 
@@ -56,12 +56,17 @@ public class MenuProjet extends JFrame {
         addCustomerItem.addActionListener(new addCustomerAction());
 
 
-        rechercheMenu.addSeparator();
 
-        Aide= new JMenuItem("Aide");
-        rechercheMenu.add(Aide);
-        //Associe l’écouteur d’évènement aux composants à écouter
-       // Aide.addActionListener(new AideAction());
+
+        CustomerProductItem = new JMenuItem("Historique des produits commandés par un client");
+        SearchMenu.add(CustomerProductItem);
+        SearchMenu.addSeparator();
+        CustomerInvoiceItem = new JMenuItem("Liste des factures d’un client");
+        SearchMenu.add(CustomerInvoiceItem);
+        SearchMenu.addSeparator();
+
+        InfoProductItem = new JMenuItem("Information des produits en fonction d’un prix");
+        SearchMenu.add(InfoProductItem);
 
 
     }
