@@ -18,7 +18,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 
-public class AddCustomer extends  JFrame{
+public class AddCustomer extends  JPanel{
 
     private JButton addButton;
 
@@ -48,8 +48,8 @@ public class AddCustomer extends  JFrame{
         setController(new ApplicationController());
 
         setBounds(100, 100, 800, 800);
-        mainContainer = this.getContentPane();
-        mainContainer.setLayout(new BorderLayout());
+
+       setLayout(new BorderLayout());
 
         addButton = new JButton("Ajouter");
         addButton.addActionListener(new AddCustomer.actionnouveau());
@@ -160,16 +160,6 @@ public class AddCustomer extends  JFrame{
         bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         bottomPanel.setBackground(Color.LIGHT_GRAY);
 
-        JButton menuButton = new JButton("Menu");
-
-        bottomPanel.add(menuButton);
-        menuButton.addActionListener(new menuAction());
-
-        JButton logoutButton = new JButton("Se déconnecter");
-
-        bottomPanel.add(logoutButton);
-        logoutButton.addActionListener(new logoutAction());
-
 
 
         JPanel mainPanel = new JPanel();
@@ -179,12 +169,10 @@ public class AddCustomer extends  JFrame{
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
-
-        setTitle("Formulaire Utilisateur");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 600);
         setVisible(true);
-        setResizable(false);
+
+
     }
 
     public void disableUpdateButton() {
@@ -357,28 +345,8 @@ public class AddCustomer extends  JFrame{
 
     }
 
-    public class logoutAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            Login login = new Login();
-            login.setVisible(true); // Rendre la fenêtre visible
-            setVisible(false);
 
-        }
-    }
 
-    public class menuAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            Menu menu = new Menu();
-            menu.setVisible(true); // Rendre la fenêtre visible
-            setVisible(false);
-
-        }
-
-    }
 
     public void afficherDonneesClient(Customer customer) {
 

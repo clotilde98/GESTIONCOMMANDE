@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TempSearchThree extends JFrame{
     private Container mainContainer;
-    private JButton menu;
+
 
     private JTable searchTable;
 
@@ -27,16 +27,16 @@ public class TempSearchThree extends JFrame{
         mainContainer.setLayout(new BorderLayout());
 
         //addButton = new JButton("Ajouter Utilisateur");
-        menu = new JButton("Menu");
+        //menu = new JButton("Menu");
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
         //addButton.setFont(buttonFont);
-        menu.setFont(buttonFont);
+        //menu.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
         //addButton.setPreferredSize(buttonSize);
-        menu.setPreferredSize(buttonSize);
+        //menu.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons
         JPanel buttonPanel = new JPanel();
@@ -46,9 +46,9 @@ public class TempSearchThree extends JFrame{
 
         // Ajouter le bouton "Menu" aligné à gauche
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        menuButtonPanel.add(menu);
+        //menuButtonPanel.add(menu);
         buttonPanel.add(menuButtonPanel);
-        menu.addActionListener(new TempSearchThree.menuAction());
+        //menu.addActionListener(new TempSearchThree.menuAction());
 
 
         ArrayList<SearchProductInfo> lists = controller.searchProductInfos(price);
@@ -73,14 +73,5 @@ public class TempSearchThree extends JFrame{
         this.controller = controller;
     }
 
-    public class menuAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            Menu menu = new Menu();
-            menu.setVisible(true); // Rendre la fenêtre visible
-            setVisible(false);
 
-        }
-    }
 }

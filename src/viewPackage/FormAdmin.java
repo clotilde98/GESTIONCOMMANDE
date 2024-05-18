@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class FormAdmin extends JPanel{
 
-    private JButton addButton;
+
     private JButton deleteButton;
     private JButton menu;
 
@@ -30,7 +30,10 @@ public class FormAdmin extends JPanel{
 
 
 
+
     public FormAdmin() throws SQLException {
+
+
         setController(new ApplicationController());
 
 
@@ -38,7 +41,7 @@ public class FormAdmin extends JPanel{
 
         setLayout(new BorderLayout());
 
-        addButton = new JButton("Ajouter Client");
+
         deleteButton = new JButton("Supprimer Client");
         updateButton = new JButton("Modifier Client");
 
@@ -46,13 +49,12 @@ public class FormAdmin extends JPanel{
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
-        addButton.setFont(buttonFont);
+
         deleteButton.setFont(buttonFont);
         menu.setFont(buttonFont);
         updateButton.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
-        addButton.setPreferredSize(buttonSize);
         deleteButton.setPreferredSize(buttonSize);
         menu.setPreferredSize(buttonSize);
         updateButton.setPreferredSize(buttonSize);
@@ -65,9 +67,8 @@ public class FormAdmin extends JPanel{
 
         // Ajouter le bouton "Ajouter Utilisateur" aligné à gauche
         JPanel newUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        newUserButtonPanel.add(addButton);
         buttonPanel.add(newUserButtonPanel);
-        addButton.addActionListener(new nouveauAction());
+
 
         JPanel deleteUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         deleteUserButtonPanel.add(deleteButton);
@@ -84,7 +85,7 @@ public class FormAdmin extends JPanel{
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         menuButtonPanel.add(menu);
         buttonPanel.add(menuButtonPanel);
-        menu.addActionListener(new menuAction());
+        //menu.addActionListener(new menuAction());
 
         customers = controller.getAllCustomers();
         tableModel = new CustomerTableModel(customers);
@@ -108,22 +109,7 @@ public class FormAdmin extends JPanel{
         this.controller = controller;
     }
 
-    public class nouveauAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
 
-            try {
-                AddCustomer addUsers = new AddCustomer();
-                addUsers.setVisible(true);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-            // Rendre la fenêtre visible
-
-
-        }
-    }
 
     public class deleteAction implements ActionListener {
         @Override
@@ -174,25 +160,17 @@ public class FormAdmin extends JPanel{
     }
 
     public static Customer returnCustomer() {
-        int selectedRowIndex = customerTable.getSelectedRow();
-        if (selectedRowIndex != -1) {
-            return customers.get(selectedRowIndex);
-        } else {
-            // Gérer le cas où aucune ligne n'est sélectionnée dans la table
-            return null; // Ou tout autre valeur de retour par défaut appropriée
+        if (customerTable != null) {
+            int selectedRowIndex = customerTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+                return customers.get(selectedRowIndex);
+            }
         }
+        // Gérer le cas où la table ou aucune ligne n'est sélectionnée
+        return null;
     }
 
-    public class menuAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            Menu menu = new Menu();
-            menu.setVisible(true); // Rendre la fenêtre visible
-            setVisible(false);
 
-        }
-    }
 
 }
 

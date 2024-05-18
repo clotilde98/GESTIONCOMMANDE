@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class MenuProjet extends JFrame {
 
     private JMenuBar menuBar;
-    private JMenu applicationMenu, utilisateursMenu ,rechercheMenu ;
+    private JMenu applicationMenu, CustomersMenu ,rechercheMenu ;
 
-    private JMenuItem Quitter ,utilisateurs,IESN,Aide;
+    private JMenuItem Quitter ,CustomersItem,addCustomerItem,IESN,Aide;
     private Container mainContainer;
 
 
@@ -22,10 +22,10 @@ public class MenuProjet extends JFrame {
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         applicationMenu = new JMenu("Application");
-        utilisateursMenu = new JMenu("GESTION UTILISATEURS");
+        CustomersMenu = new JMenu("GESTION UTILISATEURS");
         rechercheMenu = new JMenu("RECHERCHES");
         menuBar.add(applicationMenu);
-        menuBar.add(utilisateursMenu);
+        menuBar.add(CustomersMenu);
         menuBar.add(rechercheMenu);
 
 
@@ -45,9 +45,15 @@ public class MenuProjet extends JFrame {
 
 
 
-        utilisateurs = new JMenuItem("UTILISATEURS");
-        utilisateursMenu.add(utilisateurs);
-        utilisateurs.addActionListener(new formAction());
+        CustomersItem = new JMenuItem("UTILISATEURS");
+        CustomersMenu.add(CustomersItem);
+        CustomersItem.addActionListener(new formAction());
+
+        CustomersMenu.addSeparator();
+
+        addCustomerItem = new JMenuItem("AJOUTER CLIENT");
+        CustomersMenu.add(addCustomerItem);
+        addCustomerItem.addActionListener(new addCustomerAction());
 
 
         rechercheMenu.addSeparator();
@@ -79,15 +85,25 @@ public class MenuProjet extends JFrame {
 
         }
     }
-/*
 
-    public class iesnAction implements ActionListener {
+    public class addCustomerAction implements ActionListener {
         public void actionPerformed( ActionEvent event) {
-            getContentPane().removeAll();
-            getContentPane().add(new IesnInformation(), BorderLayout.CENTER);
-            revalidate();
+
+            try {
+                getContentPane().removeAll();
+                getContentPane().add(new AddCustomer(), BorderLayout.CENTER);
+                revalidate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
+
+
+/*
+
+
 
     public class AideAction implements ActionListener {
         public void actionPerformed( ActionEvent event) {

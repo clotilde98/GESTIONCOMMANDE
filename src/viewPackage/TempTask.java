@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class TempTask extends JFrame {
     private Container mainContainer;
-    private JButton menu;
+
 
     private JTable searchTable;
 
@@ -27,14 +27,14 @@ public class TempTask extends JFrame {
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
 
-        menu = new JButton("Menu");
+       // menu = new JButton("Menu");
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
-        menu.setFont(buttonFont);
+        //menu.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
-        menu.setPreferredSize(buttonSize);
+       // menu.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons
         JPanel buttonPanel = new JPanel();
@@ -44,9 +44,9 @@ public class TempTask extends JFrame {
 
         // Ajouter le bouton "Menu" aligné à gauche
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        menuButtonPanel.add(menu);
+      //  menuButtonPanel.add(menu);
         buttonPanel.add(menuButtonPanel);
-        menu.addActionListener(new TempTask.menuAction());
+        //menu.addActionListener(new TempTask.menuAction());
 
 
         ArrayList<SearchCommandInfo> lists = controller.searchTotalCommands(number,year);
@@ -76,14 +76,5 @@ public class TempTask extends JFrame {
         this.controller = controller;
     }
 
-    public class menuAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
-            Menu menu = new Menu();
-            menu.setVisible(true); // Rendre la fenêtre visible
-            setVisible(false);
 
-        }
-    }
 }
