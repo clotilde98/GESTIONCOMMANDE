@@ -15,22 +15,27 @@ public class LocalityDBAccess implements LocalityDataAccess{
 
 
 
-    public  Locality getLocality(Integer id) throws SQLException {
+    public  Locality getLocality(Integer id) {
 
-
+        Locality locality = null;
         String sqlInstruction = "select * from locality where id = ?";
 
-        PreparedStatement statement = connection.prepareStatement(sqlInstruction);
-        statement.setInt(1, id);
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+            statement.setInt(1, id);
 
-        ResultSet data = statement.executeQuery();
-        Locality locality = null;
-        if (data.next()) {
-            CountryDataAccess dao = new CountryDBAccess();
-            Country country = dao.getCountry(data.getString("country"));
-            locality = new Locality(data.getInt("id"), data.getString("city"), data.getInt("zip_code"), country);
+            ResultSet data = statement.executeQuery();
+            if (data.next()) {
+                CountryDataAccess dao = new CountryDBAccess();
+                Country country = dao.getCountry(data.getString("country"));
+                locality = new Locality(data.getInt("id"), data.getString("city"), data.getInt("zip_code"), country);
 
+            }
         }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return locality;
     }
 

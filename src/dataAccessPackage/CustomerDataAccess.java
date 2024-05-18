@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CustomerDataAccess {
-    void addCustomer(Customer customer) throws SQLException;
+    void addCustomer(Customer customer);
 
     Customer getCustomer(Integer customerNumber);
 

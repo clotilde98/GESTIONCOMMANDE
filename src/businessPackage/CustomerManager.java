@@ -21,13 +21,9 @@ public class CustomerManager {
 
     public void addCustomer(Customer customer){
 
-        try {
-            // Appel de la méthode addCustomer de CustomerDBAccess
-            dao.addCustomer(customer);
-        } catch (SQLException e) {
-            // Gestion de l'exception
-            e.printStackTrace();
-        }
+        // Appel de la méthode addCustomer de CustomerDBAccess
+        dao.addCustomer(customer);
+
 
     }
 

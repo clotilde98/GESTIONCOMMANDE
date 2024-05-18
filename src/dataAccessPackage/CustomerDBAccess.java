@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class CustomerDBAccess implements CustomerDataAccess{
 
-    public void addCustomer(Customer customer ) throws SQLException {
+    public void addCustomer(Customer customer ) {
 
         Connection connection = SingletonConnection.getInstance();
 
@@ -41,7 +41,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
         statement.executeUpdate();
 
     }catch (SQLException e) {
-            throw e;
+            throw new RuntimeException(e);
         }
 
 

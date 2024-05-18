@@ -1,8 +1,7 @@
 package controllerPackage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
 public class ClosingListener implements WindowListener {
     @Override
