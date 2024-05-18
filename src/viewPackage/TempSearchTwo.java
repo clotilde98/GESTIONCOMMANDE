@@ -27,16 +27,13 @@ public class TempSearchTwo extends JFrame{
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
 
-        //addButton = new JButton("Ajouter Utilisateur");
         menu = new JButton("Menu");
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
-        //addButton.setFont(buttonFont);
         menu.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
-        //addButton.setPreferredSize(buttonSize);
         menu.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons

@@ -109,8 +109,6 @@ public class CustomerDBAccess implements CustomerDataAccess{
             // Préparer la déclaration
             PreparedStatement statement = connection.prepareStatement(sql);
 
-
-
             // Exécuter la requête
             ResultSet resultSet = statement.executeQuery();
 
@@ -189,16 +187,25 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
         Connection connection = SingletonConnection.getInstance();
 
-        String sql = "delete from customer where number =?";
 
+        String sqlSelectCommandsToDelete = "select number from command where customer = ?";
+        String sqlDeleteCustomer = "delete from customer where number =?";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try {
 
-            statement.setInt(1, customerNumber);
+            PreparedStatement selectCommandsStatement = connection.prepareStatement(sqlSelectCommandsToDelete);
+            selectCommandsStatement.setInt(1,customerNumber);
 
+            ResultSet resultSet = selectCommandsStatement.executeQuery();
 
+            while (resultSet.next()){
+                int commandNumber = resultSet.getInt("number");
+                deleteCommand(commandNumber);
+            }
 
-            statement.executeUpdate();
+            PreparedStatement deleteStatement = connection.prepareStatement(sqlDeleteCustomer);
+            deleteStatement.setInt(1, customerNumber);
+            deleteStatement.executeUpdate();
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
@@ -255,6 +262,32 @@ public class CustomerDBAccess implements CustomerDataAccess{
     }
 
 
+    private void deleteCommand(int commandNumber){
 
+        Connection connection = SingletonConnection.getInstance();
+
+        String sqlInvoiceDelete = "delete from invoice where command = ?";
+        String sqlDeleteCommandsLigns = "delete from commandlign where number = ?";
+        String sqlDeleteCommand = "delete from command where number = ?";
+
+        try {
+            PreparedStatement deleteInvoiceStatement = connection.prepareStatement(sqlInvoiceDelete);
+            deleteInvoiceStatement.setInt(1, commandNumber);
+            deleteInvoiceStatement.executeUpdate();
+
+            PreparedStatement deleteLignStatement = connection.prepareStatement(sqlDeleteCommandsLigns);
+            deleteLignStatement.setInt(1,commandNumber);
+            deleteLignStatement.executeUpdate();
+
+            PreparedStatement deleteCommandStatement = connection.prepareStatement(sqlDeleteCommand);
+            deleteCommandStatement.setInt(1,commandNumber);
+            deleteCommandStatement.executeUpdate();
+
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

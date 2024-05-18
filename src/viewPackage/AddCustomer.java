@@ -382,7 +382,6 @@ public class AddCustomer extends  JFrame{
 
     public void afficherDonneesClient(Customer customer) {
 
-
         firstNameField.setText(customer.getFirstName());
         lastNameField.setText(customer.getLastName());
         emailField.setText(customer.getEmail());
@@ -404,7 +403,6 @@ public class AddCustomer extends  JFrame{
         streetNumberField.setText(String.valueOf(customer.getStreetNumber()));
         numberSponsorisedField.setText(String.valueOf(customer.getNumberSponsorised()));
     }
-
 
 
 }
