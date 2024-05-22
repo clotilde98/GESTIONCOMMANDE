@@ -29,6 +29,10 @@ public class MenuProjet extends JFrame {
         menuBar.add(SearchMenu);
 
 
+        JButton formAdminButton = new JButton("Open Admin Form");
+        formAdminButton.addActionListener(new formAction2());
+
+        add(formAdminButton);
 
         setBounds(100,100,1000,800);// Taille de la fenêtre
         mainContainer = this.getContentPane();
@@ -44,13 +48,13 @@ public class MenuProjet extends JFrame {
 
 
 
-        CustomersItem = new JMenuItem("UTILISATEURS");
+        CustomersItem = new JMenuItem("Utilisateurs");
         CustomersMenu.add(CustomersItem);
         CustomersItem.addActionListener(new formAction());
 
         CustomersMenu.addSeparator();
 
-        addCustomerItem = new JMenuItem("AJOUTER CLIENT");
+        addCustomerItem = new JMenuItem("Ajouter client");
         CustomersMenu.add(addCustomerItem);
         addCustomerItem.addActionListener(new addCustomerAction());
 
@@ -72,6 +76,8 @@ public class MenuProjet extends JFrame {
 
     }
 
+
+
     public class formAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -79,7 +85,7 @@ public class MenuProjet extends JFrame {
 
             try {
                 getContentPane().removeAll();
-                getContentPane().add(new FormAdmin(), BorderLayout.CENTER);
+                getContentPane().add(new FormAdmin(MenuProjet.this), BorderLayout.CENTER);
                 revalidate();
 
             } catch (SQLException ex) {
@@ -102,6 +108,29 @@ public class MenuProjet extends JFrame {
 
         }
     }
+
+    public class formAction2 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                getContentPane().removeAll();
+                FormAdmin formAdmin = new FormAdmin(MenuProjet.this); // Pass the reference correctly
+                getContentPane().add(formAdmin, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+
+    public void showAddCustomerForm(AddCustomer addCustomer) {
+        getContentPane().removeAll();
+        getContentPane().add(addCustomer, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
 
     public class quitterAction implements ActionListener {
         @Override

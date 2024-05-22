@@ -89,38 +89,46 @@ public class CustomUtilities {
 
         String[] dateComponents = dateStr.split("/");
         if (dateComponents.length != 3) {
-            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.");
+            String message ="Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.";
+
+            throw new customExceptions(message);
         }
 
         int year, month, day;
         try {
             year = Integer.parseInt(dateComponents[0]);
         } catch (NumberFormatException e) {
-            throw new customExceptions("L'année dans le champ " + fieldName + " est invalide.");
+            String message ="L'année dans le champ " + fieldName + " est invalide.";
+            throw new customExceptions(message);
         }
 
         try {
             month = Integer.parseInt(dateComponents[1]);
         } catch (NumberFormatException e) {
-            throw new customExceptions("Le mois dans le champ " + fieldName + " est invalide.");
+             String message ="Le mois dans le champ " + fieldName + " est invalide.";
+            throw new customExceptions(message);
         }
 
         try {
             day = Integer.parseInt(dateComponents[2]);
         } catch (NumberFormatException e) {
-            throw new customExceptions("Le jour dans le champ " + fieldName + " est invalide.");
+            String message ="Le jour dans le champ " + fieldName + " est invalide.";
+            throw new customExceptions(message);
         }
 
         if (month < 1 || month > 12) {
-            throw new customExceptions("Le mois dans le champ " + fieldName + " doit être entre 01 et 12.");
+            String message ="Le mois dans le champ " + fieldName + " doit être entre 01 et 12.";
+            throw new customExceptions(message);
         }
 
         if (day < 1 || day > 31) {
-            throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 31.");
+            String message = "Le jour dans le champ " + fieldName + " doit être entre 01 et 31.";
+            throw new customExceptions(message);
         }
 
         if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
-            throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 30 pour le mois " + month + ".");
+            String message = "Le jour dans le champ " + fieldName + " doit être entre 01 et 30 pour  le mois " + month ;
+            throw new customExceptions(message);
         }
 
 
@@ -128,11 +136,13 @@ public class CustomUtilities {
         if (month == 2) {
             if (isLeapYear(year)) {
                 if (day > 29) {
-                    throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 29 pour le mois de février dans une année bissextile.");
+                    String message ="Le jour dans le champ " + fieldName + " doit être entre 01 et 29 pour le mois de février dans une année bissextile.";
+                    throw new customExceptions(message);
                 }
             } else {
                 if (day > 28) {
-                    throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 28 pour le mois de février.");
+                    String message = "Le jour dans le champ " + fieldName + " doit être entre 01 et 28 pour le mois de février.";
+                    throw new customExceptions(message);
                 }
             }
         }
@@ -144,6 +154,7 @@ public class CustomUtilities {
         } catch (ParseException e) {
             throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.");
         }
+
 
 
     }

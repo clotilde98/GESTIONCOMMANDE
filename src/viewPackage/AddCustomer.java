@@ -208,8 +208,8 @@ public class AddCustomer extends  JPanel{
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
                 CustomUtilities.validateRequiredLocality(locality, "Localite");
                 String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
-                int streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
-                int numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
+                Integer streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
+                Integer numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
                 Customer customer = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
                         isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
@@ -259,11 +259,11 @@ public class AddCustomer extends  JPanel{
                 customer.setPassword(password);
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
                 customer.setGender(gender);
-                String birthdayDayString = birthdayDate.getText();
+                String birthdayDayString = (birthdayDate.getText());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                Date birthdayDay = null;
+                Date birthdayDay = CustomUtilities.validateDate(birthdayDayString,"Date de naissance");
                 try {
-                    birthdayDay = dateFormat.parse(birthdayDayString);
+                    birthdayDay = (dateFormat.parse(birthdayDayString));
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                     // Gérer l'erreur de conversion de la date
@@ -279,8 +279,9 @@ public class AddCustomer extends  JPanel{
 
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
                 CustomUtilities.validateRequiredLocality(locality, "Localite");
-                int streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
-                int numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
+                customer.setLocality(locality);
+                Integer streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
+                Integer numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
                 customer.setStreetNumber(streetNumber);
                 customer.setNumberSponsorised(numberSponsorised);
@@ -289,9 +290,21 @@ public class AddCustomer extends  JPanel{
 
                 // Afficher un message de succès
                 JOptionPane.showMessageDialog(AddCustomer.this, "Client mis à jour avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
-                FormAdmin formAdmin = new FormAdmin();
-                formAdmin.setVisible(true); // Rendre la fenêtre FormAdmin visible
-                setVisible(false);
+
+                firstNameField.setText("");
+                lastNameField.setText("");
+                emailField.setText("");
+                phoneNumberField.setText("");
+                passwordField.setText("");
+                maleRadioButton.setSelected(false);
+                femaleRadioButton.setSelected(false);
+                yesAdmin.setSelected(false);
+                noAdmin.setSelected(false);
+                yesAdherent.setSelected(false);
+                noAdherent.setSelected(false);
+                streetField.setText("");
+                streetNumberField.setText("");
+                numberSponsorisedField.setText("");
 
             } catch (Exception ex) {
 

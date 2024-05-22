@@ -15,11 +15,11 @@ public class FormAdmin extends JPanel{
 
 
     private JButton deleteButton;
-    private JButton menu;
 
     private JButton updateButton;
 
-    private Container mainContainer;
+    private MenuProjet menuProjet;
+
 
     private static JTable customerTable;
     private static ArrayList<Customer> customers;
@@ -31,8 +31,9 @@ public class FormAdmin extends JPanel{
 
 
 
-    public FormAdmin() throws SQLException {
+    public FormAdmin(MenuProjet menuProjet) throws SQLException {
 
+        this.menuProjet = menuProjet;
 
         setController(new ApplicationController());
 
@@ -45,18 +46,16 @@ public class FormAdmin extends JPanel{
         deleteButton = new JButton("Supprimer Client");
         updateButton = new JButton("Modifier Client");
 
-        menu = new JButton("Actualiser");
+
 
         // Réduire la taille et changer la police des boutons
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
 
         deleteButton.setFont(buttonFont);
-        menu.setFont(buttonFont);
         updateButton.setFont(buttonFont);
 
         Dimension buttonSize = new Dimension(200, 30);
         deleteButton.setPreferredSize(buttonSize);
-        menu.setPreferredSize(buttonSize);
         updateButton.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons
@@ -78,11 +77,7 @@ public class FormAdmin extends JPanel{
         updateButton.addActionListener(new updateAction());
 
 
-        // Ajouter le bouton "Menu" aligné à gauche
-        JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        menuButtonPanel.add(menu);
-        buttonPanel.add(menuButtonPanel);
-        //menu.addActionListener(new menuAction());
+
 
         customers = controller.getAllCustomers();
         tableModel = new CustomerTableModel(customers);
@@ -104,6 +99,10 @@ public class FormAdmin extends JPanel{
 
     private void setController(ApplicationController controller) {
         this.controller = controller;
+    }
+
+    private MenuProjet getMenuProjet() {
+        return this.menuProjet;
     }
 
 
@@ -143,12 +142,11 @@ public class FormAdmin extends JPanel{
             Customer customer = controller.getCustomer(customerNumber);
 
             try {
-                AddCustomer  addCustomer = new AddCustomer();
-                removeAll();
+                AddCustomer addCustomer = new AddCustomer();
+                menuProjet.showAddCustomerForm(addCustomer); // Use the MenuProjet reference
                 addCustomer.enableUpdateButton();
                 addCustomer.disableaddButton();
                 addCustomer.afficherDonneesClient(customer);
-                revalidate();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
