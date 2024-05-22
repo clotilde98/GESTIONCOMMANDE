@@ -1,8 +1,7 @@
-package controllerPackage;
+package viewPackage;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+
 public class WindowClosing extends JFrame {
     public WindowClosing() {
 

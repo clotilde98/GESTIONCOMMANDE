@@ -38,10 +38,9 @@ public class MenuProjet extends JFrame {
         setVisible(true); // Affichage de la fenêtre
 
 
-        Quitter = new JMenuItem("Quitter");
+        Quitter = new JMenuItem("Se deconnecter");
         applicationMenu.add(Quitter);
-      //  ExitListener exitListener = new ExitListener();
-        //Quitter.addActionListener(exitListener);
+        Quitter.addActionListener(new quitterAction());
 
 
 
@@ -60,6 +59,8 @@ public class MenuProjet extends JFrame {
 
         CustomerProductItem = new JMenuItem("Historique des produits commandés par un client");
         SearchMenu.add(CustomerProductItem);
+
+
         SearchMenu.addSeparator();
         CustomerInvoiceItem = new JMenuItem("Liste des factures d’un client");
         SearchMenu.add(CustomerInvoiceItem);
@@ -85,9 +86,6 @@ public class MenuProjet extends JFrame {
                 throw new RuntimeException(ex);
             }
 
-
-
-
         }
     }
 
@@ -104,6 +102,18 @@ public class MenuProjet extends JFrame {
 
         }
     }
+
+    public class quitterAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Ouvrir une nouvelle fenêtre de gestion utilisateur
+            Login loginForm = new Login();
+            loginForm.setVisible(true);
+            setVisible(false);
+
+        }
+    }
+
 
 
 /*

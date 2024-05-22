@@ -86,15 +86,78 @@ public class CustomUtilities {
             String message = "Le champ " + fieldName + " est obligatoire.";
             throw new customExceptions(message);
         }
+
+        String[] dateComponents = dateStr.split("/");
+        if (dateComponents.length != 3) {
+            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.");
+        }
+
+        int year, month, day;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            year = Integer.parseInt(dateComponents[0]);
+        } catch (NumberFormatException e) {
+            throw new customExceptions("L'année dans le champ " + fieldName + " est invalide.");
+        }
+
+        try {
+            month = Integer.parseInt(dateComponents[1]);
+        } catch (NumberFormatException e) {
+            throw new customExceptions("Le mois dans le champ " + fieldName + " est invalide.");
+        }
+
+        try {
+            day = Integer.parseInt(dateComponents[2]);
+        } catch (NumberFormatException e) {
+            throw new customExceptions("Le jour dans le champ " + fieldName + " est invalide.");
+        }
+
+        if (month < 1 || month > 12) {
+            throw new customExceptions("Le mois dans le champ " + fieldName + " doit être entre 01 et 12.");
+        }
+
+        if (day < 1 || day > 31) {
+            throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 31.");
+        }
+
+        if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
+            throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 30 pour le mois " + month + ".");
+        }
+
+
+
+        if (month == 2) {
+            if (isLeapYear(year)) {
+                if (day > 29) {
+                    throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 29 pour le mois de février dans une année bissextile.");
+                }
+            } else {
+                if (day > 28) {
+                    throw new customExceptions("Le jour dans le champ " + fieldName + " doit être entre 01 et 28 pour le mois de février.");
+                }
+            }
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             sdf.setLenient(false); // La date doit être valide
             return sdf.parse(dateStr);
         } catch (ParseException e) {
-            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy-MM-dd.");
+            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.");
         }
+
+
     }
 
+    private static boolean isLeapYear(int year) {
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                return year % 400 == 0;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
     public static int validateNumericField(String numStr, String fieldName) throws customExceptions {
         // Vérifiez d'abord si le champ est vide
         if (numStr.isEmpty()) {

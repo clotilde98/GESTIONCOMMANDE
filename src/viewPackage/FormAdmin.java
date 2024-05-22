@@ -62,12 +62,9 @@ public class FormAdmin extends JPanel{
         // Mettre en couleur la partie des boutons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
-        buttonPanel.setBorder(new EmptyBorder(100, 20, 100, 50));
+        buttonPanel.setBorder(new EmptyBorder(50, 20, 100, 50));
 
 
-        // Ajouter le bouton "Ajouter Utilisateur" aligné à gauche
-        JPanel newUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        buttonPanel.add(newUserButtonPanel);
 
 
         JPanel deleteUserButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -147,10 +144,11 @@ public class FormAdmin extends JPanel{
 
             try {
                 AddCustomer  addCustomer = new AddCustomer();
-                addCustomer.setVisible(true);
+                removeAll();
                 addCustomer.enableUpdateButton();
                 addCustomer.disableaddButton();
                 addCustomer.afficherDonneesClient(customer);
+                revalidate();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

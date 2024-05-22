@@ -1,7 +1,7 @@
-package controllerPackage;
+package viewPackage;
 
-import java.awt.event.*;
-import java.sql.Connection;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class ClosingListener implements WindowListener {
     @Override
@@ -11,6 +11,7 @@ public class ClosingListener implements WindowListener {
 
     public void windowClosing (WindowEvent event) {
         System.exit(0);
+
 
     }
 
@@ -38,7 +39,4 @@ public class ClosingListener implements WindowListener {
     public void windowDeactivated(WindowEvent e) {
 
     }
-
 }
-
-

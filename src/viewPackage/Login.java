@@ -4,6 +4,8 @@ import controllerPackage.ApplicationController;
 
 import exceptionPackage.customExceptions;
 import modelPackage.Customer;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +18,8 @@ public class Login extends JFrame  {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
+
+    private JButton exitButton;
     private ApplicationController controller;
     public Login() {
         super("Formulaire de Connexion");
@@ -24,31 +28,38 @@ public class Login extends JFrame  {
         setSize(600, 400);
         setResizable(false);
 
-
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         formPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         formPanel.setBackground(Color.GREEN);
+
         JLabel usernameLabel = new JLabel("Adresse Mail:");
         emailField = new JTextField(10);
-
         JLabel passwordLabel = new JLabel("Mot de passe:");
         passwordField = new JPasswordField(10);
 
         loginButton = new JButton("Se Connecter");
+        exitButton = new JButton("Quitter");
 
         formPanel.add(usernameLabel);
         formPanel.add(emailField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
-        formPanel.add(new JLabel());
+        formPanel.add(new JLabel()); // Empty cell to create space
+        formPanel.add(new JLabel()); // Empty cell to create space
         formPanel.add(loginButton);
+        formPanel.add(exitButton);
 
 
+        loginButton = new JButton("Se Connecter");
+        exitButton = new JButton("Quitter");
+
+
+
+        // Create the main panel and add components
         JLabel titleLabel = new JLabel("LOGIN");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setForeground(Color.GREEN);
@@ -56,15 +67,20 @@ public class Login extends JFrame  {
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
+
+        // Add the main panel to the frame
         getContentPane().add(mainPanel);
 
         setLocationRelativeTo(null);
         setVisible(true);
-
         setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         //
         loginButton.addActionListener(new loginAction());
+        ExitListener exitListener = new ExitListener();
+        exitButton.addActionListener(exitListener);
 
 
         }
@@ -105,4 +121,6 @@ public class Login extends JFrame  {
             }
 
         }
+
+
     }

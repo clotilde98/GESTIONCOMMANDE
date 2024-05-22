@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchProductHistoryTable extends AbstractTableModel {
     private ArrayList<String> columnNames ;
@@ -68,5 +69,6 @@ public class SearchProductHistoryTable extends AbstractTableModel {
                 return Object.class;
         }
     }
+
 
 }
