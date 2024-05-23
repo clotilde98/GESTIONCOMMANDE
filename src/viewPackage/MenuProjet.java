@@ -38,7 +38,7 @@ public class MenuProjet extends JFrame {
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
        // mainContainer.add(new Welcome(),BorderLayout.CENTER);
-        setTitle("Acceuil"); // Titre de la fenêtre
+        setTitle("Accueil"); // Titre de la fenêtre
         setVisible(true); // Affichage de la fenêtre
 
 

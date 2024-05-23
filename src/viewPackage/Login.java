@@ -50,11 +50,6 @@ public class Login extends JFrame  {
         formPanel.add(exitButton);
 
 
-        loginButton = new JButton("Se Connecter");
-        exitButton = new JButton("Quitter");
-
-
-
         // Create the main panel and add components
         JLabel titleLabel = new JLabel("LOGIN");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -101,6 +96,8 @@ public class Login extends JFrame  {
     public class loginAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            System.out.println("test");
 
             try {
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
