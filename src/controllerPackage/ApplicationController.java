@@ -1,5 +1,6 @@
 package controllerPackage;
 
+import businessPackage.ConnectionManager;
 import businessPackage.CustomerManager;
 import businessPackage.LocalityManager;
 import businessPackage.SearchManager;
@@ -15,11 +16,13 @@ public class ApplicationController {
     private CustomerManager customerManager;
     private LocalityManager localityManager;
     private SearchManager searchManager;
+    private ConnectionManager connectionManager;
 
     public ApplicationController() {
         setCustomerManager (new CustomerManager());
         setLocalityManager (new LocalityManager());
         setSearchManager(new SearchManager());
+        setConnectionManager(new ConnectionManager());
 
 
     }
@@ -31,6 +34,9 @@ public class ApplicationController {
 
     public void setSearchManager(SearchManager searchManager) {this.searchManager = searchManager; }
 
+    public void setConnectionManager(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     //Customer Manager
     public void addCustomer(Customer customer) {
@@ -72,6 +78,10 @@ public class ApplicationController {
 
     public ArrayList<SearchCommandInfo> searchTotalCommands(int customer, LocalDate year) {
         return searchManager.totalCommands(customer,year);
+    }
+
+    public void closeConnection(){
+        connectionManager.closeConnection();
     }
 
 }

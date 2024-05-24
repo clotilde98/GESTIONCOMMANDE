@@ -24,6 +24,18 @@ import java.sql.SQLException;
             return singleConnection;
         }
 
+        public static void closeConnection(){
+            try {
+                if (singleConnection != null) {
+                    singleConnection.close();
+                }
+            }
+            catch (SQLException exception) {
+                System.err.println("Erreur SQL : " + exception.getMessage());
+            }
+
+        }
+
     }
 
 
