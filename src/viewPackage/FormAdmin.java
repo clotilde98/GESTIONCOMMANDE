@@ -146,7 +146,7 @@ public class FormAdmin extends JPanel{
                 menuProjet.showAddCustomerForm(addCustomer); // Use the MenuProjet reference
                 addCustomer.enableUpdateButton();
                 addCustomer.disableaddButton();
-                addCustomer.afficherDonneesClient(customer);
+                addCustomer.showCustomerData(customer);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

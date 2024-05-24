@@ -11,7 +11,7 @@ public class MenuProjet extends JFrame {
     private JMenuBar menuBar;
     private JMenu applicationMenu, customersMenu ,searchMenu ;
 
-    private JMenuItem exit ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem;
+    private JMenuItem disconnect,exit ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem;
     private Container mainContainer;
 
 
@@ -42,11 +42,16 @@ public class MenuProjet extends JFrame {
         setVisible(true); // Affichage de la fenêtre
 
 
-        exit = new JMenuItem("Se deconnecter");
+        disconnect = new JMenuItem("Se deconnecter");
+        applicationMenu.add(disconnect);
+        disconnect.addActionListener(new disconnectAction());
+
+        applicationMenu.addSeparator();
+
+        exit = new JMenuItem("Quitter");
         applicationMenu.add(exit);
-        exit.addActionListener(new exitAction());
-
-
+        ExitListener exitListener = new ExitListener();
+        exit.addActionListener(exitListener);
 
         customersItem = new JMenuItem("Utilisateurs");
         customersMenu.add(customersItem);
@@ -63,11 +68,14 @@ public class MenuProjet extends JFrame {
 
         customerProductItem = new JMenuItem("Historique des produits commandés par un client");
         searchMenu.add(customerProductItem);
-
+        customerProductItem.addActionListener(new searchProductAction());
 
         searchMenu.addSeparator();
         customerInvoiceItem = new JMenuItem("Liste des factures d’un client");
+
         searchMenu.add(customerInvoiceItem);
+
+
         searchMenu.addSeparator();
 
         infoProductItem = new JMenuItem("Information des produits en fonction d’un prix");
@@ -75,7 +83,6 @@ public class MenuProjet extends JFrame {
 
 
     }
-
 
 
     public class formAction implements ActionListener {
@@ -132,13 +139,24 @@ public class MenuProjet extends JFrame {
     }
 
 
-    public class exitAction implements ActionListener {
+    public class disconnectAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur
             Login loginForm = new Login();
             loginForm.setVisible(true);
             setVisible(false);
+
+        }
+    }
+
+    public class searchProductAction implements ActionListener {
+        public void actionPerformed( ActionEvent event) {
+
+            getContentPane().removeAll();
+            //getContentPane().add(new SearchProductHistoryPanel(MenuProjet.this), BorderLayout.CENTER);
+            revalidate();
+
 
         }
     }

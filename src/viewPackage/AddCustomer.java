@@ -30,7 +30,7 @@ public class AddCustomer extends  JPanel{
     private JRadioButton yesAdmin, noAdmin;
     private JRadioButton yesAdherent, noAdherent;
 
-    private   JComboBox<Locality> localityComboBox;
+    private JComboBox<Locality> localityComboBox;
 
     private JTextField streetField;
     private JTextField streetNumberField;
@@ -357,7 +357,7 @@ public class AddCustomer extends  JPanel{
 
 
 
-    public void afficherDonneesClient(Customer customer) {
+    public void showCustomerData(Customer customer) {
 
         firstNameField.setText(customer.getFirstName());
         lastNameField.setText(customer.getLastName());
