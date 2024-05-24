@@ -18,7 +18,6 @@ public class MenuProjet extends JFrame {
 
     public MenuProjet() {
 
-
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         applicationMenu = new JMenu("APPLICATION");
@@ -154,7 +153,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            //getContentPane().add(new SearchProductHistoryPanel(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new SearchProductHistoryPanel(MenuProjet.this), BorderLayout.CENTER);
             revalidate();
 
 
