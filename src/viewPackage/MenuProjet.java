@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class MenuProjet extends JFrame {
 
     private JMenuBar menuBar;
-    private JMenu applicationMenu, CustomersMenu ,SearchMenu ;
+    private JMenu applicationMenu, customersMenu ,searchMenu ;
 
-    private JMenuItem Quitter ,CustomersItem,addCustomerItem,CustomerProductItem,CustomerInvoiceItem,InfoProductItem;
+    private JMenuItem exit ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem;
     private Container mainContainer;
 
 
@@ -22,11 +22,11 @@ public class MenuProjet extends JFrame {
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         applicationMenu = new JMenu("APPLICATION");
-        CustomersMenu = new JMenu("GESTION UTILISATEURS");
-        SearchMenu = new JMenu("RECHERCHES");
+        customersMenu = new JMenu("GESTION UTILISATEURS");
+        searchMenu = new JMenu("RECHERCHES");
         menuBar.add(applicationMenu);
-        menuBar.add(CustomersMenu);
-        menuBar.add(SearchMenu);
+        menuBar.add(customersMenu);
+        menuBar.add(searchMenu);
 
 
         JButton formAdminButton = new JButton("Open Admin Form");
@@ -42,36 +42,36 @@ public class MenuProjet extends JFrame {
         setVisible(true); // Affichage de la fenêtre
 
 
-        Quitter = new JMenuItem("Se deconnecter");
-        applicationMenu.add(Quitter);
-        Quitter.addActionListener(new quitterAction());
+        exit = new JMenuItem("Se deconnecter");
+        applicationMenu.add(exit);
+        exit.addActionListener(new exitAction());
 
 
 
-        CustomersItem = new JMenuItem("Utilisateurs");
-        CustomersMenu.add(CustomersItem);
-        CustomersItem.addActionListener(new formAction());
+        customersItem = new JMenuItem("Utilisateurs");
+        customersMenu.add(customersItem);
+        customersItem.addActionListener(new formAction());
 
-        CustomersMenu.addSeparator();
+        customersMenu.addSeparator();
 
         addCustomerItem = new JMenuItem("Ajouter client");
-        CustomersMenu.add(addCustomerItem);
+        customersMenu.add(addCustomerItem);
         addCustomerItem.addActionListener(new addCustomerAction());
 
 
 
 
-        CustomerProductItem = new JMenuItem("Historique des produits commandés par un client");
-        SearchMenu.add(CustomerProductItem);
+        customerProductItem = new JMenuItem("Historique des produits commandés par un client");
+        searchMenu.add(customerProductItem);
 
 
-        SearchMenu.addSeparator();
-        CustomerInvoiceItem = new JMenuItem("Liste des factures d’un client");
-        SearchMenu.add(CustomerInvoiceItem);
-        SearchMenu.addSeparator();
+        searchMenu.addSeparator();
+        customerInvoiceItem = new JMenuItem("Liste des factures d’un client");
+        searchMenu.add(customerInvoiceItem);
+        searchMenu.addSeparator();
 
-        InfoProductItem = new JMenuItem("Information des produits en fonction d’un prix");
-        SearchMenu.add(InfoProductItem);
+        infoProductItem = new JMenuItem("Information des produits en fonction d’un prix");
+        searchMenu.add(infoProductItem);
 
 
     }
@@ -132,7 +132,7 @@ public class MenuProjet extends JFrame {
     }
 
 
-    public class quitterAction implements ActionListener {
+    public class exitAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Ouvrir une nouvelle fenêtre de gestion utilisateur

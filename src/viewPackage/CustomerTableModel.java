@@ -20,7 +20,7 @@ public class CustomerTableModel extends AbstractTableModel {
         columnNames.add("Email");
         columnNames.add("Numero de téléphone");
         columnNames.add("Genre");
-        columnNames.add("Passeword");
+        columnNames.add("Mot de passe");
         columnNames.add("Date de naissance");
         columnNames.add("Admin");
         columnNames.add("Adhérent");

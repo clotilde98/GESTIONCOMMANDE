@@ -36,11 +36,7 @@ public class AddCustomer extends  JPanel{
     private JTextField streetNumberField;
     private JTextField numberSponsorisedField;
 
-    private Container mainContainer;
-
     private ApplicationController controller;
-
-    private Customer customer;
 
 
     public  AddCustomer() throws SQLException {

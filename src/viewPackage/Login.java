@@ -97,8 +97,6 @@ public class Login extends JFrame  {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            System.out.println("test");
-
             try {
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
                 String password = new String(passwordField.getPassword());
