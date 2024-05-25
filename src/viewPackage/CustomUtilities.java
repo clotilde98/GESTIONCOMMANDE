@@ -178,7 +178,12 @@ public class CustomUtilities {
 
         try {
             // Essayez de convertir le champ en nombre entier
-            return Integer.parseInt(numStr);
+            int checkNumber = Integer.parseInt(numStr);
+            if (checkNumber<0){
+                String message ="Le nombre doit être positif.";
+                throw new customExceptions(message);
+            }
+            return checkNumber;
         } catch (NumberFormatException e) {
             String message ="Format de " + fieldName + " invalide. Entrez un nombre entier.";
             throw new customExceptions(message);
