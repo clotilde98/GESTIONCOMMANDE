@@ -2,7 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.customExceptions;
-import modelPackage.SearchProductInfo;
+import modelPackage.SearchInvoiceList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,20 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class SearchProductInfoPanel extends JPanel {
-    private JTextField priceField;
+public class SearchInvoicePanel extends JPanel {
+    private JTextField customerNumberField;
+
     private JButton search;
     private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
 
     private JTable result;
-    private SearchProductInfoTable tableModel;
-    private ArrayList<SearchProductInfo> infoList;
+    private SearchInvoiceListTable tableModel;
+    private ArrayList<SearchInvoiceList> invoiceList;
 
     private ApplicationController controller;
 
-    public SearchProductInfoPanel(MenuProjet projectMenu){
+    public SearchInvoicePanel(MenuProjet projectMenu){
         this.projectMenu = projectMenu;
 
         setController(new ApplicationController());
@@ -49,18 +50,18 @@ public class SearchProductInfoPanel extends JPanel {
         searchPanel.setLayout(new GridLayout(4, 1));
         searchPanel.setBorder(new EmptyBorder(50, 20, 100, 50));
 
-        priceField = new JTextField(10);
+        customerNumberField = new JTextField(10);
 
         JPanel searchButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        searchPanel.add(new JLabel("Prix:"));
-        searchPanel.add(priceField);
+        searchPanel.add(new JLabel("Numéro Client:"));
+        searchPanel.add(customerNumberField);
         searchButtonPanel.add(search);
         searchPanel.add(searchButtonPanel);
         search.addActionListener(new searchAction());
 
-        infoList = controller.searchProductInfos(0);
-        tableModel = new SearchProductInfoTable(infoList);
+        invoiceList = controller.searchInvoiceLists(1,false);
+        tableModel = new SearchInvoiceListTable(invoiceList);
 
         result = new JTable(tableModel);
 
@@ -83,34 +84,15 @@ public class SearchProductInfoPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                double searchPrice = validateDoubleField(priceField.getText());
-                infoList.clear();
-                infoList.addAll(controller.searchProductInfos(searchPrice));
+                int searchNumber = CustomUtilities.validateNumericField(customerNumberField.getText(),"Numéro Client");
+                invoiceList.clear();
+                invoiceList.addAll(controller.searchInvoiceLists(searchNumber,true));
                 tableModel.fireTableDataChanged();
             }
             catch (customExceptions ex){
-                JOptionPane.showMessageDialog(SearchProductInfoPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(SearchInvoicePanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 
-        }
-    }
-
-    private double validateDoubleField(String numStr) throws customExceptions {
-        if (numStr.isEmpty()) {
-            String message ="Le champ de recherche est vide.";
-            throw new customExceptions(message);
-        }
-
-        try {
-            double checkNumber = Double.parseDouble(numStr);
-            if (checkNumber<0){
-                String message ="Le nombre doit être positif.";
-                throw new customExceptions(message);
-            }
-            return checkNumber;
-        } catch (NumberFormatException e) {
-            String message ="Format du prix recherché est invalide. Entrez un nombre.";
-            throw new customExceptions(message);
         }
     }
 }

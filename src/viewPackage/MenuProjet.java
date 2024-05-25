@@ -70,10 +70,10 @@ public class MenuProjet extends JFrame {
         customerProductItem.addActionListener(new searchProductAction());
 
         searchMenu.addSeparator();
+
         customerInvoiceItem = new JMenuItem("Liste des factures d’un client");
-
         searchMenu.add(customerInvoiceItem);
-
+        customerInvoiceItem.addActionListener(new searchInvoiceAction());
 
         searchMenu.addSeparator();
 
@@ -155,6 +155,17 @@ public class MenuProjet extends JFrame {
 
             getContentPane().removeAll();
             getContentPane().add(new SearchProductHistoryPanel(MenuProjet.this), BorderLayout.CENTER);
+            revalidate();
+
+
+        }
+    }
+
+    public class searchInvoiceAction implements ActionListener {
+        public void actionPerformed( ActionEvent event) {
+
+            getContentPane().removeAll();
+            getContentPane().add(new SearchInvoicePanel(MenuProjet.this), BorderLayout.CENTER);
             revalidate();
 
 
