@@ -33,10 +33,12 @@ public class MenuProjet extends JFrame {
 
         add(formAdminButton);
 
-        setBounds(100,100,1000,800);// Taille de la fenêtre
+        setBounds(100, 100, 1000, 800);// Taille de la fenêtre
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
-       // mainContainer.add(new Welcome(),BorderLayout.CENTER);
+        Welcome welcomePanel = new Welcome();
+        mainContainer.add(welcomePanel, BorderLayout.CENTER);
+
         setTitle("Accueil"); // Titre de la fenêtre
         setVisible(true); // Affichage de la fenêtre
 
@@ -61,8 +63,6 @@ public class MenuProjet extends JFrame {
         addCustomerItem = new JMenuItem("Ajouter client");
         customersMenu.add(addCustomerItem);
         addCustomerItem.addActionListener(new addCustomerAction());
-
-
 
 
         customerProductItem = new JMenuItem("Historique des produits commandés par un client");
@@ -173,26 +173,4 @@ public class MenuProjet extends JFrame {
     }
 
 
-
-/*
-
-
-
-    public class AideAction implements ActionListener {
-        public void actionPerformed( ActionEvent event) {
-            getContentPane().removeAll();
-            getContentPane().add(new Aide(), BorderLayout.CENTER);
-            revalidate();
-        }
-    }
-
-    public class inscriptionAction implements ActionListener {
-        public void actionPerformed( ActionEvent event) {
-            getContentPane().removeAll();
-            getContentPane().add(new RegistrationForm(), BorderLayout.CENTER);
-            revalidate();
-        }
-    }
-
- */
 }
