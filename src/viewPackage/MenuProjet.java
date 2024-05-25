@@ -33,14 +33,14 @@ public class MenuProjet extends JFrame {
 
         add(formAdminButton);
 
-        setBounds(100, 100, 1000, 800);// Taille de la fenêtre
+        setBounds(100, 100, 1000, 800);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         Welcome welcomePanel = new Welcome();
         mainContainer.add(welcomePanel, BorderLayout.CENTER);
 
-        setTitle("Accueil"); // Titre de la fenêtre
-        setVisible(true); // Affichage de la fenêtre
+        setTitle("Accueil");
+        setVisible(true);
 
 
         disconnect = new JMenuItem("Se deconnecter");
@@ -88,7 +88,6 @@ public class MenuProjet extends JFrame {
     public class formAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
 
             try {
                 getContentPane().removeAll();
@@ -121,7 +120,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed(ActionEvent e) {
             try {
                 getContentPane().removeAll();
-                FormAdmin formAdmin = new FormAdmin(MenuProjet.this); // Pass the reference correctly
+                FormAdmin formAdmin = new FormAdmin(MenuProjet.this);
                 getContentPane().add(formAdmin, BorderLayout.CENTER);
                 revalidate();
                 repaint();
@@ -142,7 +141,7 @@ public class MenuProjet extends JFrame {
     public class disconnectAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Ouvrir une nouvelle fenêtre de gestion utilisateur
+
             Login loginForm = new Login();
             loginForm.setVisible(true);
             setVisible(false);
@@ -178,7 +177,6 @@ public class MenuProjet extends JFrame {
             getContentPane().removeAll();
             getContentPane().add(new SearchProductInfoPanel(MenuProjet.this), BorderLayout.CENTER);
             revalidate();
-
 
         }
     }

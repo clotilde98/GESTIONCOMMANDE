@@ -24,8 +24,10 @@ public class AddCustomer extends  JPanel{
 
     private JButton updateButton;
 
-    private JTextField firstNameField, lastNameField, emailField, phoneNumberField, passwordField;
+    private JTextField firstNameField, lastNameField, emailField, phoneNumberField ;
     private JRadioButton maleRadioButton, femaleRadioButton;
+
+    private JPasswordField passwordField, ConfirmpasswordField;
     private JTextField birthdayDate;
     private JRadioButton yesAdmin, noAdmin;
     private JRadioButton yesAdherent, noAdherent;
@@ -35,6 +37,9 @@ public class AddCustomer extends  JPanel{
     private JTextField streetField;
     private JTextField streetNumberField;
     private JTextField numberSponsorisedField;
+
+    private JCheckBox showPasswordCheckBox;
+
 
     private ApplicationController controller;
 
@@ -80,7 +85,9 @@ public class AddCustomer extends  JPanel{
         lastNameField = new JTextField();
         emailField = new JTextField();
         phoneNumberField = new JTextField();
-        passwordField = new JTextField();
+        passwordField = new  JPasswordField();
+        showPasswordCheckBox = new JCheckBox("Afficher le mot de passe");
+        ConfirmpasswordField = new  JPasswordField();
         maleRadioButton = new JRadioButton("M");
         femaleRadioButton = new JRadioButton("F");
         String defaultBirthday = "YYYY-MM-DD"; // Format YYYY-MM-DD
@@ -108,6 +115,8 @@ public class AddCustomer extends  JPanel{
         adherentGroup.add(yesAdherent);
         adherentGroup.add(noAdherent);
 
+
+
         textFieldPanel.add(new JLabel("Prénom:"));
         textFieldPanel.add(firstNameField);
         textFieldPanel.add(new JLabel("Nom:"));
@@ -116,8 +125,14 @@ public class AddCustomer extends  JPanel{
         textFieldPanel.add(emailField);
         textFieldPanel.add(new JLabel("Téléphone:"));
         textFieldPanel.add(phoneNumberField);
+        JPanel passwordPanel = new JPanel(new GridLayout(1, 2, 5, 5));
         textFieldPanel.add(new JLabel("Mot de passe:"));
-        textFieldPanel.add(passwordField);
+        passwordPanel.add(passwordField);
+        passwordPanel.add(showPasswordCheckBox);
+        textFieldPanel.add(passwordPanel);
+
+        textFieldPanel.add(new JLabel(" Confirmation de Mot de passe:"));
+        textFieldPanel.add(ConfirmpasswordField);
         textFieldPanel.add(new JLabel("Genre:"));
         JPanel genderPanel = new JPanel(new GridLayout(1, 2, 5, 5));
         genderPanel.add(maleRadioButton);
@@ -197,6 +212,8 @@ public class AddCustomer extends  JPanel{
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
                 String phoneNumber = CustomUtilities.validatePhoneNumberField(phoneNumberField.getText(),"Numéro de Téléphone");
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
+                String confirmPassword = (ConfirmpasswordField.getText());
+
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
                 Date birthdayDay = CustomUtilities.validateDate(birthdayDate.getText(), "Date de naissance");
                 boolean isAdmin = validateAdminStatus(yesAdmin.isSelected(),noAdmin.isSelected());
@@ -209,25 +226,31 @@ public class AddCustomer extends  JPanel{
 
                 Customer customer = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
                         isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
-                controller.addCustomer(customer);
+                if (password.equals(confirmPassword)) {
+                    controller.addCustomer(customer);
 
-                JOptionPane.showMessageDialog(AddCustomer.this, "Client " + customer.getFirstName() + " " + customer.getLastName() + " ajouté avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Client " + customer.getFirstName() + " " + customer.getLastName() + " ajouté avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
 
-                firstNameField.setText("");
-                lastNameField.setText("");
-                emailField.setText("");
-                phoneNumberField.setText("");
-                passwordField.setText("");
-                maleRadioButton.setSelected(false);
-                femaleRadioButton.setSelected(false);
-                yesAdmin.setSelected(false);
-                noAdmin.setSelected(false);
-                yesAdherent.setSelected(false);
-                noAdherent.setSelected(false);
-                streetField.setText("");
-                streetNumberField.setText("");
-                numberSponsorisedField.setText("");
-                setVisible(false);
+                    firstNameField.setText("");
+                    lastNameField.setText("");
+                    emailField.setText("");
+                    phoneNumberField.setText("");
+                    passwordField.setText("");
+                    maleRadioButton.setSelected(false);
+                    femaleRadioButton.setSelected(false);
+                    yesAdmin.setSelected(false);
+                    noAdmin.setSelected(false);
+                    yesAdherent.setSelected(false);
+                    noAdherent.setSelected(false);
+                    streetField.setText("");
+                    streetNumberField.setText("");
+                    numberSponsorisedField.setText("");
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Les mots de passe ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+                }
+
 
             } catch (Exception ex) {
 

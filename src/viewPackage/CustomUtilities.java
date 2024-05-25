@@ -180,7 +180,7 @@ public class CustomUtilities {
             // Essayez de convertir le champ en nombre entier
             int checkNumber = Integer.parseInt(numStr);
             if (checkNumber<0){
-                String message ="Le nombre doit être positif.";
+                String message ="Le nombre doit être positif :>=0.";
                 throw new customExceptions(message);
             }
             return checkNumber;
