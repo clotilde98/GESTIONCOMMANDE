@@ -1,6 +1,8 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
+import exceptionPackage.customExceptions;
+import modelPackage.SearchProductInfo;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,21 +11,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class SearchProductHistoryPanel extends JPanel {
-
-    private JTextField nameField;
+public class SearchProductInfoPanel extends JPanel {
+    private JTextField priceField;
     private JButton search;
     private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
 
     private JTable result;
-    private SearchProductHistoryTable tableModel;
-    private ArrayList<modelPackage.SearchProductHistory> historyList;
+    private SearchProductInfoTable tableModel;
+    private ArrayList<SearchProductInfo> infoList;
 
     private ApplicationController controller;
 
-    public SearchProductHistoryPanel(MenuProjet projectMenu){
+    public SearchProductInfoPanel(MenuProjet projectMenu){
         this.projectMenu = projectMenu;
 
         setController(new ApplicationController());
@@ -48,18 +49,18 @@ public class SearchProductHistoryPanel extends JPanel {
         searchPanel.setLayout(new GridLayout(4, 1));
         searchPanel.setBorder(new EmptyBorder(50, 20, 100, 50));
 
-        nameField = new JTextField(10);
+        priceField = new JTextField(10);
 
         JPanel searchButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        searchPanel.add(new JLabel("Nom:"));
-        searchPanel.add(nameField);
+        searchPanel.add(new JLabel("Prix:"));
+        searchPanel.add(priceField);
         searchButtonPanel.add(search);
         searchPanel.add(searchButtonPanel);
         search.addActionListener(new searchAction());
 
-        historyList = controller.searchProductHistories("");
-        tableModel = new SearchProductHistoryTable(historyList);
+        infoList = controller.searchProductInfos(0);
+        tableModel = new SearchProductInfoTable(infoList);
 
         result = new JTable(tableModel);
 
@@ -81,11 +82,35 @@ public class SearchProductHistoryPanel extends JPanel {
     public class searchAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-           historyList.clear();
-           historyList.addAll(controller.searchProductHistories(nameField.getText()));
-           tableModel.fireTableDataChanged();
+            try {
+                double searchPrice = validateNumericField(priceField.getText());
+                infoList.clear();
+                infoList.addAll(controller.searchProductInfos(searchPrice));
+                tableModel.fireTableDataChanged();
+            }
+            catch (customExceptions ex){
+                JOptionPane.showMessageDialog(SearchProductInfoPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
 
+        }
+    }
 
+    private double validateNumericField(String numStr) throws customExceptions {
+        if (numStr.isEmpty()) {
+            String message ="Le champ de recherche est vide.";
+            throw new customExceptions(message);
+        }
+
+        try {
+            double checkNumber = Double.parseDouble(numStr);
+            if (checkNumber<0){
+                String message ="Le nombre doit être positif.";
+                throw new customExceptions(message);
+            }
+            return checkNumber;
+        } catch (NumberFormatException e) {
+            String message ="Format du prix recherché est invalide. Entrez un nombre.";
+            throw new customExceptions(message);
         }
     }
 }

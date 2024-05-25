@@ -79,6 +79,7 @@ public class MenuProjet extends JFrame {
 
         infoProductItem = new JMenuItem("Information des produits en fonction d’un prix");
         searchMenu.add(infoProductItem);
+        infoProductItem.addActionListener(new searchProductInfoAction());
 
 
     }
@@ -154,6 +155,17 @@ public class MenuProjet extends JFrame {
 
             getContentPane().removeAll();
             getContentPane().add(new SearchProductHistoryPanel(MenuProjet.this), BorderLayout.CENTER);
+            revalidate();
+
+
+        }
+    }
+
+    public class searchProductInfoAction implements ActionListener {
+        public void actionPerformed( ActionEvent event) {
+
+            getContentPane().removeAll();
+            getContentPane().add(new SearchProductInfoPanel(MenuProjet.this), BorderLayout.CENTER);
             revalidate();
 
 
