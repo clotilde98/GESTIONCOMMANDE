@@ -7,8 +7,6 @@ import modelPackage.SearchInvoiceList;
 import modelPackage.SearchProductHistory;
 import modelPackage.SearchProductInfo;
 
-import javax.swing.*;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -45,9 +43,13 @@ public class SearchManager {
         SearchCommandInfo.setTotalPrice(0.0);
 
         for (int i = 0; i < lignNumber; i++){
+            //Product price
             Double price = dataList.get(i).getPrice();
+            //price * quantity
             price = price * (double)dataList.get(i).getQuantity();
+
             double discount =price * ((double)dataList.get(i).getDiscount()/100);
+            //price less discount
             price = price - discount;
             dataList.get(i).setPrice(price);
             Double total = SearchCommandInfo.getTotalPrice() + price;

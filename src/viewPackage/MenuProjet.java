@@ -11,7 +11,7 @@ public class MenuProjet extends JFrame {
     private JMenuBar menuBar;
     private JMenu applicationMenu, customersMenu ,searchMenu ;
 
-    private JMenuItem disconnect,exit ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem;
+    private JMenuItem disconnect,exit ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem,taskItem;
     private Container mainContainer;
 
 
@@ -80,6 +80,12 @@ public class MenuProjet extends JFrame {
         infoProductItem = new JMenuItem("Information des produits en fonction d’un prix");
         searchMenu.add(infoProductItem);
         infoProductItem.addActionListener(new searchProductInfoAction());
+
+        searchMenu.addSeparator();
+
+        taskItem = new JMenuItem("Calcul total des commandes d'un client sur une année");
+        searchMenu.add(taskItem);
+        taskItem.addActionListener(new taskAction());
 
 
     }
@@ -181,5 +187,14 @@ public class MenuProjet extends JFrame {
         }
     }
 
+    public class taskAction implements ActionListener {
+        public void actionPerformed( ActionEvent event) {
+
+            getContentPane().removeAll();
+            getContentPane().add(new TaskPanel(MenuProjet.this), BorderLayout.CENTER);
+            revalidate();
+
+        }
+    }
 
 }
