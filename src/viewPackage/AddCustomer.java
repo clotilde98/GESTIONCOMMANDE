@@ -216,8 +216,8 @@ public class AddCustomer extends  JPanel{
 
                 char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
                 Date birthdayDay = CustomUtilities.validateDate(birthdayDate.getText(), "Date de naissance");
-                boolean isAdmin = validateAdminStatus(yesAdmin.isSelected(),noAdmin.isSelected());
-                boolean isAdherent = validateAdherentStatus(yesAdherent.isSelected(),noAdherent.isSelected());
+                boolean isAdmin = CustomUtilities.validateBoolean(yesAdmin.isSelected(),noAdmin.isSelected(),"Est administrateur");
+                boolean isAdherent = CustomUtilities.validateBoolean(yesAdherent.isSelected(),noAdherent.isSelected(),"Est adhérent");
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
                 CustomUtilities.validateRequiredLocality(locality, "Localite");
                 String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
@@ -290,8 +290,8 @@ public class AddCustomer extends  JPanel{
 
                 customer.setBirthday(birthdayDay);
 
-                boolean isAdmin = validateAdminStatus(yesAdmin.isSelected(),noAdmin.isSelected());
-                boolean isAdherent = validateAdherentStatus(yesAdherent.isSelected(),noAdherent.isSelected());
+                boolean isAdmin = CustomUtilities.validateBoolean(yesAdmin.isSelected(),noAdmin.isSelected(),"Est administrateur");
+                boolean isAdherent = CustomUtilities.validateBoolean(yesAdherent.isSelected(),noAdherent.isSelected(),"Est adhérent");
 
                 customer.setIsAdmin(isAdmin);
                 customer.setIsAdherent(isAdherent);
@@ -328,17 +328,6 @@ public class AddCustomer extends  JPanel{
 
         return comboBoxModel;
     }
-    private boolean validateAdherentStatus(boolean selected, boolean noAdherentSelected) throws customExceptions {
-        // Vérifiez d'abord si l'une des options a été sélectionnée
-        if (!yesAdherent.isSelected() && !noAdherent.isSelected()) {
-            String message = "Le champ Est Adherent est obligatoire.";
-            throw new customExceptions(message);
-        }
-
-        // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
-        return yesAdherent.isSelected();
-
-    }
 
     private boolean validateGendertStatus(boolean selected, boolean noGenderSelected) throws customExceptions {
         // Vérifiez d'abord si l'une des options a été sélectionnée
@@ -351,20 +340,6 @@ public class AddCustomer extends  JPanel{
         return maleRadioButton.isSelected();
 
     }
-
-    private boolean validateAdminStatus(boolean selected, boolean noAdminSelected) throws customExceptions {
-        // Vérifiez d'abord si l'une des options a été sélectionnée
-        if (!yesAdmin.isSelected() && !noAdmin.isSelected()) {
-            String message = "Le champ Est administrateur est obligatoire.";
-            throw new customExceptions(message);
-        }
-
-        // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
-        return yesAdmin.isSelected();
-
-    }
-
-
 
 
     public void showCustomerData(Customer customer) {

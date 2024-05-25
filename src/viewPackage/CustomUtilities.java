@@ -205,5 +205,17 @@ public class CustomUtilities {
         return phoneNumberStr;
     }
 
+    public static boolean validateBoolean(boolean selectedTrue, boolean selectedFalse, String fieldName) throws customExceptions {
+        // Vérifiez d'abord si l'une des options a été sélectionnée
+        if (!selectedTrue && !selectedFalse) {
+            String message = "Le champ "+ fieldName +" est obligatoire.";
+            throw new customExceptions(message);
+        }
+
+        // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
+        return selectedTrue;
+
+    }
+
 
 }

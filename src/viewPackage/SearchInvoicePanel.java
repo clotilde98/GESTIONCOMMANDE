@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class SearchInvoicePanel extends JPanel {
     private JTextField customerNumberField;
+    private JRadioButton paid, notPaid;
 
     private JButton search;
     private MenuProjet projectMenu;
@@ -35,6 +36,12 @@ public class SearchInvoicePanel extends JPanel {
         setLayout(new BorderLayout());
 
         search = new JButton("Rechercher");
+        paid = new JRadioButton("Payée");
+        notPaid = new JRadioButton("Non payée");
+
+        ButtonGroup paidGroup = new ButtonGroup();
+        paidGroup.add(paid);
+        paidGroup.add(notPaid);
 
 
         // Réduire la taille et changer la police des boutons
@@ -56,6 +63,10 @@ public class SearchInvoicePanel extends JPanel {
 
         searchPanel.add(new JLabel("Numéro Client:"));
         searchPanel.add(customerNumberField);
+
+        searchPanel.add(new JLabel("Paiement:"));
+        searchPanel.add(paid);
+        searchPanel.add(notPaid);
         searchButtonPanel.add(search);
         searchPanel.add(searchButtonPanel);
         search.addActionListener(new searchAction());
@@ -85,8 +96,9 @@ public class SearchInvoicePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             try {
                 int searchNumber = CustomUtilities.validateNumericField(customerNumberField.getText(),"Numéro Client");
+                boolean isPaid = CustomUtilities.validateBoolean(paid.isSelected(),notPaid.isSelected(),"Paiement");
                 invoiceList.clear();
-                invoiceList.addAll(controller.searchInvoiceLists(searchNumber,true));
+                invoiceList.addAll(controller.searchInvoiceLists(searchNumber,isPaid));
                 tableModel.fireTableDataChanged();
             }
             catch (customExceptions ex){
