@@ -310,20 +310,7 @@ public class AddCustomer extends  JPanel{
                 // Afficher un message de succès
                 JOptionPane.showMessageDialog(AddCustomer.this, "Client mis à jour avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
 
-                firstNameField.setText("");
-                lastNameField.setText("");
-                emailField.setText("");
-                phoneNumberField.setText("");
-                passwordField.setText("");
-                maleRadioButton.setSelected(false);
-                femaleRadioButton.setSelected(false);
-                yesAdmin.setSelected(false);
-                noAdmin.setSelected(false);
-                yesAdherent.setSelected(false);
-                noAdherent.setSelected(false);
-                streetField.setText("");
-                streetNumberField.setText("");
-                numberSponsorisedField.setText("");
+
 
             } catch (Exception ex) {
 
