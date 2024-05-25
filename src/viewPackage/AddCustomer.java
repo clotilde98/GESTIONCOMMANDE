@@ -90,7 +90,7 @@ public class AddCustomer extends  JPanel{
         ConfirmpasswordField = new  JPasswordField();
         maleRadioButton = new JRadioButton("M");
         femaleRadioButton = new JRadioButton("F");
-        String defaultBirthday = "YYYY-MM-DD"; // Format YYYY-MM-DD
+        String defaultBirthday = "YYYY/MM/DD"; // Format YYYY-MM-DD
         birthdayDate = new JTextField(defaultBirthday);
         yesAdmin = new JRadioButton("OUI");
         noAdmin = new JRadioButton("NON");
