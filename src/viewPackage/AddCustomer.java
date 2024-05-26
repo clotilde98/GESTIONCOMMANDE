@@ -2,7 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
-import exceptionPackage.customExceptions;
+import exceptionPackage.CustomExceptions;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
@@ -365,11 +365,11 @@ public class AddCustomer extends  JPanel{
         return comboBoxModel;
     }
 
-    private boolean validateGendertStatus(boolean selected, boolean noGenderSelected) throws customExceptions {
+    private boolean validateGendertStatus(boolean selected, boolean noGenderSelected) throws CustomExceptions {
         // Vérifiez d'abord si l'une des options a été sélectionnée
         if (!maleRadioButton.isSelected() && ! femaleRadioButton.isSelected()) {
             String message = "Le champ genre est obligatoire.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
@@ -396,7 +396,7 @@ public class AddCustomer extends  JPanel{
         noAdmin.setSelected(!Boolean.TRUE.equals(customer.getIsAdmin()));
         yesAdherent.setSelected(Boolean.TRUE.equals(customer.getIsAdherent()));
         noAdherent.setSelected(!Boolean.TRUE.equals(customer.getIsAdherent()));
-        localityComboBox.setSelectedItem(customer.getLocality().getCity());
+        localityComboBox.setSelectedItem(customer.getLocality());
         streetField.setText(customer.getStreet());
         streetNumberField.setText(String.valueOf(customer.getStreetNumber()));
         numberSponsorisedField.setText(String.valueOf(customer.getNumberSponsorised()));

@@ -1,7 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import exceptionPackage.customExceptions;
+import exceptionPackage.CustomExceptions;
 import modelPackage.SearchCommandInfo;
 
 import javax.swing.*;
@@ -124,6 +124,10 @@ public class TaskPanel extends JPanel {
                 commandList.addAll(controller.searchTotalCommands(searchNumber, (LocalDate) yearComboBox.getSelectedItem()));
                 tableModel.fireTableDataChanged();
 
+                //Reset result
+                customerLabel.setText("");
+                totalLabel.setText("");
+
                 String lastName = SearchCommandInfo.getLastName();
                 if (lastName !=  null){
                     String firstName = SearchCommandInfo.getFirstName();
@@ -143,7 +147,7 @@ public class TaskPanel extends JPanel {
 
 
             }
-            catch (customExceptions ex){
+            catch (CustomExceptions ex){
                 JOptionPane.showMessageDialog(TaskPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 

@@ -1,7 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import exceptionPackage.customExceptions;
+import exceptionPackage.CustomExceptions;
 import modelPackage.SearchProductInfo;
 
 import javax.swing.*;
@@ -85,29 +85,29 @@ public class SearchProductInfoPanel extends JPanel {
                 infoList.addAll(controller.searchProductInfos(searchPrice));
                 tableModel.fireTableDataChanged();
             }
-            catch (customExceptions ex){
+            catch (CustomExceptions ex){
                 JOptionPane.showMessageDialog(SearchProductInfoPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 
         }
     }
 
-    private double validateDoubleField(String numStr) throws customExceptions {
+    private double validateDoubleField(String numStr) throws CustomExceptions {
         if (numStr.isEmpty()) {
             String message ="Le champ de recherche est vide.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         try {
             double checkNumber = Double.parseDouble(numStr);
             if (checkNumber<0){
                 String message ="Le nombre doit être positif.";
-                throw new customExceptions(message);
+                throw new CustomExceptions(message);
             }
             return checkNumber;
         } catch (NumberFormatException e) {
             String message ="Format du prix recherché est invalide. Entrez un nombre.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
     }
 }

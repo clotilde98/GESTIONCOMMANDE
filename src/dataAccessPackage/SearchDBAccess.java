@@ -118,6 +118,10 @@ public class SearchDBAccess implements SearchDataAccess{
 
         ArrayList<SearchCommandInfo> dataList = new ArrayList<>();
 
+        //reset datas
+        SearchCommandInfo.setFirstName(null);
+        SearchCommandInfo.setLastName(null);
+
         try {
             String sqlInstruction = "select customer.first_name, customer.last_name, command.number, commandlign.discount, commandlign.quantity, product.price\n" +
                     "from customer inner join command inner join commandlign inner join product\n" +
@@ -148,7 +152,7 @@ public class SearchDBAccess implements SearchDataAccess{
 
         }
         catch(SQLException e){
-            throw new RuntimeException(e);
+            System.err.println("Erreur SQL : " + e.getMessage());
         }
 
         return dataList;

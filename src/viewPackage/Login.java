@@ -2,10 +2,8 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 
-import exceptionPackage.customExceptions;
+import exceptionPackage.CustomExceptions;
 import modelPackage.Customer;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -84,10 +82,10 @@ public class Login extends JFrame  {
         this.controller = controller;
     }
 
-    private void userIsAdmin(Customer user) throws customExceptions {
+    private void userIsAdmin(Customer user) throws CustomExceptions {
         if (!user.getIsAdmin()) {
             String message = "Le menu client n'est pas encore implémenté\n veuillez utiliser un compte admin";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
     }

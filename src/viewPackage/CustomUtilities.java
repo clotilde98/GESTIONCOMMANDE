@@ -2,7 +2,7 @@ package viewPackage;
 
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
-import exceptionPackage.customExceptions;
+import exceptionPackage.CustomExceptions;
 import modelPackage.Locality;
 
 import java.text.ParseException;
@@ -10,11 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomUtilities {
-    public static String validateEmail(String email,String fieldName) throws InvalidEmailFormatException, customExceptions {
+    public static String validateEmail(String email,String fieldName) throws InvalidEmailFormatException, CustomExceptions {
         // Vérifiez d'abord si le champ est vide
         if (email.isEmpty()) {
             String message ="Le champ " + fieldName + " est obligatoire";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         // Utilisation d'une expression régulière pour valider l'email
@@ -26,19 +26,19 @@ public class CustomUtilities {
         return email;
     }
 
-    public static String validateRequiredField(String field, String fieldName) throws customExceptions {
+    public static String validateRequiredField(String field, String fieldName) throws CustomExceptions {
         if (field.isEmpty()) {
             String message ="Le champ " + fieldName + " est obligatoire";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
         return field;
     }
 
-    public static  String validatePassword(String password,String fieldName) throws InvalidPasswordFormatException, customExceptions {
+    public static  String validatePassword(String password,String fieldName) throws InvalidPasswordFormatException, CustomExceptions {
         // Vérifiez d'abord si le champ est vide
         if (password.isEmpty()) {
             String message = "Le champ " + fieldName + " est obligatoire.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         // Vérifiez la longueur minimale du mot de passe
@@ -74,24 +74,24 @@ public class CustomUtilities {
         return password;
     }
 
-    public static void validateRequiredLocality(Locality selectedItem, String fieldName) throws customExceptions {
+    public static void validateRequiredLocality(Locality selectedItem, String fieldName) throws CustomExceptions {
         if (selectedItem == null) {
             String message = "Le champ " + fieldName + " est obligatoire";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
     }
-    public static Date validateDate(String dateStr, String fieldName) throws customExceptions {
+    public static Date validateDate(String dateStr, String fieldName) throws CustomExceptions {
         if (fieldName.isEmpty()) {
             String message = "Le champ " + fieldName + " est obligatoire.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         String[] dateComponents = dateStr.split("/");
         if (dateComponents.length != 3) {
             String message ="Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.";
 
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         int year, month, day;
@@ -99,36 +99,36 @@ public class CustomUtilities {
             year = Integer.parseInt(dateComponents[0]);
         } catch (NumberFormatException e) {
             String message ="L'année dans le champ " + fieldName + " est invalide.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         try {
             month = Integer.parseInt(dateComponents[1]);
         } catch (NumberFormatException e) {
              String message ="Le mois dans le champ " + fieldName + " est invalide.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         try {
             day = Integer.parseInt(dateComponents[2]);
         } catch (NumberFormatException e) {
             String message ="Le jour dans le champ " + fieldName + " est invalide.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         if (month < 1 || month > 12) {
             String message ="Le mois dans le champ " + fieldName + " doit être entre 01 et 12.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         if (day < 1 || day > 31) {
             String message = "Le jour dans le champ " + fieldName + " doit être entre 01 et 31.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
             String message = "Le jour dans le champ " + fieldName + " doit être entre 01 et 30 pour  le mois " + month ;
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
 
@@ -137,12 +137,12 @@ public class CustomUtilities {
             if (isLeapYear(year)) {
                 if (day > 29) {
                     String message ="Le jour dans le champ " + fieldName + " doit être entre 01 et 29 pour le mois de février dans une année bissextile.";
-                    throw new customExceptions(message);
+                    throw new CustomExceptions(message);
                 }
             } else {
                 if (day > 28) {
                     String message = "Le jour dans le champ " + fieldName + " doit être entre 01 et 28 pour le mois de février.";
-                    throw new customExceptions(message);
+                    throw new CustomExceptions(message);
                 }
             }
         }
@@ -152,7 +152,7 @@ public class CustomUtilities {
             sdf.setLenient(false); // La date doit être valide
             return sdf.parse(dateStr);
         } catch (ParseException e) {
-            throw new customExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.");
+            throw new CustomExceptions("Format de " + fieldName + " invalide. Utilisez le format yyyy/MM/dd.");
         }
 
 
@@ -169,11 +169,11 @@ public class CustomUtilities {
         }
         return false;
     }
-    public static int validateNumericField(String numStr, String fieldName) throws customExceptions {
+    public static int validateNumericField(String numStr, String fieldName) throws CustomExceptions {
         // Vérifiez d'abord si le champ est vide
         if (numStr.isEmpty()) {
             String message ="Le champ " + fieldName + " est obligatoire.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         try {
@@ -181,35 +181,35 @@ public class CustomUtilities {
             int checkNumber = Integer.parseInt(numStr);
             if (checkNumber<0){
                 String message ="Le nombre doit être positif :>=0.";
-                throw new customExceptions(message);
+                throw new CustomExceptions(message);
             }
             return checkNumber;
         } catch (NumberFormatException e) {
             String message ="Format de " + fieldName + " invalide. Entrez un nombre entier.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
     }
 
 
 
-    public static String validatePhoneNumberField(String phoneNumberStr, String fieldName) throws customExceptions {
+    public static String validatePhoneNumberField(String phoneNumberStr, String fieldName) throws CustomExceptions {
         // Vérifiez d'abord si le champ est vide
 
 
         // Vérifiez si le numéro de téléphone contient uniquement des chiffres
         if (!phoneNumberStr.matches("\\d+")) {
             String message = "Format de " + fieldName + " invalide. Entrez un numéro de téléphone valide (chiffres uniquement).";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         return phoneNumberStr;
     }
 
-    public static boolean validateBoolean(boolean selectedTrue, boolean selectedFalse, String fieldName) throws customExceptions {
+    public static boolean validateBoolean(boolean selectedTrue, boolean selectedFalse, String fieldName) throws CustomExceptions {
         // Vérifiez d'abord si l'une des options a été sélectionnée
         if (!selectedTrue && !selectedFalse) {
             String message = "Le champ "+ fieldName +" est obligatoire.";
-            throw new customExceptions(message);
+            throw new CustomExceptions(message);
         }
 
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false

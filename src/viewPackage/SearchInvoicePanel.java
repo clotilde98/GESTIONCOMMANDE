@@ -1,7 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import exceptionPackage.customExceptions;
+import exceptionPackage.CustomExceptions;
 import modelPackage.SearchInvoiceList;
 
 import javax.swing.*;
@@ -97,8 +97,9 @@ public class SearchInvoicePanel extends JPanel {
                 invoiceList.clear();
                 invoiceList.addAll(controller.searchInvoiceLists(searchNumber,isPaid));
                 tableModel.fireTableDataChanged();
+
             }
-            catch (customExceptions ex){
+            catch (CustomExceptions ex){
                 JOptionPane.showMessageDialog(SearchInvoicePanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 
