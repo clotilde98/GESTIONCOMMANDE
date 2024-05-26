@@ -26,7 +26,7 @@ public class AddCustomer extends  JPanel{
     private MenuProjet menuProjet;
 
     private JTextField firstNameField, lastNameField, emailField, phoneNumberField ;
-    private JRadioButton maleRadioButton, femaleRadioButton;
+    private JRadioButton maleRadioButton, femaleRadioButton,noGenderRadioButton;
 
     private JPasswordField passwordField, ConfirmpasswordField;
     private JTextField birthdayDate;
@@ -45,7 +45,10 @@ public class AddCustomer extends  JPanel{
     private ApplicationController controller;
 
 
+
     public  AddCustomer(MenuProjet menuProjet) {
+
+
         this.menuProjet = menuProjet;
 
         setController(new ApplicationController());
@@ -102,6 +105,7 @@ public class AddCustomer extends  JPanel{
         ConfirmpasswordField = new  JPasswordField();
         maleRadioButton = new JRadioButton("M");
         femaleRadioButton = new JRadioButton("F");
+        noGenderRadioButton = new JRadioButton("X");
         String defaultBirthday = "YYYY/MM/DD"; // Format YYYY-MM-DD
         birthdayDate = new JTextField(defaultBirthday);
         yesAdmin = new JRadioButton("OUI");
@@ -118,6 +122,7 @@ public class AddCustomer extends  JPanel{
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(maleRadioButton);
         genderGroup.add(femaleRadioButton);
+        genderGroup.add(noGenderRadioButton);
 
         ButtonGroup adminGroup = new ButtonGroup();
         adminGroup.add(yesAdmin);
@@ -149,6 +154,7 @@ public class AddCustomer extends  JPanel{
         JPanel genderPanel = new JPanel(new GridLayout(1, 2, 5, 5));
         genderPanel.add(maleRadioButton);
         genderPanel.add(femaleRadioButton);
+        genderPanel.add(noGenderRadioButton);
         textFieldPanel.add(genderPanel);
         textFieldPanel.add(new JLabel("Date de naissance:"));
         textFieldPanel.add(birthdayDate);
@@ -225,7 +231,7 @@ public class AddCustomer extends  JPanel{
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
                 String confirmPassword = (ConfirmpasswordField.getText());
 
-                char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
+                char gender = validateGendertStatus(maleRadioButton.isSelected(), femaleRadioButton.isSelected(), noGenderRadioButton.isSelected());
                 Date birthdayDay = CustomUtilities.validateDate(birthdayDate.getText(), "Date de naissance");
                 boolean isAdmin = CustomUtilities.validateBoolean(yesAdmin.isSelected(),noAdmin.isSelected(),"Est administrateur");
                 boolean isAdherent = CustomUtilities.validateBoolean(yesAdherent.isSelected(),noAdherent.isSelected(),"Est adhérent");
@@ -303,7 +309,7 @@ public class AddCustomer extends  JPanel{
 
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
                 customer.setPassword(password);
-                char gender = validateGendertStatus(maleRadioButton.isSelected(),femaleRadioButton.isSelected()) ? 'M' : 'F';
+                char gender = validateGendertStatus(maleRadioButton.isSelected(), femaleRadioButton.isSelected(), noGenderRadioButton.isSelected());
                 customer.setGender(gender);
                 String birthdayDayString = (birthdayDate.getText());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -368,18 +374,23 @@ public class AddCustomer extends  JPanel{
         return comboBoxModel;
     }
 
-    private boolean validateGendertStatus(boolean selected, boolean noGenderSelected) throws CustomExceptions {
+    private char validateGendertStatus(boolean selected, boolean noGenderSelected, boolean noGenderRadioButtonSelected) throws CustomExceptions {
         // Vérifiez d'abord si l'une des options a été sélectionnée
-        if (!maleRadioButton.isSelected() && ! femaleRadioButton.isSelected()) {
-            String message = "Le champ genre est obligatoire.";
-            throw new CustomExceptions(message);
-        }
+        if (maleRadioButton.isSelected()){
+            return 'M';
+        } else if (femaleRadioButton.isSelected()) {
+            return 'F';
+        } else if (noGenderRadioButton.isSelected()) {
+            return 'X';
+        } else{
 
-        // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
-        return maleRadioButton.isSelected();
+            String message = "Le champ genre est obligatoire.";
+
+            throw new CustomExceptions(message);
 
     }
 
+    }
 
     public void showCustomerData(Customer customer) {
 
@@ -395,6 +406,7 @@ public class AddCustomer extends  JPanel{
 
         maleRadioButton.setSelected(customer.getGender() == 'M');
         femaleRadioButton.setSelected(customer.getGender() == 'F');
+        noGenderRadioButton.setSelected(customer.getGender() == 'X');
         yesAdmin.setSelected(Boolean.TRUE.equals(customer.getIsAdmin()));
         noAdmin.setSelected(!Boolean.TRUE.equals(customer.getIsAdmin()));
         yesAdherent.setSelected(Boolean.TRUE.equals(customer.getIsAdherent()));

@@ -15,8 +15,12 @@ public class MenuProjet extends JFrame {
     private Container mainContainer;
 
 
+    private AddCustomer addCustomerForm;
 
-    public MenuProjet() {
+
+
+    public MenuProjet() throws SQLException {
+
 
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -95,6 +99,7 @@ public class MenuProjet extends JFrame {
 
 
     }
+
 
 
     public class formAction implements ActionListener {
