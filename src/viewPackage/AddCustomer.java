@@ -102,6 +102,9 @@ public class AddCustomer extends  JPanel{
                 passwordField.setEchoChar('*'); // Masquer le mot de passe avec le caractère par défaut '*'
             }
         });
+
+
+
         ConfirmpasswordField = new  JPasswordField();
         maleRadioButton = new JRadioButton("M");
         femaleRadioButton = new JRadioButton("F");
@@ -280,6 +283,7 @@ public class AddCustomer extends  JPanel{
                     streetField.setText("");
                     streetNumberField.setText("");
                     numberSponsorisedField.setText("");
+                    localityComboBox.setSelectedIndex(-1);
                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(AddCustomer.this, "Les mots de passe ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -411,7 +415,13 @@ public class AddCustomer extends  JPanel{
         noAdmin.setSelected(!Boolean.TRUE.equals(customer.getIsAdmin()));
         yesAdherent.setSelected(Boolean.TRUE.equals(customer.getIsAdherent()));
         noAdherent.setSelected(!Boolean.TRUE.equals(customer.getIsAdherent()));
-        localityComboBox.setSelectedItem(customer.getLocality());
+        for (int i = 0; i < localityComboBox.getItemCount(); i++) {
+            Locality locality = localityComboBox.getItemAt(i);
+            if (locality.getId() == customer.getLocality().getId()) {
+                localityComboBox.setSelectedIndex(i);
+                break;
+            }
+        }
         streetField.setText(customer.getStreet());
         streetNumberField.setText(String.valueOf(customer.getStreetNumber()));
         numberSponsorisedField.setText(String.valueOf(customer.getNumberSponsorised()));
