@@ -16,7 +16,6 @@ public class SearchInvoicePanel extends JPanel {
     private JRadioButton paid, notPaid;
 
     private JButton search;
-    private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
 
@@ -26,8 +25,7 @@ public class SearchInvoicePanel extends JPanel {
 
     private ApplicationController controller;
 
-    public SearchInvoicePanel(MenuProjet projectMenu){
-        this.projectMenu = projectMenu;
+    public SearchInvoicePanel(){
 
         setController(new ApplicationController());
 

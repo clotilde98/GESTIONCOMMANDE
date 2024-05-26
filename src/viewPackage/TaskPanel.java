@@ -17,7 +17,6 @@ public class TaskPanel extends JPanel {
 
     private JComboBox<LocalDate> yearComboBox;
     private JButton search;
-    private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
     private JLabel totalLabel, customerLabel;
@@ -28,8 +27,7 @@ public class TaskPanel extends JPanel {
 
     private ApplicationController controller;
 
-    public TaskPanel(MenuProjet projectMenu){
-        this.projectMenu = projectMenu;
+    public TaskPanel(){
 
         setController(new ApplicationController());
 

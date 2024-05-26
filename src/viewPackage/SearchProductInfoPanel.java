@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class SearchProductInfoPanel extends JPanel {
     private JTextField priceField;
     private JButton search;
-    private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
 
@@ -24,8 +23,7 @@ public class SearchProductInfoPanel extends JPanel {
 
     private ApplicationController controller;
 
-    public SearchProductInfoPanel(MenuProjet projectMenu){
-        this.projectMenu = projectMenu;
+    public SearchProductInfoPanel(){
 
         setController(new ApplicationController());
 

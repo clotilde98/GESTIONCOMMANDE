@@ -117,7 +117,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            getContentPane().add(new AddCustomer(), BorderLayout.CENTER);
+            getContentPane().add(new AddCustomer(MenuProjet.this), BorderLayout.CENTER);
             revalidate();
 
         }
@@ -145,6 +145,14 @@ public class MenuProjet extends JFrame {
         repaint();
     }
 
+    public void showAdminForm(FormAdmin formAdmin) {
+        getContentPane().removeAll();
+        getContentPane().add(formAdmin, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+
 
     public class disconnectAction implements ActionListener {
         @Override
@@ -171,7 +179,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            getContentPane().add(new SearchProductHistoryPanel(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new SearchProductHistoryPanel(), BorderLayout.CENTER);
             revalidate();
 
 
@@ -182,7 +190,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            getContentPane().add(new SearchInvoicePanel(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new SearchInvoicePanel(), BorderLayout.CENTER);
             revalidate();
 
 
@@ -193,7 +201,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            getContentPane().add(new SearchProductInfoPanel(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new SearchProductInfoPanel(), BorderLayout.CENTER);
             revalidate();
 
         }
@@ -203,7 +211,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            getContentPane().add(new TaskPanel(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new TaskPanel(), BorderLayout.CENTER);
             revalidate();
 
         }

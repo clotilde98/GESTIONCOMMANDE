@@ -13,7 +13,6 @@ public class SearchProductHistoryPanel extends JPanel {
 
     private JTextField nameField;
     private JButton search;
-    private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
 
@@ -23,8 +22,7 @@ public class SearchProductHistoryPanel extends JPanel {
 
     private ApplicationController controller;
 
-    public SearchProductHistoryPanel(MenuProjet projectMenu){
-        this.projectMenu = projectMenu;
+    public SearchProductHistoryPanel(){
 
         setController(new ApplicationController());
 

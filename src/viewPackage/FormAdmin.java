@@ -141,7 +141,7 @@ public class FormAdmin extends JPanel{
 
             Customer customer = controller.getCustomer(customerNumber);
 
-            AddCustomer addCustomer = new AddCustomer();
+            AddCustomer addCustomer = new AddCustomer(menuProjet);
             menuProjet.showAddCustomerForm(addCustomer); // Use the MenuProjet reference
             addCustomer.enableUpdateButton();
             addCustomer.disableaddButton();
