@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class TaskPanel extends JPanel {
     private JTextField customerNumberField;
 
+    private JComboBox<LocalDate> yearComboBox;
     private JButton search;
     private MenuProjet projectMenu;
 
@@ -59,6 +60,12 @@ public class TaskPanel extends JPanel {
         searchPanel.add(new JLabel("Numéro Client:"));
         searchPanel.add(customerNumberField);
 
+        DefaultComboBoxModel<LocalDate> comboBoxModel = getDateDataModel();
+        yearComboBox = new JComboBox<>(comboBoxModel);
+
+        searchPanel.add(new JLabel("Année:"));
+        searchPanel.add(yearComboBox);
+
         searchButtonPanel.add(search);
 
         totalLabel = new JLabel("Prix Total pour l'année : ");
@@ -87,13 +94,32 @@ public class TaskPanel extends JPanel {
         this.controller = controller;
     }
 
+    private DefaultComboBoxModel<LocalDate> getDateDataModel() {
+        LocalDate selectDate = LocalDate.parse("2020-01-01");
+        LocalDate actualDate = LocalDate.now();
+        int dateNumber = actualDate.getYear() - selectDate.getYear() + 1;
+
+        LocalDate[] dates = new LocalDate[dateNumber] ;
+
+        int i = 0;
+        while (i < dateNumber){
+            dates[i]= selectDate;
+            selectDate = selectDate.plusYears(1);
+            i++;
+        }
+
+        DefaultComboBoxModel<LocalDate> comboBoxModel = new DefaultComboBoxModel<>(dates);
+
+        return comboBoxModel;
+    }
+
     public class searchAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 int searchNumber = CustomUtilities.validateNumericField(customerNumberField.getText(),"Numéro Client");
                 commandList.clear();
-                commandList.addAll(controller.searchTotalCommands(searchNumber, LocalDate.parse("2023-01-01")));
+                commandList.addAll(controller.searchTotalCommands(searchNumber, (LocalDate) yearComboBox.getSelectedItem()));
                 tableModel.fireTableDataChanged();
 
                 String totalPrice = String.valueOf(SearchCommandInfo.getTotalPrice());
