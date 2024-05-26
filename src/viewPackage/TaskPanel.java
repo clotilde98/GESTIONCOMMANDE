@@ -62,6 +62,7 @@ public class TaskPanel extends JPanel {
 
         DefaultComboBoxModel<LocalDate> comboBoxModel = getDateDataModel();
         yearComboBox = new JComboBox<>(comboBoxModel);
+        yearComboBox.setRenderer(new YearComboBoxRenderer());
 
         searchPanel.add(new JLabel("Année:"));
         searchPanel.add(yearComboBox);
