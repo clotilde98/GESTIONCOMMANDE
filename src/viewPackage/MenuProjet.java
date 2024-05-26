@@ -11,7 +11,7 @@ public class MenuProjet extends JFrame {
     private JMenuBar menuBar;
     private JMenu applicationMenu, customersMenu ,searchMenu ;
 
-    private JMenuItem disconnect,exit ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem,taskItem;
+    private JMenuItem disconnect,exit ,receptionItem ,customersItem,addCustomerItem,customerProductItem,customerInvoiceItem,infoProductItem,taskItem;
     private Container mainContainer;
 
 
@@ -41,6 +41,12 @@ public class MenuProjet extends JFrame {
 
         setTitle("Accueil");
         setVisible(true);
+
+        receptionItem = new JMenuItem("Acceuil");
+        applicationMenu.add(receptionItem);
+        receptionItem.addActionListener(new receptionAction());
+
+        applicationMenu.addSeparator();
 
 
         disconnect = new JMenuItem("Se deconnecter");
@@ -152,6 +158,16 @@ public class MenuProjet extends JFrame {
             loginForm.setVisible(true);
             setVisible(false);
 
+        }
+    }
+
+    public class receptionAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getContentPane().removeAll();
+            getContentPane().add(new Welcome(), BorderLayout.CENTER);
+            revalidate();
+            repaint();
         }
     }
 

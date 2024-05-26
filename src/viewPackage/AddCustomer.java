@@ -87,6 +87,16 @@ public class AddCustomer extends  JPanel{
         phoneNumberField = new JTextField();
         passwordField = new  JPasswordField();
         showPasswordCheckBox = new JCheckBox("Afficher le mot de passe");
+        showPasswordCheckBox.addActionListener(e -> {
+            // Vérifier si la case à cocher est cochée ou non
+            if (showPasswordCheckBox.isSelected()) {
+                // Si elle est cochée, afficher le mot de passe en texte clair
+                passwordField.setEchoChar((char) 0); // Afficher le mot de passe en texte clair
+            } else {
+                // Si elle n'est pas cochée, masquer le mot de passe
+                passwordField.setEchoChar('*'); // Masquer le mot de passe avec le caractère par défaut '*'
+            }
+        });
         ConfirmpasswordField = new  JPasswordField();
         maleRadioButton = new JRadioButton("M");
         femaleRadioButton = new JRadioButton("F");
