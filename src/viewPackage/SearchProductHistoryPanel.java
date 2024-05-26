@@ -45,14 +45,14 @@ public class SearchProductHistoryPanel extends JPanel {
 
         // Mettre en couleur la partie des boutons
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridLayout(4, 1));
+        searchPanel.setLayout(new GridLayout(14, 1));
         searchPanel.setBorder(new EmptyBorder(50, 20, 100, 50));
 
         nameField = new JTextField(10);
 
         JPanel searchButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        searchPanel.add(new JLabel("Nom:"));
+        searchPanel.add(new JLabel("Nom du Client:"));
         searchPanel.add(nameField);
         searchButtonPanel.add(search);
         searchPanel.add(searchButtonPanel);
@@ -68,9 +68,6 @@ public class SearchProductHistoryPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         add(searchPanel, BorderLayout.WEST);
 
-
-        setSize(1280, 720);
-        setVisible(true);
 
     }
 

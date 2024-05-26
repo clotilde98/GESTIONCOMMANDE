@@ -3,13 +3,15 @@ package modelPackage;
 public class SearchProductInfo {
     private String productName;
     private String category;
+    private Double price;
     private Integer stock;
     private String provider;
     private String cityProvider;
 
-    public SearchProductInfo(String productName, String category, Integer stock, String provider, String cityProvider){
+    public SearchProductInfo(String productName, String category,Double price, Integer stock, String provider, String cityProvider){
         setProductName(productName);
         setCategory(category);
+        setPrice(price);
         setStock(stock);
         setProvider(provider);
         setCityProvider(cityProvider);
@@ -23,6 +25,8 @@ public class SearchProductInfo {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void setPrice(Double price) { this.price = price;}
 
     public void setStock(Integer stock) {
         this.stock = stock;
@@ -44,6 +48,8 @@ public class SearchProductInfo {
     public String getCategory() {
         return category;
     }
+
+    public Double getPrice() { return price;}
 
     public Integer getStock() {
         return stock;

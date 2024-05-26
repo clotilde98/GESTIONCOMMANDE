@@ -16,6 +16,7 @@ public class SearchProductInfoTable extends AbstractTableModel {
     { columnNames = new ArrayList<>();
         columnNames.add("Nom du produit");
         columnNames.add("Stock");
+        columnNames.add("Prix");
         columnNames.add("Catégorie");
         columnNames.add("Fournisseur");
         columnNames.add("Ville du fournisseur");
@@ -51,10 +52,12 @@ public class SearchProductInfoTable extends AbstractTableModel {
             case 1:
                 return productInfo.getStock();
             case 2:
-                return productInfo.getCategory();
+                return productInfo.getPrice();
             case 3:
-                return productInfo.getProvider();
+                return productInfo.getCategory();
             case 4:
+                return productInfo.getProvider();
+            case 5:
                 return productInfo.getCityProvider();
             default:
                 return null;
@@ -63,9 +66,9 @@ public class SearchProductInfoTable extends AbstractTableModel {
 
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
-            case 0: case 2: case 3: case 4:
+            case 0: case 3: case 4: case 5:
                 return String.class;
-            case 1:
+            case 1: case 2:
                 return Integer.class;
             default:
                 return Object.class;

@@ -82,7 +82,7 @@ public class SearchDBAccess implements SearchDataAccess{
         ArrayList<SearchProductInfo> dataList = new ArrayList<>();
 
         try {
-            String sqlInstruction = "select product.name 'product_name', product.stock, category.name 'category_name', provider.name 'provider_name', locality.city\n" +
+            String sqlInstruction = "select product.name 'product_name', product.price, product.stock, category.name 'category_name', provider.name 'provider_name', locality.city\n" +
                     "from product inner join category inner join provider inner join locality\n" +
                     "where product.category = category.id and product.provider = provider.number and provider.locality = locality.id " +
                     "and product.price > ? and product.price < ?";
@@ -96,11 +96,12 @@ public class SearchDBAccess implements SearchDataAccess{
             while(data.next()){
                 String productName = data.getString("product_name");
                 String category = data.getString("category_name");
+                Double price = data.getDouble("price");
                 Integer stock = data.getInt("stock");
                 String provider = data.getString("provider_name");
                 String cityProvider = data.getString("city");
 
-                dataList.add(new SearchProductInfo(productName,category,stock,provider,cityProvider));
+                dataList.add(new SearchProductInfo(productName,category,price,stock,provider,cityProvider));
             }
         }
 

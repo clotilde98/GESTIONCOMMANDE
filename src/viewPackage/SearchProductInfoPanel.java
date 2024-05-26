@@ -46,7 +46,7 @@ public class SearchProductInfoPanel extends JPanel {
 
         // Mettre en couleur la partie des boutons
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridLayout(4, 1));
+        searchPanel.setLayout(new GridLayout(14, 1));
         searchPanel.setBorder(new EmptyBorder(50, 20, 100, 50));
 
         priceField = new JTextField(10);
@@ -69,9 +69,6 @@ public class SearchProductInfoPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         add(searchPanel, BorderLayout.WEST);
 
-
-        setSize(1280, 720);
-        setVisible(true);
 
     }
 

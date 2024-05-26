@@ -20,7 +20,7 @@ public class TaskPanel extends JPanel {
     private MenuProjet projectMenu;
 
     private JScrollPane scrollPane;
-    private JLabel totalLabel;
+    private JLabel totalLabel, customerLabel;
 
     private JTable result;
     private SearchCommandInfoTable tableModel;
@@ -50,7 +50,7 @@ public class TaskPanel extends JPanel {
 
         // Mettre en couleur la partie des boutons
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridLayout(4, 1));
+        searchPanel.setLayout(new GridLayout(14, 1));
         searchPanel.setBorder(new EmptyBorder(50, 20, 100, 50));
 
         customerNumberField = new JTextField(10);
@@ -69,13 +69,18 @@ public class TaskPanel extends JPanel {
 
         searchButtonPanel.add(search);
 
-        totalLabel = new JLabel("Prix Total pour l'année : ");
-        searchButtonPanel.add(totalLabel);
+        JPanel resultPanel = new JPanel(new GridLayout(2,3));
+        customerLabel = new JLabel("");
+        totalLabel = new JLabel("");
+        resultPanel.add(customerLabel);
+        resultPanel.add(totalLabel);
 
         searchPanel.add(searchButtonPanel);
+        searchPanel.add(resultPanel);
         search.addActionListener(new searchAction());
 
-        commandList = controller.searchTotalCommands(1,LocalDate.parse("2023-01-01"));
+
+        commandList = controller.searchTotalCommands(1,LocalDate.parse("2000-01-01"));
         tableModel = new SearchCommandInfoTable(commandList);
 
         result = new JTable(tableModel);
@@ -85,10 +90,6 @@ public class TaskPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         add(searchPanel, BorderLayout.WEST);
 
-
-        setSize(1280, 720);
-        setVisible(true);
-
     }
 
     private void setController(ApplicationController controller) {
@@ -96,7 +97,7 @@ public class TaskPanel extends JPanel {
     }
 
     private DefaultComboBoxModel<LocalDate> getDateDataModel() {
-        LocalDate selectDate = LocalDate.parse("2020-01-01");
+        LocalDate selectDate = LocalDate.parse("2020-01-01"); // Start date Selection
         LocalDate actualDate = LocalDate.now();
         int dateNumber = actualDate.getYear() - selectDate.getYear() + 1;
 
@@ -123,8 +124,23 @@ public class TaskPanel extends JPanel {
                 commandList.addAll(controller.searchTotalCommands(searchNumber, (LocalDate) yearComboBox.getSelectedItem()));
                 tableModel.fireTableDataChanged();
 
-                String totalPrice = String.valueOf(SearchCommandInfo.getTotalPrice());
-                totalLabel.setText("Prix Total pour l'année : " + totalPrice );
+                String lastName = SearchCommandInfo.getLastName();
+                if (lastName !=  null){
+                    String firstName = SearchCommandInfo.getFirstName();
+                    if (firstName == null){
+                        firstName = "";
+                    }
+                    else {
+                        firstName = firstName + " ";
+                    }
+
+                    customerLabel.setText("Client: "+ firstName + lastName);
+
+                    String totalPrice = String.valueOf(SearchCommandInfo.getTotalPrice());
+                    totalLabel.setText("\nPrix Total pour l'année : " + totalPrice );
+                }
+
+
 
             }
             catch (customExceptions ex){
