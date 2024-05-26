@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +43,7 @@ public class AddCustomer extends  JPanel{
     private ApplicationController controller;
 
 
-    public  AddCustomer() throws SQLException {
+    public  AddCustomer() {
 
         setController(new ApplicationController());
 
@@ -355,7 +354,7 @@ public class AddCustomer extends  JPanel{
             }
         }
     }
-    public DefaultComboBoxModel<Locality> getLocalityDataModel() throws SQLException {
+    public DefaultComboBoxModel<Locality> getLocalityDataModel() {
 
         // Récupérer toutes les localités depuis la base de données
         ArrayList<Locality> allLocalities = controller.getAllLocalities();

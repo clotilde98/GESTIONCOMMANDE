@@ -19,7 +19,7 @@ public class LocalityManager {
         this.dao = localityDataAccess;
     }
 
-    public ArrayList<Locality> getAllLocalities() throws SQLException {
+    public ArrayList<Locality> getAllLocalities() {
         return dao.getAllLocalities();
     }
 }

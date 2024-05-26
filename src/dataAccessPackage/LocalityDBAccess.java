@@ -40,30 +40,39 @@ public class LocalityDBAccess implements LocalityDataAccess{
     }
 
 
-    public ArrayList<Locality> getAllLocalities() throws SQLException {
+    public ArrayList<Locality> getAllLocalities() {
+        Locality locality;
+        ArrayList<Locality> allLocalities =  new ArrayList<>();
         String sqlInstruction = "select * from locality";
 
-        PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlInstruction);
 
-        ResultSet data = statement.executeQuery();
-        Locality locality;
-        Country country = null;
-        ArrayList<Locality> allLocalities =  new ArrayList<>();
-        CountryDataAccess dao;
-        dao = new CountryDBAccess();
+            ResultSet data = statement.executeQuery();
 
-        ArrayList<Country> allCountries= dao.getAllCountries();
-        int countriesNumber = allCountries.size();
+            Country country = null;
 
-        while (data.next()){
+            CountryDataAccess dao;
+            dao = new CountryDBAccess();
 
-            for(int i = 0; i < countriesNumber ; i++){
-                if (data.getString("country").equals(allCountries.get(i).getCode())) country = allCountries.get(i);
+            ArrayList<Country> allCountries= dao.getAllCountries();
+            int countriesNumber = allCountries.size();
+
+            while (data.next()){
+
+                for(int i = 0; i < countriesNumber ; i++){
+                    if (data.getString("country").equals(allCountries.get(i).getCode())) country = allCountries.get(i);
+                }
+
+                locality = new Locality(data.getInt("id"),data.getString("city"),data.getInt("zip_code"),country);
+                allLocalities.add(locality);
             }
-
-            locality = new Locality(data.getInt("id"),data.getString("city"),data.getInt("zip_code"),country);
-            allLocalities.add(locality);
         }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
         return allLocalities;
     }

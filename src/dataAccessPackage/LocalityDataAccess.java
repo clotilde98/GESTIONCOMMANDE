@@ -8,5 +8,5 @@ import java.util.ArrayList;
 public interface LocalityDataAccess {
     Locality getLocality(Integer id);
 
-    ArrayList<Locality> getAllLocalities() throws SQLException;
+    ArrayList<Locality> getAllLocalities();
 }

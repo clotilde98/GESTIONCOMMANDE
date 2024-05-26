@@ -116,13 +116,9 @@ public class MenuProjet extends JFrame {
     public class addCustomerAction implements ActionListener {
         public void actionPerformed( ActionEvent event) {
 
-            try {
-                getContentPane().removeAll();
-                getContentPane().add(new AddCustomer(), BorderLayout.CENTER);
-                revalidate();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            getContentPane().removeAll();
+            getContentPane().add(new AddCustomer(), BorderLayout.CENTER);
+            revalidate();
 
         }
     }

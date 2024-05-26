@@ -59,7 +59,7 @@ public class ApplicationController {
     }
 
     //Locality Manager
-    public ArrayList<Locality> getAllLocalities() throws SQLException {
+    public ArrayList<Locality> getAllLocalities() {
         return localityManager.getAllLocalities();
     }
 
