@@ -19,12 +19,10 @@ public class Customer {
     private Integer streetNumber;
     private Integer numberSponsorised;
 
-    public Customer( String firstName, String lastName, String email, String phoneNumber, String password , Character gender,
+    public Customer( String lastName, String email, String password , Character gender,
                     Date birthday, Boolean isAdmin, Boolean isAdherent, Locality locality , String street, Integer streetNumber, Integer numberSponsorised){
-        setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
-        setPhoneNumber(phoneNumber);
         setPassword(password);
         setGender(gender);
         setBirthday(birthday);

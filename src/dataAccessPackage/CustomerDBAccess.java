@@ -65,10 +65,8 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
             if (resultSet.next()) {
 
-            String first_name = resultSet.getString("first_name");
             String last_name = resultSet.getString("last_name");
             String email = resultSet.getString("email");
-            String phone_number = resultSet.getString("phone_number");
             String password =resultSet.getString("password");
             String genderString = resultSet.getString("gender");
             char gender = genderString.charAt(0);
@@ -86,8 +84,19 @@ public class CustomerDBAccess implements CustomerDataAccess{
             Integer number_sponsorised =resultSet.getInt("number_sponsorised");
             Integer number = resultSet.getInt("number");
 
-                customer = new Customer(first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
+                customer = new Customer(last_name,email,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
                 customer.setNumber(number);
+
+                //Optional column
+                if (resultSet.getString("first_name") != null){
+                    String first_name = resultSet.getString("first_name");
+                    customer.setFirstName(first_name);
+                }
+
+                if (resultSet.getString("phone_number") != null){
+                    String phone_number = resultSet.getString("phone_number");
+                    customer.setPhoneNumber(phone_number);
+                }
 
             }
         } catch (SQLException e) {
@@ -114,10 +123,9 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
             while (resultSet.next()) {
 
-                String first_name = resultSet.getString("first_name");
+
                 String last_name = resultSet.getString("last_name");
                 String email = resultSet.getString("email");
-                String phone_number = resultSet.getString("phone_number");
                 String password =resultSet.getString("password");
                 String genderString = resultSet.getString("gender");
                 char gender = genderString.charAt(0);
@@ -138,9 +146,22 @@ public class CustomerDBAccess implements CustomerDataAccess{
                 Integer number_sponsorised =resultSet.getInt("number_sponsorised");
                 Integer number = resultSet.getInt("number");
 
-                Customer customer = new Customer( first_name,last_name,email,phone_number,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
+                Customer customer = new Customer(last_name,email,password,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
                 customers.add(customer);
                 customer.setNumber(number);
+
+                //Optional column
+                if (resultSet.getString("first_name") != null){
+                    String first_name = resultSet.getString("first_name");
+                    customer.setFirstName(first_name);
+                }
+
+                if (resultSet.getString("phone_number") != null){
+                    String phone_number = resultSet.getString("phone_number");
+                    customer.setPhoneNumber(phone_number);
+                }
+
+
             }
 
     } catch (SQLException e) {
@@ -230,10 +251,8 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
             resultSet.next();
 
-            String first_name = resultSet.getString("first_name");
             String last_name = resultSet.getString("last_name");
             String userEmail = resultSet.getString("email");
-            String phone_number = resultSet.getString("phone_number");
             String userPassword =resultSet.getString("password");
             String genderString = resultSet.getString("gender");
             char gender = genderString.charAt(0);
@@ -251,7 +270,18 @@ public class CustomerDBAccess implements CustomerDataAccess{
             int number_sponsorised =resultSet.getInt("number_sponsorised");
 
 
-            customer = new Customer( first_name,last_name,userEmail,phone_number,userPassword,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
+            customer = new Customer(last_name,userEmail,userPassword,gender,birthday,is_admin,is_adherent,locality,street,street_number,number_sponsorised);
+
+            //Optional column
+            if (resultSet.getString("first_name") != null){
+                String first_name = resultSet.getString("first_name");
+                customer.setFirstName(first_name);
+            }
+
+            if (resultSet.getString("phone_number") != null){
+                String phone_number = resultSet.getString("phone_number");
+                customer.setPhoneNumber(phone_number);
+            }
         }
 
         catch (SQLException e){

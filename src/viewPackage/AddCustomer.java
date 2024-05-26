@@ -207,10 +207,9 @@ public class AddCustomer extends  JPanel{
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                String firstName = (firstNameField.getText());
+
                 String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
-                String phoneNumber = CustomUtilities.validatePhoneNumberField(phoneNumberField.getText(),"Numéro de Téléphone");
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
                 String confirmPassword = (ConfirmpasswordField.getText());
 
@@ -224,12 +223,30 @@ public class AddCustomer extends  JPanel{
                 Integer streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
                 Integer numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
-                Customer customer = new Customer(firstName, lastName, email, phoneNumber, password, gender, birthdayDay,
+                Customer customer = new Customer(lastName, email, password, gender, birthdayDay,
                         isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
+
+                //Optional column
+                String firstName = firstNameField.getText();
+                String phoneNumber =phoneNumberField.getText();
+                if (!firstName.isEmpty()){
+                    customer.setFirstName(firstName);
+                }
+
+                if (!phoneNumber.isEmpty()){
+                    phoneNumber = CustomUtilities.validatePhoneNumberField(phoneNumber,"Numéro de Téléphone");
+                    customer.setPhoneNumber(phoneNumber);
+                }
+
                 if (password.equals(confirmPassword)) {
                     controller.addCustomer(customer);
 
-                    JOptionPane.showMessageDialog(AddCustomer.this, "Client " + customer.getFirstName() + " " + customer.getLastName() + " ajouté avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+                    String successMessage = customer.getLastName() + " ajouté avec succès.";
+                    if (!firstName.isEmpty()) {
+                        successMessage = firstName + " " + successMessage;
+                    }
+
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Client " + successMessage, "Succès", JOptionPane.INFORMATION_MESSAGE);
 
                     firstNameField.setText("");
                     lastNameField.setText("");
@@ -268,10 +285,8 @@ public class AddCustomer extends  JPanel{
         public void actionPerformed(ActionEvent e) {
 
             try {
-                customer.setFirstName(firstNameField.getText());
                 customer.setLastName(lastNameField.getText());
                 customer.setEmail(emailField.getText());
-                customer.setPhoneNumber(phoneNumberField.getText());
                 customer.setStreet(streetField.getText());
 
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
@@ -304,6 +319,18 @@ public class AddCustomer extends  JPanel{
 
                 customer.setStreetNumber(streetNumber);
                 customer.setNumberSponsorised(numberSponsorised);
+
+                //Optional column
+                String firstName = firstNameField.getText();
+                String phoneNumber =phoneNumberField.getText();
+                if (!firstName.isEmpty()){
+                    customer.setFirstName(firstName);
+                }
+
+                if (!phoneNumber.isEmpty()){
+                    phoneNumber = CustomUtilities.validatePhoneNumberField(phoneNumber,"Numéro de Téléphone");
+                    customer.setPhoneNumber(phoneNumber);
+                }
 
                 controller.updateCustomer(customer);
 
