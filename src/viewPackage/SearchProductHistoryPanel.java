@@ -86,12 +86,13 @@ public class SearchProductHistoryPanel extends JPanel {
                 return;
             }
             historyList.clear();
-            ArrayList<modelPackage.SearchProductHistory> results = controller.searchProductHistories(searchText);
-            if (results.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Aucun résultat trouvé pour le nom: " + searchText, "Information", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                historyList.addAll(results);
+
+            if (historyList.isEmpty()) {
+                JOptionPane.showMessageDialog(SearchProductHistoryPanel.this, "Aucun résultat trouvé pour le nom: " + searchText , "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
             }
+
+            historyList.addAll(controller.searchProductHistories(nameField.getText()));
+
             tableModel.fireTableDataChanged();
 
         }

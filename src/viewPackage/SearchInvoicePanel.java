@@ -96,6 +96,10 @@ public class SearchInvoicePanel extends JPanel {
                 invoiceList.addAll(controller.searchInvoiceLists(searchNumber,isPaid));
                 tableModel.fireTableDataChanged();
 
+                if (invoiceList.isEmpty()) {
+                    JOptionPane.showMessageDialog(SearchInvoicePanel.this, "Aucune facture ne correspond à la recherche.", "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
+                }
+
             }
             catch (CustomExceptions ex){
                 JOptionPane.showMessageDialog(SearchInvoicePanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

@@ -82,6 +82,10 @@ public class SearchProductInfoPanel extends JPanel {
                 infoList.clear();
                 infoList.addAll(controller.searchProductInfos(searchPrice));
                 tableModel.fireTableDataChanged();
+
+                if (infoList.isEmpty()) {
+                    JOptionPane.showMessageDialog(SearchProductInfoPanel.this, "Aucun produit ne correspond à ce prix.", "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             catch (CustomExceptions ex){
                 JOptionPane.showMessageDialog(SearchProductInfoPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

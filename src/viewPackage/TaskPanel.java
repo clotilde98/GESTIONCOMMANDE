@@ -122,6 +122,11 @@ public class TaskPanel extends JPanel {
                 commandList.addAll(controller.searchTotalCommands(searchNumber, (LocalDate) yearComboBox.getSelectedItem()));
                 tableModel.fireTableDataChanged();
 
+                if (commandList.isEmpty()) {
+                    JOptionPane.showMessageDialog(TaskPanel.this, "Aucune commande correspond à ce numero.", "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+
                 //Reset result
                 customerLabel.setText("");
                 totalLabel.setText("");
