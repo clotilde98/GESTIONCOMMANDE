@@ -1,5 +1,6 @@
 package viewPackage;
 
+import exceptionPackage.CharOverflowException;
 import exceptionPackage.InvalidEmailFormatException;
 import exceptionPackage.InvalidPasswordFormatException;
 import exceptionPackage.CustomExceptions;
@@ -214,6 +215,18 @@ public class CustomUtilities {
         // Si l'option "OUI" est sélectionnée, retournez true, sinon retournez false
         return selectedTrue;
 
+    }
+
+    public static String validateCharNumber(String text, int charNumber, String fieldName) throws CharOverflowException {
+
+
+        // Vérifiez si le numéro de téléphone contient uniquement des chiffres
+        if (text.length() > charNumber) {
+            String message = "Nombre de caractères trop importants dans  " + fieldName + ". Entrez au maximum "+ charNumber + " caractères";
+            throw new CharOverflowException(message);
+        }
+
+        return text;
     }
 
 

@@ -224,8 +224,13 @@ public class AddCustomer extends  JPanel{
             try {
 
                 String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
+                lastName = CustomUtilities.validateCharNumber(lastName,20,"Nom");
+
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
-                String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
+                email = CustomUtilities.validateCharNumber(email,50,"email");
+
+                String password = CustomUtilities.validatePassword(passwordField.getText(),"Mot de passe");
+                password = CustomUtilities.validateCharNumber(password,20,"Mot de passe");
                 String confirmPassword = (ConfirmpasswordField.getText());
 
                 char gender = validateGendertStatus(maleRadioButton.isSelected(), femaleRadioButton.isSelected(), noGenderRadioButton.isSelected());
@@ -234,7 +239,10 @@ public class AddCustomer extends  JPanel{
                 boolean isAdherent = CustomUtilities.validateBoolean(yesAdherent.isSelected(),noAdherent.isSelected(),"Est adhérent");
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
                 CustomUtilities.validateRequiredLocality(locality, "Localite");
+
                 String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
+                street = CustomUtilities.validateCharNumber(street,50,"Rue");
+
                 Integer streetNumber = CustomUtilities.validateNumericField(streetNumberField.getText(), "Numéro de rue");
                 Integer numberSponsorised = CustomUtilities.validateNumericField(numberSponsorisedField.getText(), "Nombre sponsorisations");
 
@@ -248,7 +256,11 @@ public class AddCustomer extends  JPanel{
 
                 //Optional column
                 String firstName = firstNameField.getText();
+                firstName = CustomUtilities.validateCharNumber(firstName,15,"Prénom");
+
                 String phoneNumber =phoneNumberField.getText();
+                phoneNumber = CustomUtilities.validateCharNumber(phoneNumber,10,"Téléphone");
+
                 if (!firstName.isEmpty()){
                     customer.setFirstName(firstName);
                 }
@@ -308,14 +320,19 @@ public class AddCustomer extends  JPanel{
 
             try {
                 String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
+                lastName = CustomUtilities.validateCharNumber(lastName,20,"Nom");
                 customer.setLastName(lastName);
-                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
-                customer.setEmail(email);
-                String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
 
+                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
+                email = CustomUtilities.validateCharNumber(email,50,"email");
+                customer.setEmail(email);
+
+                String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
+                street = CustomUtilities.validateCharNumber(street,50,"Rue");
                 customer.setStreet(street);
 
-                String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
+                String password = CustomUtilities.validatePassword(passwordField.getText(),"Mot de passe");
+                password = CustomUtilities.validateCharNumber(password,20,"Mot de passe");
                 customer.setPassword(password);
                 String confirmPassword = ConfirmpasswordField.getText(); // Ensure confirmPasswordField is declared and initialized
 
@@ -362,7 +379,10 @@ public class AddCustomer extends  JPanel{
                 }
                 //Optional column
                 String firstName = firstNameField.getText();
+                firstName = CustomUtilities.validateCharNumber(firstName,15,"Prénom");
                 String phoneNumber =phoneNumberField.getText();
+                phoneNumber = CustomUtilities.validateCharNumber(phoneNumber,10,"Téléphone");
+
                 if (!firstName.isEmpty()){
                     customer.setFirstName(firstName);
                 }

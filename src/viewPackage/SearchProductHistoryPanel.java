@@ -1,6 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
+import exceptionPackage.CharOverflowException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -77,8 +78,8 @@ public class SearchProductHistoryPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            String searchText = nameField.getText();
             try {
+                String searchText = CustomUtilities.validateCharNumber(nameField.getText(),20,"Nom du client");
                 if (searchText.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Veuillez entrer un nom.", "Erreur", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -95,7 +96,11 @@ public class SearchProductHistoryPanel extends JPanel {
                 if (historyList.isEmpty()) {
                     JOptionPane.showMessageDialog(SearchProductHistoryPanel.this, "Aucun résultat trouvé pour le nom: " + searchText, "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (Exception ex) {
+            } catch (CharOverflowException ex) {
+
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (Exception ex) {
 
                 JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la recherche.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
