@@ -76,27 +76,30 @@ public class SearchProductHistoryPanel extends JPanel {
     public class searchAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+
             String searchText = nameField.getText();
-            if (searchText.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Veuillez entrer un nom.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                return;
+            try {
+                if (searchText.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Veuillez entrer un nom.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (searchText.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "Le nom ne peut pas être composé uniquement de chiffres.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                historyList.clear();
+                historyList.addAll(controller.searchProductHistories(nameField.getText()));
+
+                tableModel.fireTableDataChanged();
+
+                if (historyList.isEmpty()) {
+                    JOptionPane.showMessageDialog(SearchProductHistoryPanel.this, "Aucun résultat trouvé pour le nom: " + searchText, "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la recherche.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-            if (searchText.matches("\\d+")) {
-                JOptionPane.showMessageDialog(null, "Le nom ne peut pas être composé uniquement de chiffres.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            historyList.clear();
-
-            if (historyList.isEmpty()) {
-                JOptionPane.showMessageDialog(SearchProductHistoryPanel.this, "Aucun résultat trouvé pour le nom: " + searchText , "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
-            }
-
-            historyList.addAll(controller.searchProductHistories(nameField.getText()));
-
-            tableModel.fireTableDataChanged();
-
         }
+
     }
-
-
 }
