@@ -32,7 +32,6 @@ public class Customer {
         setStreet(street);
         setStreetNumber(streetNumber);
         setNumberSponsorised(numberSponsorised);
-        setNumber(number);
 
     }
 
@@ -58,6 +57,9 @@ public class Customer {
     }
 
     public void setGender(Character gender) {
+        if (gender != 'M' && gender != 'F' && gender != 'X'){
+            gender = 'X';
+        }
         this.gender = gender;
     }
 
