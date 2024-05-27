@@ -76,11 +76,26 @@ public class SearchProductHistoryPanel extends JPanel {
     public class searchAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-           historyList.clear();
-           historyList.addAll(controller.searchProductHistories(nameField.getText()));
-           tableModel.fireTableDataChanged();
-
+            String searchText = nameField.getText();
+            if (searchText.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Veuillez entrer un nom.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (searchText.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Le nom ne peut pas être composé uniquement de chiffres.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            historyList.clear();
+            ArrayList<modelPackage.SearchProductHistory> results = controller.searchProductHistories(searchText);
+            if (results.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Aucun résultat trouvé pour le nom: " + searchText, "Information", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                historyList.addAll(results);
+            }
+            tableModel.fireTableDataChanged();
 
         }
     }
+
+
 }
