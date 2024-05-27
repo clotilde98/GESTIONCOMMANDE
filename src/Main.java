@@ -11,7 +11,7 @@ Main extends JFrame{
     public static void main (String []args) {
 
         //Login login = new Login();
-        MenuProjet menu = new MenuProjet();
+        ProjectMenu menu = new ProjectMenu();
 
     }
 

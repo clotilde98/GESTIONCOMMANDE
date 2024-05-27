@@ -17,7 +17,7 @@ public class FormAdmin extends JPanel{
 
     private JButton updateButton;
 
-    private MenuProjet menuProjet;
+    private ProjectMenu projectMenu;
 
 
     private static JTable customerTable;
@@ -30,9 +30,9 @@ public class FormAdmin extends JPanel{
 
 
 
-    public FormAdmin(MenuProjet menuProjet) {
+    public FormAdmin(ProjectMenu projectMenu) {
 
-        this.menuProjet = menuProjet;
+        this.projectMenu = projectMenu;
 
         setController(new ApplicationController());
 
@@ -100,8 +100,8 @@ public class FormAdmin extends JPanel{
         this.controller = controller;
     }
 
-    private MenuProjet getMenuProjet() {
-        return this.menuProjet;
+    private ProjectMenu getMenuProjet() {
+        return this.projectMenu;
     }
 
 
@@ -141,8 +141,8 @@ public class FormAdmin extends JPanel{
 
             Customer customer = controller.getCustomer(customerNumber);
 
-            AddCustomer addCustomer = new AddCustomer(menuProjet);
-            menuProjet.showAddCustomerForm(addCustomer); // Use the MenuProjet reference
+            AddCustomer addCustomer = new AddCustomer(projectMenu);
+            projectMenu.showAddCustomerForm(addCustomer); // Use the MenuProjet reference
             addCustomer.enableUpdateButton();
             addCustomer.disableaddButton();
             addCustomer.showCustomerData(customer);

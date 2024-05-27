@@ -103,7 +103,7 @@ public class Login extends JFrame  {
                 userIsAdmin(user);
 
                 //Open Menu
-                MenuProjet menu = new MenuProjet();
+                ProjectMenu menu = new ProjectMenu();
                 menu.setVisible(true);
                 setVisible(false);
             }

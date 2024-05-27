@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuProjet extends JFrame {
+public class ProjectMenu extends JFrame {
 
     private JMenuBar menuBar;
     private JMenu applicationMenu, customersMenu ,searchMenu ;
@@ -18,7 +18,7 @@ public class MenuProjet extends JFrame {
 
 
 
-    public MenuProjet() {
+    public ProjectMenu() {
 
 
         menuBar = new JMenuBar();
@@ -42,10 +42,10 @@ public class MenuProjet extends JFrame {
         Welcome welcomePanel = new Welcome();
         mainContainer.add(welcomePanel, BorderLayout.CENTER);
 
-        setTitle("Accueil");
+        setTitle("Menu Administrateur");
         setVisible(true);
 
-        receptionItem = new JMenuItem("Acceuil");
+        receptionItem = new JMenuItem("Accueil");
         applicationMenu.add(receptionItem);
         receptionItem.addActionListener(new receptionAction());
 
@@ -107,7 +107,7 @@ public class MenuProjet extends JFrame {
 
 
             getContentPane().removeAll();
-            getContentPane().add(new FormAdmin(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new FormAdmin(ProjectMenu.this), BorderLayout.CENTER);
             revalidate();
 
 
@@ -119,7 +119,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed( ActionEvent event) {
 
             getContentPane().removeAll();
-            getContentPane().add(new AddCustomer(MenuProjet.this), BorderLayout.CENTER);
+            getContentPane().add(new AddCustomer(ProjectMenu.this), BorderLayout.CENTER);
             revalidate();
 
         }
@@ -130,7 +130,7 @@ public class MenuProjet extends JFrame {
         public void actionPerformed(ActionEvent e) {
 
             getContentPane().removeAll();
-            FormAdmin formAdmin = new FormAdmin(MenuProjet.this);
+            FormAdmin formAdmin = new FormAdmin(ProjectMenu.this);
             getContentPane().add(formAdmin, BorderLayout.CENTER);
             revalidate();
             repaint();

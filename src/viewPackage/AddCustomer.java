@@ -25,7 +25,7 @@ public class AddCustomer extends  JPanel{
 
     private JButton updateButton;
 
-    private MenuProjet menuProjet;
+    private ProjectMenu projectMenu;
 
     private JTextField firstNameField, lastNameField, emailField, phoneNumberField ;
     private JRadioButton maleRadioButton, femaleRadioButton,noGenderRadioButton;
@@ -48,10 +48,10 @@ public class AddCustomer extends  JPanel{
 
 
 
-    public  AddCustomer(MenuProjet menuProjet) {
+    public  AddCustomer(ProjectMenu projectMenu) {
 
 
-        this.menuProjet = menuProjet;
+        this.projectMenu = projectMenu;
 
         setController(new ApplicationController());
 
@@ -377,7 +377,7 @@ public class AddCustomer extends  JPanel{
                 // Afficher un message de succès
                 JOptionPane.showMessageDialog(AddCustomer.this, "Client mis à jour avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
 
-                menuProjet.showAdminForm(new FormAdmin(menuProjet));
+                projectMenu.showAdminForm(new FormAdmin(projectMenu));
 
             } catch (Exception ex) {
 
