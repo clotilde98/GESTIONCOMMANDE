@@ -1,12 +1,14 @@
 package test;
 
 import businessPackage.SearchManager;
+import modelPackage.SearchCommandInfo;
 import modelPackage.SearchInvoiceList;
 import modelPackage.SearchProductHistory;
 import modelPackage.SearchProductInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,6 +48,14 @@ class SearchManagerTest {
         assertEquals(blankList,searchManager.searchProductInfos(50));
         //test products between 100 and 200
         assertNotEquals(blankList,searchManager.searchProductInfos(150));
+    }
+
+    //Test Task
+    @Test
+    void totalCommands() {
+        searchManager.totalCommands(3, LocalDate.parse("2023-01-01"));
+        //expected total = total commandlign(price *quantity) - total commandLign * discount
+        assertEquals(2174.5,SearchCommandInfo.getTotalPrice());
     }
 
 }
