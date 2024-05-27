@@ -4,7 +4,6 @@ import dataAccessPackage.LocalityDBAccess;
 import dataAccessPackage.LocalityDataAccess;
 import modelPackage.Locality;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LocalityManager {

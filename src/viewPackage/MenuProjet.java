@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 public class MenuProjet extends JFrame {
 
@@ -106,14 +105,12 @@ public class MenuProjet extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            try {
-                getContentPane().removeAll();
-                getContentPane().add(new FormAdmin(MenuProjet.this), BorderLayout.CENTER);
-                revalidate();
 
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            getContentPane().removeAll();
+            getContentPane().add(new FormAdmin(MenuProjet.this), BorderLayout.CENTER);
+            revalidate();
+
+
 
         }
     }
@@ -131,15 +128,13 @@ public class MenuProjet extends JFrame {
     public class formAction2 implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                getContentPane().removeAll();
-                FormAdmin formAdmin = new FormAdmin(MenuProjet.this);
-                getContentPane().add(formAdmin, BorderLayout.CENTER);
-                revalidate();
-                repaint();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+
+            getContentPane().removeAll();
+            FormAdmin formAdmin = new FormAdmin(MenuProjet.this);
+            getContentPane().add(formAdmin, BorderLayout.CENTER);
+            revalidate();
+            repaint();
+
         }
     }
 

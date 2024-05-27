@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FormAdmin extends JPanel{
@@ -31,7 +30,7 @@ public class FormAdmin extends JPanel{
 
 
 
-    public FormAdmin(MenuProjet menuProjet) throws SQLException {
+    public FormAdmin(MenuProjet menuProjet) {
 
         this.menuProjet = menuProjet;
 

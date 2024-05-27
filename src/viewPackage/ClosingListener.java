@@ -10,6 +10,7 @@ public class ClosingListener implements WindowListener {
     }
 
     public void windowClosing (WindowEvent event) {
+
         System.exit(0);
 
 

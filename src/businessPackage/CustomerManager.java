@@ -5,7 +5,6 @@ import dataAccessPackage.CustomerDataAccess;
 import exceptionPackage.InvalidDataLoginException;
 import modelPackage.Customer;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CustomerManager {

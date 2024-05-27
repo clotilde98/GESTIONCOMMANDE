@@ -7,7 +7,6 @@ import businessPackage.SearchManager;
 import exceptionPackage.InvalidDataLoginException;
 import modelPackage.*;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
