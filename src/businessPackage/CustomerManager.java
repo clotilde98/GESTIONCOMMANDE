@@ -44,4 +44,8 @@ public class CustomerManager {
     public Customer getCustomer(Integer customerNumber)  {
         return dao.getCustomer(customerNumber);
     }
+
+    public boolean customerExistsByEmail(String email) {
+        return dao.customerExistsByEmail(email);
+    }
 }

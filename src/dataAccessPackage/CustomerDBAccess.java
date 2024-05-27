@@ -320,4 +320,24 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
     }
 
+    public boolean customerExistsByEmail(String email) {
+        // Implement the query logic here, for example using JDBC:
+        Connection connection = SingletonConnection.getInstance();
+        try {
+            String query = "SELECT COUNT(*) FROM customer WHERE email = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
+    }
+
 }

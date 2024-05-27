@@ -18,4 +18,6 @@ public interface CustomerDataAccess {
     void deleteCustomer(int customerNumber);
 
     Customer getUser(String email, String password) throws InvalidDataLoginException;
+
+    boolean customerExistsByEmail(String email);
 }

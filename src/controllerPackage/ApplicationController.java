@@ -84,4 +84,8 @@ public class ApplicationController {
         connectionManager.closeConnection();
     }
 
+    public boolean customerExistsByEmail(String email) {
+        return customerManager.customerExistsByEmail(email);
+    }
+
 }

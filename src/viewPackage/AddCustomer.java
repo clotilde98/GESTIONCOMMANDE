@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +60,7 @@ public class AddCustomer extends  JPanel{
        setLayout(new BorderLayout());
 
         addButton = new JButton("Ajouter");
-        addButton.addActionListener(new AddCustomer.actionnouveau());
+        addButton.addActionListener(new AddCustomer.addActionEvent());
 
         updateButton = new JButton("Modifier");
 
@@ -92,16 +94,8 @@ public class AddCustomer extends  JPanel{
         phoneNumberField = new JTextField();
         passwordField = new  JPasswordField();
         showPasswordCheckBox = new JCheckBox("Afficher le mot de passe");
-        showPasswordCheckBox.addActionListener(e -> {
-            // Vérifier si la case à cocher est cochée ou non
-            if (showPasswordCheckBox.isSelected()) {
-                // Si elle est cochée, afficher le mot de passe en texte clair
-                passwordField.setEchoChar((char) 0); // Afficher le mot de passe en texte clair
-            } else {
-                // Si elle n'est pas cochée, masquer le mot de passe
-                passwordField.setEchoChar('*'); // Masquer le mot de passe avec le caractère par défaut '*'
-            }
-        });
+        showPasswordCheckBox.addItemListener(new showPasswordEvent());
+
 
 
 
@@ -224,7 +218,7 @@ public class AddCustomer extends  JPanel{
     }
 
 
-    public class actionnouveau implements ActionListener {
+    public class addActionEvent implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -246,6 +240,11 @@ public class AddCustomer extends  JPanel{
 
                 Customer customer = new Customer(lastName, email, password, gender, birthdayDay,
                         isAdmin, isAdherent, locality,street,streetNumber, numberSponsorised);
+
+                if (controller.customerExistsByEmail(email)) {
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Un client avec cet email existe déjà.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 //Optional column
                 String firstName = firstNameField.getText();
@@ -303,16 +302,24 @@ public class AddCustomer extends  JPanel{
     public class updateAction implements ActionListener {
 
         Customer customer = FormAdmin.returnCustomer();
+        String originalEmail = customer.getEmail();
 
         public void actionPerformed(ActionEvent e) {
 
             try {
-                customer.setLastName(lastNameField.getText());
-                customer.setEmail(emailField.getText());
-                customer.setStreet(streetField.getText());
+                String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
+                customer.setLastName(lastName);
+                String email = CustomUtilities.validateEmail(emailField.getText(),"email");
+                customer.setEmail(email);
+                String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
+
+                customer.setStreet(street);
 
                 String password = CustomUtilities.validatePassword(passwordField.getText(),"password");
                 customer.setPassword(password);
+                String confirmPassword = ConfirmpasswordField.getText(); // Ensure confirmPasswordField is declared and initialized
+
+
                 char gender = validateGendertStatus(maleRadioButton.isSelected(), femaleRadioButton.isSelected(), noGenderRadioButton.isSelected());
                 customer.setGender(gender);
                 String birthdayDayString = (birthdayDate.getText());
@@ -342,6 +349,15 @@ public class AddCustomer extends  JPanel{
                 customer.setStreetNumber(streetNumber);
                 customer.setNumberSponsorised(numberSponsorised);
 
+                if (!email.equals(originalEmail) && controller.customerExistsByEmail(email)) {
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Un client avec cet email existe déjà.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Les mots de passe ne correspondent pas.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 //Optional column
                 String firstName = firstNameField.getText();
                 String phoneNumber =phoneNumberField.getText();
@@ -396,6 +412,19 @@ public class AddCustomer extends  JPanel{
 
     }
 
+    private class showPasswordEvent implements ItemListener {
+        public void itemStateChanged(ItemEvent event) {
+            if (showPasswordCheckBox.isSelected()) {
+                // Si elle est cochée, afficher le mot de passe en texte clair
+                passwordField.setEchoChar((char) 0); // Afficher le mot de passe en texte clair
+            } else {
+                // Si elle n'est pas cochée, masquer le mot de passe
+                passwordField.setEchoChar('*'); // Masquer le mot de passe avec le caractère par défaut '*'
+            }
+
+        }
+    }
+
     public void showCustomerData(Customer customer) {
 
         firstNameField.setText(customer.getFirstName());
@@ -403,7 +432,7 @@ public class AddCustomer extends  JPanel{
         emailField.setText(customer.getEmail());
         phoneNumberField.setText(customer.getPhoneNumber());
         passwordField.setText(customer.getPassword());
-
+        ConfirmpasswordField.setText(customer.getPassword());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         String formattedDate = dateFormat.format(customer.getBirthday());
         birthdayDate.setText(formattedDate);
