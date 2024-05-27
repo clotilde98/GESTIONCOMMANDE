@@ -42,13 +42,12 @@ public class Login extends JFrame  {
         formPanel.add(emailField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
-        formPanel.add(new JLabel()); // Empty cell to create space
-        formPanel.add(new JLabel()); // Empty cell to create space
+        formPanel.add(new JLabel());
+        formPanel.add(new JLabel());
         formPanel.add(loginButton);
         formPanel.add(exitButton);
 
 
-        // Create the main panel and add components
         JLabel titleLabel = new JLabel("LOGIN");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setForeground(Color.BLACK);
@@ -61,7 +60,7 @@ public class Login extends JFrame  {
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
 
-        // Add the main panel to the frame
+
         getContentPane().add(mainPanel);
 
         setLocationRelativeTo(null);

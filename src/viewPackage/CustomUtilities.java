@@ -193,7 +193,6 @@ public class CustomUtilities {
 
 
     public static String validatePhoneNumberField(String phoneNumberStr, String fieldName) throws CustomExceptions {
-        // Vérifiez d'abord si le champ est vide
 
 
         // Vérifiez si le numéro de téléphone contient uniquement des chiffres

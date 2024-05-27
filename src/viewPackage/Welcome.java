@@ -13,7 +13,7 @@ public class Welcome extends  JPanel{
 
 
     public Welcome (){
-        jLabel = new JLabel("Welcome");
+        jLabel = new JLabel("BIENVENUE");
         jLabel.setFont(new Font("Verdana",1,20));
 
         this.setLayout(new FlowLayout());
