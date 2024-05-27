@@ -14,7 +14,7 @@ import java.sql.SQLException;
                             DriverManager.getConnection("jdbc:mysql://localhost:3306/commands_db",
                                     "root",
                                     "root") ;
-                    System.out.println("connexion réussi");
+
                 }
                 catch (SQLException exception) {
                     System.err.println("Erreur SQL : " + exception.getMessage());
