@@ -19,7 +19,7 @@ public class MenuProjet extends JFrame {
 
 
 
-    public MenuProjet() throws SQLException {
+    public MenuProjet() {
 
 
         menuBar = new JMenuBar();
