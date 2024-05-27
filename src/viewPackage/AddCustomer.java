@@ -317,7 +317,7 @@ public class AddCustomer extends  JPanel{
 
 
         public void actionPerformed(ActionEvent e) {
-
+            String originalEmail = customer.getEmail();
             try {
                 String lastName = CustomUtilities.validateRequiredField(lastNameField.getText(),"Nom");
                 lastName = CustomUtilities.validateCharNumber(lastName,20,"Nom");
@@ -326,6 +326,7 @@ public class AddCustomer extends  JPanel{
                 String email = CustomUtilities.validateEmail(emailField.getText(),"email");
                 email = CustomUtilities.validateCharNumber(email,50,"email");
                 customer.setEmail(email);
+
 
                 String street = CustomUtilities.validateRequiredField(streetField.getText(), "Rue");
                 street = CustomUtilities.validateCharNumber(street,50,"Rue");
@@ -357,6 +358,8 @@ public class AddCustomer extends  JPanel{
                 customer.setIsAdmin(isAdmin);
                 customer.setIsAdherent(isAdherent);
 
+
+
                 Locality locality = (Locality) localityComboBox.getSelectedItem();
                 CustomUtilities.validateRequiredLocality(locality, "Localite");
                 customer.setLocality(locality);
@@ -366,12 +369,6 @@ public class AddCustomer extends  JPanel{
                 customer.setStreetNumber(streetNumber);
                 customer.setNumberSponsorised(numberSponsorised);
 
-                String originalEmail = customer.getEmail();
-
-                if (!email.equals(originalEmail) && controller.customerExistsByEmail(email)) {
-                    JOptionPane.showMessageDialog(AddCustomer.this, "Un client avec cet email existe déjà.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
 
                 if (!password.equals(confirmPassword)) {
                     JOptionPane.showMessageDialog(AddCustomer.this, "Les mots de passe ne correspondent pas.", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -392,12 +389,21 @@ public class AddCustomer extends  JPanel{
                     customer.setPhoneNumber(phoneNumber);
                 }
 
+                if (!email.equals(originalEmail) && controller.customerExistsByEmail(email)  ) {
+                    JOptionPane.showMessageDialog(AddCustomer.this, "Un client avec cet email existe déjà.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+
+
                 controller.updateCustomer(customer);
 
                 // Afficher un message de succès
                 JOptionPane.showMessageDialog(AddCustomer.this, "Client mis à jour avec succès.", "Succès", JOptionPane.INFORMATION_MESSAGE);
 
                 projectMenu.showAdminForm(new FormAdmin(projectMenu));
+
+
 
             } catch (Exception ex) {
 
