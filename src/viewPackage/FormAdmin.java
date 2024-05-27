@@ -115,6 +115,13 @@ public class FormAdmin extends JPanel{
                 JOptionPane.showMessageDialog(null, "Veuillez sélectionner un client à supprimer.", "Aucune sélection", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            int selectedRow = customerTable.getSelectedRow();
+            Customer selectedCustomer = customers.get(selectedRow);
+
+            if (selectedCustomer.getIsAdmin()) {
+                JOptionPane.showMessageDialog(null, "Vous ne pouvez pas supprimer un administrateur.", "Suppression non autorisée", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int confirmation = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer ce client ?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
             if (confirmation == JOptionPane.YES_OPTION) {
                 int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
