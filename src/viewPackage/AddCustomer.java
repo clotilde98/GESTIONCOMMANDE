@@ -302,7 +302,7 @@ public class AddCustomer extends  JPanel{
     public class updateAction implements ActionListener {
 
         Customer customer = FormAdmin.returnCustomer();
-        String originalEmail = customer.getEmail();
+
 
         public void actionPerformed(ActionEvent e) {
 
@@ -348,6 +348,8 @@ public class AddCustomer extends  JPanel{
 
                 customer.setStreetNumber(streetNumber);
                 customer.setNumberSponsorised(numberSponsorised);
+
+                String originalEmail = customer.getEmail();
 
                 if (!email.equals(originalEmail) && controller.customerExistsByEmail(email)) {
                     JOptionPane.showMessageDialog(AddCustomer.this, "Un client avec cet email existe déjà.", "Erreur", JOptionPane.ERROR_MESSAGE);
