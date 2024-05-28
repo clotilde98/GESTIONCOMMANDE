@@ -118,7 +118,7 @@ public class FormAdmin extends JPanel{
             int selectedRow = customerTable.getSelectedRow();
             Customer selectedCustomer = customers.get(selectedRow);
 
-            if (selectedCustomer.getIsAdmin() && selectedCustomer.getLastName().equals("Super Admin")) {
+            if (selectedCustomer.getIsAdmin() && selectedCustomer.getNumber().equals(1)) {
                 JOptionPane.showMessageDialog(null, "Vous ne pouvez pas supprimer le super administrateur.", "Suppression non autorisée", JOptionPane.ERROR_MESSAGE);
                 return;
             }
