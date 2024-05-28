@@ -3,9 +3,6 @@ package viewPackage;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 
 public class Welcome extends JPanel {
 
@@ -23,9 +20,11 @@ public class Welcome extends JPanel {
         this.add(jLabel, BorderLayout.NORTH); // Ajout du JLabel pour le texte en haut
         this.add(imagePanel, BorderLayout.CENTER); // Ajout du JLabel pour l'image au centre
 
+
+        String currentPath = System.getProperty("user.dir") + "\\src\\images\\";
         String[] imagePaths = {
-                "C:\\Users\\32465\\IdeaProjects\\GESTIONCOMMANDE\\src\\viewPackage\\images\\image.jpg",
-                "C:\\Users\\32465\\IdeaProjects\\GESTIONCOMMANDE\\src\\viewPackage\\images\\image2.jpg",
+                currentPath + "image.jpg",
+                currentPath + "image2.jpg",
         };
 
 
