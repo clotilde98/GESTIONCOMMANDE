@@ -31,7 +31,7 @@ public class TaskPanel extends JPanel {
 
         setController(new ApplicationController());
 
-        setBounds(100, 100, 500, 500);
+        setBounds(100, 100, 800, 800);
 
         setLayout(new BorderLayout());
 
@@ -43,7 +43,7 @@ public class TaskPanel extends JPanel {
 
         search.setFont(buttonFont);
 
-        Dimension buttonSize = new Dimension(200, 30);
+        Dimension buttonSize = new Dimension(200, 25);
         search.setPreferredSize(buttonSize);
 
         // Mettre en couleur la partie des boutons

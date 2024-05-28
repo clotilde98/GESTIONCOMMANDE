@@ -38,7 +38,7 @@ public class ProjectMenu extends JFrame {
 
         add(formAdminButton);
 
-        setBounds(100, 100, 900, 550);
+        setBounds(100, 100, 900, 600);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         Welcome welcomePanel = new Welcome();
