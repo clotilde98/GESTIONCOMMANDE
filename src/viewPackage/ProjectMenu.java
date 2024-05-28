@@ -44,17 +44,7 @@ public class ProjectMenu extends JFrame {
         Welcome welcomePanel = new Welcome();
         mainContainer.add(welcomePanel, BorderLayout.CENTER);
 
-        String[] imagePaths = {
-                "C:\\Users\\32465\\IdeaProjects\\GESTIONCOMMANDE\\src\\viewPackage\\images\\image.jpg",
-                "C:\\Users\\32465\\IdeaProjects\\GESTIONCOMMANDE\\src\\viewPackage\\images\\image2.jpg",
-        };
 
-
-        ImageChangeThread imageChangeThread = new ImageChangeThread(welcomePanel, imagePaths);
-        imageChangeThread.start();
-
-        // Ajouter un hook pour arrêter le thread lorsque l'application se ferme
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> imageChangeThread.stopRunning()));
 
 
         setTitle("Menu Administrateur");

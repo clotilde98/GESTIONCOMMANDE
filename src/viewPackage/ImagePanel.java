@@ -9,9 +9,14 @@ import javax.imageio.ImageIO;
 public class ImagePanel extends JPanel {
     private BufferedImage image;
 
+    public ImagePanel() {
+        // No-argument constructor
+    }
+
     public ImagePanel(String imagePath) {
         loadImage(imagePath);
     }
+
 
     public void loadImage(String imagePath) {
         try {
