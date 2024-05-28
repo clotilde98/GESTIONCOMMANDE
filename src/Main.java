@@ -10,8 +10,7 @@ Main extends JFrame{
 
     public static void main (String []args) {
 
-        //Login login = new Login();
-        ProjectMenu menu = new ProjectMenu();
+        Login login = new Login();
 
     }
 

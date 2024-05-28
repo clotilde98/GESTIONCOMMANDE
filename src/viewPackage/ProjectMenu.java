@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import viewPackage.Welcome;
-import viewPackage.ImageChangeThread;
 
 public class ProjectMenu extends JFrame {
 
@@ -16,13 +14,11 @@ public class ProjectMenu extends JFrame {
     private Container mainContainer;
 
 
-    private AddCustomer addCustomerForm;
-
 
 
     public ProjectMenu() {
 
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         applicationMenu = new JMenu("APPLICATION");
