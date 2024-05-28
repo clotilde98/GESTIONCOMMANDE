@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 public class ImagePanel extends JPanel {
     private BufferedImage image;
+    private double scale = 0.7;
 
     public ImagePanel() {
         // No-argument constructor
@@ -16,7 +17,6 @@ public class ImagePanel extends JPanel {
     public ImagePanel(String imagePath) {
         loadImage(imagePath);
     }
-
 
     public void loadImage(String imagePath) {
         try {
@@ -31,9 +31,26 @@ public class ImagePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (image != null) {
-            int x = (getWidth() - image.getWidth()) / 2;
-            int y = (getHeight() - image.getHeight()) / 2;
-            g.drawImage(image, x, y, this);
+            int panelWidth = getWidth();
+            int panelHeight = getHeight();
+
+            // Calculate the new dimensions while maintaining the aspect ratio
+            double aspectRatio = (double) image.getWidth() / image.getHeight();
+            int newWidth;
+            int newHeight;
+
+            if (panelWidth / aspectRatio < panelHeight) {
+                newWidth = (int) (panelWidth * scale*scale);
+                newHeight = (int) (newWidth / aspectRatio);
+            } else {
+                newHeight = (int) (panelHeight * scale);
+                newWidth = (int) (newHeight * aspectRatio);
+            }
+
+            int x = (panelWidth - newWidth) / 2;
+            int y = (panelHeight - newHeight) / 2;
+
+            g.drawImage(image, x, y, newWidth, newHeight, this);
         }
     }
 }

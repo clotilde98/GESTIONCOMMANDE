@@ -93,7 +93,7 @@ public class AddCustomer extends  JPanel{
         emailField = new JTextField();
         phoneNumberField = new JTextField();
         passwordField = new  JPasswordField();
-        showPasswordCheckBox = new JCheckBox("Afficher le mot de passe");
+        showPasswordCheckBox = new JCheckBox("Afficher  mot de passe");
         showPasswordCheckBox.addItemListener(new showPasswordEvent());
 
 

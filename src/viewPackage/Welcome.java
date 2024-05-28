@@ -10,7 +10,7 @@ public class Welcome extends JPanel {
     private ImagePanel imagePanel;
 
     public Welcome() {
-        jLabel = new JLabel("BIENVENUE");
+        jLabel = new JLabel("BIENVENUE DANS GESTCOM");
         jLabel.setFont(new Font("Verdana", 1, 20));
 
         imagePanel = new ImagePanel(); // Initialisation du JLabel pour l'image

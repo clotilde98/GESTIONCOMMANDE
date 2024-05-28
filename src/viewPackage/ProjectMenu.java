@@ -38,15 +38,13 @@ public class ProjectMenu extends JFrame {
 
         add(formAdminButton);
 
-        setBounds(100, 100, 1000, 800);
+        setBounds(100, 100, 900, 550);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         Welcome welcomePanel = new Welcome();
         mainContainer.add(welcomePanel, BorderLayout.CENTER);
 
-
-
-
+        setResizable(false);
         setTitle("Menu Administrateur");
         setVisible(true);
 
