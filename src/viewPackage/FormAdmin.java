@@ -37,8 +37,6 @@ public class FormAdmin extends JPanel{
         setController(new ApplicationController());
 
 
-        setBounds(100, 100, 500, 500);
-
         setLayout(new BorderLayout());
 
 

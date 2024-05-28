@@ -29,8 +29,6 @@ public class SearchInvoicePanel extends JPanel {
 
         setController(new ApplicationController());
 
-        setBounds(100, 100, 800, 800);
-
         setLayout(new BorderLayout());
 
         search = new JButton("Rechercher");
