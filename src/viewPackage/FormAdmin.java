@@ -76,8 +76,6 @@ public class FormAdmin extends JPanel{
         updateButton.addActionListener(new updateAction());
 
 
-
-
         customers = controller.getAllCustomers();
         tableModel = new CustomerTableModel(customers);
 
@@ -90,20 +88,11 @@ public class FormAdmin extends JPanel{
         add(buttonPanel, BorderLayout.WEST);
 
 
-        setSize(1280, 720);
-        setVisible(true);
-
-
     }
 
     private void setController(ApplicationController controller) {
         this.controller = controller;
     }
-
-    private ProjectMenu getMenuProjet() {
-        return this.projectMenu;
-    }
-
 
 
 
@@ -173,4 +162,3 @@ public class FormAdmin extends JPanel{
 
 
 }
-

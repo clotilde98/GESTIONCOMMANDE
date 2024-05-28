@@ -195,9 +195,6 @@ public class AddCustomer extends  JPanel{
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
-        setSize(700, 600);
-        setVisible(true);
-
 
     }
 
