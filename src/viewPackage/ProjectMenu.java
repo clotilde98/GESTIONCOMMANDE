@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import viewPackage.Welcome;
+import viewPackage.ImageChangeThread;
 
 public class ProjectMenu extends JFrame {
 
@@ -41,6 +43,19 @@ public class ProjectMenu extends JFrame {
         mainContainer.setLayout(new BorderLayout());
         Welcome welcomePanel = new Welcome();
         mainContainer.add(welcomePanel, BorderLayout.CENTER);
+
+        String[] imagePaths = {
+                "C:\\Users\\32465\\IdeaProjects\\GESTIONCOMMANDE\\src\\viewPackage\\images\\image.jpg",
+                "C:\\Users\\32465\\IdeaProjects\\GESTIONCOMMANDE\\src\\viewPackage\\images\\image2.jpg",
+        };
+
+
+        ImageChangeThread imageChangeThread = new ImageChangeThread(welcomePanel, imagePaths);
+        imageChangeThread.start();
+
+        // Ajouter un hook pour arrêter le thread lorsque l'application se ferme
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> imageChangeThread.stopRunning()));
+
 
         setTitle("Menu Administrateur");
         setVisible(true);
