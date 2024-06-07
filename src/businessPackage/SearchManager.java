@@ -2,6 +2,7 @@ package businessPackage;
 
 import dataAccessPackage.SearchDBAccess;
 import dataAccessPackage.SearchDataAccess;
+import exceptionPackage.DataAccessException;
 import modelPackage.SearchCommandInfo;
 import modelPackage.SearchInvoiceList;
 import modelPackage.SearchProductHistory;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class SearchManager {
     private SearchDataAccess dao;
 
-    public SearchManager( ) {
+    public SearchManager( ) throws DataAccessException {
         setDao (new SearchDBAccess()) ;
     }
 
@@ -21,21 +22,21 @@ public class SearchManager {
         this.dao = searchDBAccess;
     }
 
-    public ArrayList<SearchProductHistory> searchProductHistories(String name) {
+    public ArrayList<SearchProductHistory> searchProductHistories(String name) throws DataAccessException {
         return dao.customerProductHistory(name);
     }
 
-    public ArrayList<SearchInvoiceList> searchInvoiceLists(int number,boolean isPaid) {
+    public ArrayList<SearchInvoiceList> searchInvoiceLists(int number,boolean isPaid) throws DataAccessException {
         return dao.customerInvoiceList(number,isPaid);
     }
 
-    public ArrayList<SearchProductInfo> searchProductInfos(double price) {
+    public ArrayList<SearchProductInfo> searchProductInfos(double price) throws DataAccessException {
         double priceMin = price - 50;
         double priceMax = price + 50;
         return dao.productInfosByPrice(priceMin,priceMax);
     }
 
-    public ArrayList<SearchCommandInfo> totalCommands(int customer, LocalDate year) {
+    public ArrayList<SearchCommandInfo> totalCommands(int customer, LocalDate year) throws DataAccessException {
         ArrayList<SearchCommandInfo> dataList = dao.customerCommandsInfosForSpecificYear(customer, year);
 
         int lignNumber = dataList.size();

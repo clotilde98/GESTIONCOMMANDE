@@ -2,7 +2,7 @@ package businessPackage;
 
 import dataAccessPackage.CustomerDBAccess;
 import dataAccessPackage.CustomerDataAccess;
-import exceptionPackage.InvalidDataLoginException;
+import exceptionPackage.DataAccessException;
 import modelPackage.Customer;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class CustomerManager {
         this.dao = customerDataAccess;
     }
 
-    public void addCustomer(Customer customer){
+    public void addCustomer(Customer customer) throws DataAccessException {
 
         // Appel de la méthode addCustomer de CustomerDBAccess
         dao.addCustomer(customer);
@@ -26,25 +26,25 @@ public class CustomerManager {
 
     }
 
-    public ArrayList<Customer> getAllCustomers() {
+    public ArrayList<Customer> getAllCustomers() throws DataAccessException {
         return dao.getAllCustomers();
     }
 
-    public void deleteCustomer(int number){ dao.deleteCustomer(number);}
+    public void deleteCustomer(int number) throws DataAccessException { dao.deleteCustomer(number);}
 
-    public void updateCustomer(Customer customer){
+    public void updateCustomer(Customer customer) throws DataAccessException {
         dao.updateCustomer(customer);
     }
 
-    public Customer getUSer(String email, String password) throws InvalidDataLoginException {
+    public Customer getUSer(String email, String password) throws DataAccessException {
         return dao.getUser(email,password);
     }
 
-    public Customer getCustomer(Integer customerNumber)  {
+    public Customer getCustomer(Integer customerNumber) throws DataAccessException {
         return dao.getCustomer(customerNumber);
     }
 
-    public boolean customerExistsByEmail(String email) {
+    public boolean customerExistsByEmail(String email) throws DataAccessException {
         return dao.customerExistsByEmail(email);
     }
 }

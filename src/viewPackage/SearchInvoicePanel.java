@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.CustomExceptions;
+import exceptionPackage.DataAccessException;
 import modelPackage.SearchInvoiceList;
 
 import javax.swing.*;
@@ -27,7 +28,11 @@ public class SearchInvoicePanel extends JPanel {
 
     public SearchInvoicePanel(){
 
-        setController(new ApplicationController());
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(SearchInvoicePanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
         setLayout(new BorderLayout());
 
@@ -67,7 +72,11 @@ public class SearchInvoicePanel extends JPanel {
         searchPanel.add(searchButtonPanel);
         search.addActionListener(new searchAction());
 
-        invoiceList = controller.searchInvoiceLists(1,false);
+        try {
+            invoiceList = controller.searchInvoiceLists(1,false);
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(SearchInvoicePanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
         tableModel = new SearchInvoiceListTable(invoiceList);
 
         result = new JTable(tableModel);
@@ -99,7 +108,7 @@ public class SearchInvoicePanel extends JPanel {
                 }
 
             }
-            catch (CustomExceptions ex){
+            catch (CustomExceptions | DataAccessException ex){
                 JOptionPane.showMessageDialog(SearchInvoicePanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 

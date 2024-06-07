@@ -1,5 +1,6 @@
 package dataAccessPackage;
 
+import exceptionPackage.DataAccessException;
 import modelPackage.Country;
 import modelPackage.Locality;
 
@@ -13,9 +14,11 @@ public class LocalityDBAccess implements LocalityDataAccess{
 
      Connection connection = SingletonConnection.getInstance();
 
+    public LocalityDBAccess() throws DataAccessException {
+    }
 
 
-    public  Locality getLocality(Integer id) {
+    public  Locality getLocality(Integer id) throws DataAccessException {
 
         Locality locality = null;
         String sqlInstruction = "select * from locality where id = ?";
@@ -33,14 +36,14 @@ public class LocalityDBAccess implements LocalityDataAccess{
             }
         }
         catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
         return locality;
     }
 
 
-    public ArrayList<Locality> getAllLocalities() {
+    public ArrayList<Locality> getAllLocalities() throws DataAccessException {
         Locality locality;
         ArrayList<Locality> allLocalities =  new ArrayList<>();
         String sqlInstruction = "select * from locality";
@@ -69,7 +72,7 @@ public class LocalityDBAccess implements LocalityDataAccess{
             }
         }
         catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
 

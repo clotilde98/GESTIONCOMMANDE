@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.CharOverflowException;
+import exceptionPackage.DataAccessException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,7 +26,11 @@ public class SearchProductHistoryPanel extends JPanel {
 
     public SearchProductHistoryPanel(){
 
-        setController(new ApplicationController());
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(SearchProductHistoryPanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
         setLayout(new BorderLayout());
 
@@ -55,7 +60,11 @@ public class SearchProductHistoryPanel extends JPanel {
         searchPanel.add(searchButtonPanel);
         search.addActionListener(new searchAction());
 
-        historyList = controller.searchProductHistories("");
+        try {
+            historyList = controller.searchProductHistories("");
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(SearchProductHistoryPanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
         tableModel = new SearchProductHistoryTable(historyList);
 
         result = new JTable(tableModel);

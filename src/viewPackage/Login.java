@@ -3,6 +3,7 @@ package viewPackage;
 import controllerPackage.ApplicationController;
 
 import exceptionPackage.CustomExceptions;
+import exceptionPackage.DataAccessException;
 import modelPackage.Customer;
 
 import javax.swing.*;
@@ -21,7 +22,11 @@ public class Login extends JFrame  {
     private ApplicationController controller;
     public Login() {
         super("Formulaire de Connexion");
-        setController(new ApplicationController());
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(Login.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setResizable(false);

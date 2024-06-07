@@ -1,6 +1,7 @@
 package test;
 
 import businessPackage.SearchManager;
+import exceptionPackage.DataAccessException;
 import modelPackage.SearchCommandInfo;
 import modelPackage.SearchInvoiceList;
 import modelPackage.SearchProductHistory;
@@ -17,12 +18,12 @@ class SearchManagerTest {
     private SearchManager searchManager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws DataAccessException {
         searchManager = new SearchManager();
     }
 
     @Test
-    void searchProductHistories() {
+    void searchProductHistories() throws DataAccessException {
         ArrayList<SearchProductHistory> blankList = new ArrayList<>();
         //test super admin have no invoice
         assertEquals(blankList,searchManager.searchProductHistories("Super Admin"));
@@ -32,7 +33,7 @@ class SearchManagerTest {
     }
 
     @Test
-    void searchInvoiceLists() {
+    void searchInvoiceLists() throws DataAccessException {
         ArrayList<SearchInvoiceList> blankList = new ArrayList<>();
         //test super admin have no invoice
         assertEquals(blankList,searchManager.searchInvoiceLists(1,true));
@@ -42,7 +43,7 @@ class SearchManagerTest {
     }
 
     @Test
-    void searchProductInfos() {
+    void searchProductInfos() throws DataAccessException {
         ArrayList<SearchProductInfo> blankList = new ArrayList<>();
         //test no products between 0 and 100
         assertEquals(blankList,searchManager.searchProductInfos(50));
@@ -52,7 +53,7 @@ class SearchManagerTest {
 
     //Test Task
     @Test
-    void totalCommands() {
+    void totalCommands() throws DataAccessException {
         searchManager.totalCommands(3, LocalDate.parse("2023-01-01"));
         //expected total = total commandlign(price *quantity) - total commandLign * discount
         assertEquals(2174.5,SearchCommandInfo.getTotalPrice());

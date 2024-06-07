@@ -2,6 +2,7 @@ package businessPackage;
 
 import dataAccessPackage.LocalityDBAccess;
 import dataAccessPackage.LocalityDataAccess;
+import exceptionPackage.DataAccessException;
 import modelPackage.Locality;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class LocalityManager {
 
     private LocalityDataAccess dao;
 
-    public LocalityManager ( ) {
+    public LocalityManager ( ) throws DataAccessException {
         setDao (new LocalityDBAccess()) ;
     }
 
@@ -18,7 +19,7 @@ public class LocalityManager {
         this.dao = localityDataAccess;
     }
 
-    public ArrayList<Locality> getAllLocalities() {
+    public ArrayList<Locality> getAllLocalities() throws DataAccessException {
         return dao.getAllLocalities();
     }
 }

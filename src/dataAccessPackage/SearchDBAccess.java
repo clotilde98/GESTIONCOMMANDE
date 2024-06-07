@@ -1,5 +1,6 @@
 package dataAccessPackage;
 
+import exceptionPackage.DataAccessException;
 import modelPackage.SearchCommandInfo;
 import modelPackage.SearchInvoiceList;
 import modelPackage.SearchProductHistory;
@@ -12,7 +13,10 @@ import java.util.ArrayList;
 public class SearchDBAccess implements SearchDataAccess{
     Connection connection = SingletonConnection.getInstance();
 
-    public ArrayList<SearchProductHistory> customerProductHistory(String name) {
+    public SearchDBAccess() throws DataAccessException {
+    }
+
+    public ArrayList<SearchProductHistory> customerProductHistory(String name) throws DataAccessException {
 
         ArrayList<SearchProductHistory> dataList = new ArrayList<>();
 
@@ -35,14 +39,14 @@ public class SearchDBAccess implements SearchDataAccess{
             }
         }
         catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
 
         return dataList;
     }
 
-    public ArrayList<SearchInvoiceList> customerInvoiceList(int number, boolean isPaid) {
+    public ArrayList<SearchInvoiceList> customerInvoiceList(int number, boolean isPaid) throws DataAccessException {
 
         ArrayList<SearchInvoiceList> dataList = new ArrayList<>();
 
@@ -70,14 +74,14 @@ public class SearchDBAccess implements SearchDataAccess{
 
         }
         catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
 
         return dataList;
     }
 
-    public ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax) {
+    public ArrayList<SearchProductInfo> productInfosByPrice(double priceMin, double priceMax) throws DataAccessException {
 
         ArrayList<SearchProductInfo> dataList = new ArrayList<>();
 
@@ -106,13 +110,13 @@ public class SearchDBAccess implements SearchDataAccess{
         }
 
         catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
         return dataList;
     }
 
-    public ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, LocalDate year)  {
+    public ArrayList<SearchCommandInfo> customerCommandsInfosForSpecificYear(int number, LocalDate year) throws DataAccessException {
 
         LocalDate nextYear = year.plusYears(1);
 
@@ -152,7 +156,7 @@ public class SearchDBAccess implements SearchDataAccess{
 
         }
         catch(SQLException e){
-            System.err.println("Erreur SQL : " + e.getMessage());
+            throw new DataAccessException(e.getMessage());
         }
 
         return dataList;

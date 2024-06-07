@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.CustomExceptions;
+import exceptionPackage.DataAccessException;
 import modelPackage.SearchProductInfo;
 
 import javax.swing.*;
@@ -25,7 +26,11 @@ public class SearchProductInfoPanel extends JPanel {
 
     public SearchProductInfoPanel(){
 
-        setController(new ApplicationController());
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(SearchProductInfoPanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
         //setBounds(100, 100, 800, 800);
 
@@ -57,7 +62,11 @@ public class SearchProductInfoPanel extends JPanel {
         searchPanel.add(searchButtonPanel);
         search.addActionListener(new searchAction());
 
-        infoList = controller.searchProductInfos(0);
+        try {
+            infoList = controller.searchProductInfos(0);
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(SearchProductInfoPanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
         tableModel = new SearchProductInfoTable(infoList);
 
         result = new JTable(tableModel);
@@ -87,7 +96,7 @@ public class SearchProductInfoPanel extends JPanel {
                     JOptionPane.showMessageDialog(SearchProductInfoPanel.this, "Aucun produit ne correspond à ce prix.", "Aucun résultat", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            catch (CustomExceptions ex){
+            catch (CustomExceptions | DataAccessException ex){
                 JOptionPane.showMessageDialog(SearchProductInfoPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 

@@ -1,6 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
+import exceptionPackage.DataAccessException;
 import modelPackage.Customer;
 
 import javax.swing.*;
@@ -34,7 +35,11 @@ public class FormAdmin extends JPanel{
 
         this.projectMenu = projectMenu;
 
-        setController(new ApplicationController());
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(FormAdmin.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
 
         setLayout(new BorderLayout());
@@ -74,7 +79,13 @@ public class FormAdmin extends JPanel{
         updateButton.addActionListener(new updateAction());
 
 
-        customers = controller.getAllCustomers();
+        try {
+            customers = controller.getAllCustomers();
+        }
+        catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(FormAdmin.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
         tableModel = new CustomerTableModel(customers);
 
         customerTable = new JTable(tableModel);
@@ -113,7 +124,11 @@ public class FormAdmin extends JPanel{
             if (confirmation == JOptionPane.YES_OPTION) {
                 int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
 
-                controller.deleteCustomer(customerNumber);
+                try {
+                    controller.deleteCustomer(customerNumber);
+                } catch (DataAccessException ex) {
+                    JOptionPane.showMessageDialog(FormAdmin.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
 
                 customers.remove(customerTable.getSelectedRow());
                 tableModel.fireTableDataChanged();
@@ -133,7 +148,12 @@ public class FormAdmin extends JPanel{
             }
             int customerNumber = customers.get(customerTable.getSelectedRow()).getNumber();
 
-            Customer customer = controller.getCustomer(customerNumber);
+            Customer customer = null;
+            try {
+                customer = controller.getCustomer(customerNumber);
+            } catch (DataAccessException ex) {
+                JOptionPane.showMessageDialog(FormAdmin.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
 
             AddCustomer addCustomer = new AddCustomer(projectMenu);
             projectMenu.showAddCustomerForm(addCustomer); // Use the MenuProjet reference

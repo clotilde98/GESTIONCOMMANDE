@@ -1,5 +1,7 @@
 package dataAccessPackage;
 
+import exceptionPackage.DataAccessException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,7 +9,7 @@ import java.sql.SQLException;
     public class SingletonConnection {
 
         private static Connection singleConnection;
-        public static Connection getInstance( )  {
+        public static Connection getInstance( ) throws DataAccessException {
             if(singleConnection == null){
                 try {
                     singleConnection =
@@ -17,21 +19,21 @@ import java.sql.SQLException;
 
                 }
                 catch (SQLException exception) {
-                    System.err.println("Erreur SQL : " + exception.getMessage());
+                    throw new DataAccessException(exception.getMessage());
                 }
 
             }
             return singleConnection;
         }
 
-        public static void closeConnection(){
+        public static void closeConnection() throws DataAccessException {
             try {
                 if (singleConnection != null) {
                     singleConnection.close();
                 }
             }
             catch (SQLException exception) {
-                System.err.println("Erreur SQL : " + exception.getMessage());
+                throw new DataAccessException(exception.getMessage());
             }
 
         }

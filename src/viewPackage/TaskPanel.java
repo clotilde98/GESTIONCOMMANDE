@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.CustomExceptions;
+import exceptionPackage.DataAccessException;
 import modelPackage.SearchCommandInfo;
 
 import javax.swing.*;
@@ -29,7 +30,12 @@ public class TaskPanel extends JPanel {
 
     public TaskPanel(){
 
-        setController(new ApplicationController());
+
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(TaskPanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
         setLayout(new BorderLayout());
 
@@ -76,7 +82,11 @@ public class TaskPanel extends JPanel {
         search.addActionListener(new searchAction());
 
 
-        commandList = controller.searchTotalCommands(1,LocalDate.parse("2000-01-01"));
+        try {
+            commandList = controller.searchTotalCommands(1,LocalDate.parse("2000-01-01"));
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(TaskPanel.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
         tableModel = new SearchCommandInfoTable(commandList);
 
         result = new JTable(tableModel);
@@ -148,7 +158,7 @@ public class TaskPanel extends JPanel {
 
 
             }
-            catch (CustomExceptions ex){
+            catch (CustomExceptions | DataAccessException ex){
                 JOptionPane.showMessageDialog(TaskPanel.this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 

@@ -3,6 +3,7 @@ package viewPackage;
 import controllerPackage.ApplicationController;
 
 import exceptionPackage.CustomExceptions;
+import exceptionPackage.DataAccessException;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
@@ -53,9 +54,13 @@ public class AddCustomer extends  JPanel{
 
         this.projectMenu = projectMenu;
 
-        setController(new ApplicationController());
+        try {
+            setController(new ApplicationController());
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(AddCustomer.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
-       setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
         addButton = new JButton("Ajouter");
         addButton.addActionListener(new AddCustomer.addActionEvent());
@@ -409,7 +414,12 @@ public class AddCustomer extends  JPanel{
     public DefaultComboBoxModel<Locality> getLocalityDataModel() {
 
         // Récupérer toutes les localités depuis la base de données
-        ArrayList<Locality> allLocalities = controller.getAllLocalities();
+        ArrayList<Locality> allLocalities = null;
+        try {
+            allLocalities = controller.getAllLocalities();
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(AddCustomer.this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
         // Créer un modèle de données pour le JComboBox
         DefaultComboBoxModel<Locality> comboBoxModel = new DefaultComboBoxModel<>(allLocalities.toArray(new Locality[0]));

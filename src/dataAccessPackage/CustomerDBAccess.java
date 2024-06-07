@@ -1,6 +1,6 @@
 package dataAccessPackage;
 
-import exceptionPackage.InvalidDataLoginException;
+import exceptionPackage.DataAccessException;
 import modelPackage.Customer;
 import modelPackage.Locality;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class CustomerDBAccess implements CustomerDataAccess{
 
-    public void addCustomer(Customer customer ) {
+    public void addCustomer(Customer customer ) throws DataAccessException {
 
         Connection connection = SingletonConnection.getInstance();
 
@@ -41,14 +41,14 @@ public class CustomerDBAccess implements CustomerDataAccess{
         statement.executeUpdate();
 
     }catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
 
 
 }
 
-    public Customer getCustomer(Integer customerNumber) {
+    public Customer getCustomer(Integer customerNumber) throws DataAccessException {
 
         Customer customer = null;
         Connection connection = SingletonConnection.getInstance();
@@ -100,13 +100,13 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
         return customer;
     }
 
-    public ArrayList<Customer> getAllCustomers() {
+    public ArrayList<Customer> getAllCustomers() throws DataAccessException {
 
         ArrayList<Customer> customers = new ArrayList<>();
 
@@ -165,12 +165,12 @@ public class CustomerDBAccess implements CustomerDataAccess{
             }
 
     } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
             return customers;
         }
 
-    public void updateCustomer(Customer customer) {
+    public void updateCustomer(Customer customer) throws DataAccessException {
 
         Connection connection = SingletonConnection.getInstance();
 
@@ -200,11 +200,11 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
 
         }catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
             }
     }
 
-    public void deleteCustomer(int customerNumber) {
+    public void deleteCustomer(int customerNumber) throws DataAccessException {
 
         Connection connection = SingletonConnection.getInstance();
 
@@ -229,12 +229,12 @@ public class CustomerDBAccess implements CustomerDataAccess{
             deleteStatement.executeUpdate();
 
         }catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
     }
 
-    public Customer getUser(String email, String password) throws InvalidDataLoginException {
+    public Customer getUser(String email, String password) throws DataAccessException {
 
         Customer customer;
         Connection connection = SingletonConnection.getInstance();
@@ -285,14 +285,14 @@ public class CustomerDBAccess implements CustomerDataAccess{
         }
 
         catch (SQLException e){
-            throw new InvalidDataLoginException("Données de connexion invalides");
+            throw new DataAccessException(e.getMessage());
         }
 
         return customer;
     }
 
 
-    private void deleteCommand(int commandNumber){
+    private void deleteCommand(int commandNumber) throws DataAccessException {
 
         Connection connection = SingletonConnection.getInstance();
 
@@ -315,12 +315,12 @@ public class CustomerDBAccess implements CustomerDataAccess{
 
 
         }catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
     }
 
-    public boolean customerExistsByEmail(String email) {
+    public boolean customerExistsByEmail(String email) throws DataAccessException {
         // Implement the query logic here, for example using JDBC:
         Connection connection = SingletonConnection.getInstance();
         try {
@@ -334,7 +334,7 @@ public class CustomerDBAccess implements CustomerDataAccess{
                 }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
 
         return false;

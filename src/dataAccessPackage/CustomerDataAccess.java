@@ -1,23 +1,22 @@
 package dataAccessPackage;
 
-import exceptionPackage.InvalidDataLoginException;
+import exceptionPackage.DataAccessException;
 import modelPackage.Customer;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CustomerDataAccess {
-    void addCustomer(Customer customer);
+    void addCustomer(Customer customer) throws DataAccessException;
 
-    Customer getCustomer(Integer customerNumber);
+    Customer getCustomer(Integer customerNumber) throws DataAccessException;
 
-    ArrayList<Customer> getAllCustomers();
+    ArrayList<Customer> getAllCustomers() throws DataAccessException;
 
-    void updateCustomer(Customer customer);
+    void updateCustomer(Customer customer) throws DataAccessException;
 
-    void deleteCustomer(int customerNumber);
+    void deleteCustomer(int customerNumber) throws DataAccessException;
 
-    Customer getUser(String email, String password) throws InvalidDataLoginException;
+    Customer getUser(String email, String password) throws DataAccessException;
 
-    boolean customerExistsByEmail(String email);
+    boolean customerExistsByEmail(String email) throws DataAccessException;
 }

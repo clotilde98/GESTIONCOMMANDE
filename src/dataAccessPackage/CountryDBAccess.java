@@ -1,5 +1,6 @@
 package dataAccessPackage;
 
+import exceptionPackage.DataAccessException;
 import modelPackage.Country;
 
 import java.sql.Connection;
@@ -12,32 +13,48 @@ public class CountryDBAccess implements CountryDataAccess{
 
     Connection connection = SingletonConnection.getInstance();
 
-    public Country getCountry(String codeCountry) throws SQLException {
+    public CountryDBAccess() throws DataAccessException {
+    }
+
+    public Country getCountry(String codeCountry) throws DataAccessException {
         String sqlInstruction = "select * from country where code = ?";
 
-        PreparedStatement statement = connection.prepareStatement(sqlInstruction);
-        statement.setString(1,codeCountry);
+        Country country;
 
-        ResultSet data = statement.executeQuery();
-        data.next();
+        try{
+            PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+            statement.setString(1,codeCountry);
 
-        Country country = new Country(data.getString("code"),data.getString("name"));
+            ResultSet data = statement.executeQuery();
+            data.next();
+
+            country = new Country(data.getString("code"),data.getString("name"));
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
 
         return country;
     }
 
-    public ArrayList<Country> getAllCountries() throws SQLException {
+    public ArrayList<Country> getAllCountries() throws DataAccessException {
         String sqlInstruction = "select * from country";
 
-        PreparedStatement statement = connection.prepareStatement(sqlInstruction);
-
-        ResultSet data = statement.executeQuery();
         Country country;
-        ArrayList<Country> allCountries =  new ArrayList<>();
+        ArrayList<Country> allCountries = new ArrayList<>();
 
-        while (data.next()){
-            country = new Country(data.getString("code"),data.getString("name"));
-            allCountries.add(country);
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlInstruction);
+
+            ResultSet data = statement.executeQuery();
+
+
+            while (data.next()) {
+                country = new Country(data.getString("code"), data.getString("name"));
+                allCountries.add(country);
+            }
+
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
         }
 
         return allCountries;
